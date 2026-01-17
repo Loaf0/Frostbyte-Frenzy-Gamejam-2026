@@ -1,0 +1,168 @@
+extends CharacterBody3D
+
+const DEFAULT_CHARACTER = "res://scenes/rigged_models/rogue.tscn"
+const CHARACTER_SCENES : Dictionary[String, String] = {
+	"Ranger": "res://scenes/rigged_models/players/ranger.tscn",
+	"Mage": "res://scenes/rigged_models/players/mage.tscn",
+	"Knight": "res://scenes/rigged_models/players/knight.tscn",
+	"Barbarian": "res://scenes/rigged_models/players/barbarian.tscn",
+	"Rogue": "res://scenes/rigged_models/players/rogue.tscn",
+	"Skeleton": "res://scenes/rigged_models/players/skeleton.tscn"
+}
+
+@export_enum(
+	"Ranger",
+	"Mage",
+	"Knight",
+	"Barbarian",
+	"Rogue",
+	"Skeleton"
+) var character_type := "Ranger"
+
+@export var move_speed := 6.0
+@export var acceleration := 18.0
+@export var friction := 48.0
+
+@export var dodge_speed := 14.0
+@export var dodge_duration := 0.25
+@export var dodge_cooldown := 0.5
+
+var move_input := Vector3.ZERO
+var dodge_timer := 0.0
+var dodge_cd_timer := 0.0
+var is_dodging := false
+var dodge_dir := Vector3.ZERO
+
+@onready var mesh_container: Node3D = $Mesh
+
+var model_instance: Node3D
+var anim_player: AnimationPlayer
+
+func _ready() -> void:
+	_spawn_character_model()
+
+func _spawn_character_model():
+	for child in mesh_container.get_children():
+		child.queue_free()
+
+	var scene_path : String = CHARACTER_SCENES.get(character_type, DEFAULT_CHARACTER)
+	if scene_path == null:
+		push_error("Invalid character type: %s" % character_type)
+		return
+
+	var scene := load(scene_path)
+	model_instance = scene.instantiate()
+	mesh_container.add_child(model_instance)
+
+	anim_player = _find_animation_player(model_instance)
+	if anim_player == null:
+		push_error("Model has no AnimationPlayer: %s" % character_type)
+		return
+
+func _find_animation_player(node: Node) -> AnimationPlayer:
+	if node is AnimationPlayer:
+		return node
+
+	for child in node.get_children():
+		var result := _find_animation_player(child)
+		if result:
+			return result
+
+	return null
+
+
+func _physics_process(delta):
+	_handle_timers(delta)
+	_handle_input()
+	_handle_movement(delta)
+	move_and_slide()
+
+func _handle_input():
+	move_input = Vector3.ZERO
+
+	if Input.is_action_pressed("move_up"):
+		move_input.z += .5
+		move_input.x += .5
+	if Input.is_action_pressed("move_down"):
+		move_input.z -= .5
+		move_input.x -= .5
+	if Input.is_action_pressed("move_left"):
+		move_input.z -= .5
+		move_input.x += .5
+	if Input.is_action_pressed("move_right"):
+		move_input.z += .5
+		move_input.x -= .5
+
+	move_input = move_input.normalized()
+
+	if Input.is_action_just_pressed("dodge"):
+		_try_dodge()
+
+	if Input.is_action_just_pressed("attack"):
+		_attack()
+
+func _handle_movement(delta):
+	if is_dodging:
+		velocity = dodge_dir * dodge_speed
+		return
+
+	if move_input != Vector3.ZERO:
+		velocity = velocity.move_toward(
+			move_input * move_speed,
+			acceleration * delta
+		)
+		look_at(global_position + move_input, Vector3.UP)
+		_play_move_anim()
+	else:
+		velocity = velocity.move_toward(
+			Vector3.ZERO,
+			friction * delta
+		)
+		_play_idle_anim()
+
+func _try_dodge():
+	if is_dodging or dodge_cd_timer > 0.0:
+		return
+
+	is_dodging = true
+	dodge_timer = dodge_duration
+	dodge_cd_timer = dodge_cooldown
+
+	dodge_dir = move_input if move_input != Vector3.ZERO else -transform.basis.z
+
+	_play_dodge_anim()
+
+func _handle_timers(delta):
+	if is_dodging:
+		dodge_timer -= delta
+		if dodge_timer <= 0.0:
+			is_dodging = false
+			velocity = velocity * 0.5
+
+	if dodge_cd_timer > 0.0:
+		dodge_cd_timer -= delta
+
+func _attack():
+	_play_attack_anim()
+
+func _play_idle_anim():
+	if anim_player:
+		anim_player.play("actions/Idle_A")
+
+func _play_move_anim():
+	if anim_player:
+		anim_player.play("movement/Running_A")
+
+func _play_dodge_anim(): 
+	return
+	#if anim_player:
+		#anim_player.play("Dodge")
+
+func _play_attack_anim():
+	if anim_player:
+		return
+		#anim_player.play("")
+
+func _play_hit_anim():
+	if anim_player:
+		anim_player.play("Hit_A" if randi() % 2 == 0 else "Hit_b")
