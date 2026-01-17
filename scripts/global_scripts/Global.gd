@@ -3,6 +3,11 @@ extends Node
 ## This script acts as a global area to handle game state and settings
 ## across the project.
 
+# Constants
+enum WeaponType {BOW, CROSSBOW, SPELL_BOOK, STAFF, BATTLE_AXE, LONG_SWORD}
+enum CharacterClass {RANGER, MAGE, KNIGHT, BARBARIAN, ROGUE, SKELETON}
+enum Stat {VIGOR, AGILITY, DEXTERITY, STRENGTH, KNOWLEDGE, STAMINA_REGEN, MANA_REGEN, ATTACK_SIZE, FAITH, NONE}
+
 # Global Settings
 var default_mouse_sensitivity : float = 0.003
 var mouse_sensitivity : float = 0.003

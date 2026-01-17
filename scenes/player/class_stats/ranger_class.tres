@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=3 format=3 uid="uid://ceh0ggg7ecd0v"]
+
+[ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="1_qdyte"]
+[ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="2_qdyte"]
+
+[resource]
+script = ExtResource("1_qdyte")
+name = "Ranger"
+metadata/_custom_type_script = "uid://owmj2hm8arsr"

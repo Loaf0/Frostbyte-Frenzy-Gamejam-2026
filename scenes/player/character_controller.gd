@@ -1,23 +1,17 @@
 extends CharacterBody3D
 
+const ANIM_PLAYER_SCRIPT := preload("res://scripts/fps_locked_animation.gd")
 const DEFAULT_CHARACTER = "res://scenes/rigged_models/rogue.tscn"
-const CHARACTER_SCENES : Dictionary[String, String] = {
-	"Ranger": "res://scenes/rigged_models/players/ranger.tscn",
-	"Mage": "res://scenes/rigged_models/players/mage.tscn",
-	"Knight": "res://scenes/rigged_models/players/knight.tscn",
-	"Barbarian": "res://scenes/rigged_models/players/barbarian.tscn",
-	"Rogue": "res://scenes/rigged_models/players/rogue.tscn",
-	"Skeleton": "res://scenes/rigged_models/players/skeleton.tscn"
+const CHARACTER_SCENES : Dictionary[Global.CharacterClass, String] = {
+	Global.CharacterClass.RANGER : "res://scenes/rigged_models/players/ranger.tscn",
+	Global.CharacterClass.MAGE : "res://scenes/rigged_models/players/mage.tscn",
+	Global.CharacterClass.KNIGHT : "res://scenes/rigged_models/players/knight.tscn",
+	Global.CharacterClass.BARBARIAN : "res://scenes/rigged_models/players/barbarian.tscn",
+	Global.CharacterClass.ROGUE : "res://scenes/rigged_models/players/rogue.tscn",
+	Global.CharacterClass.SKELETON : "res://scenes/rigged_models/players/skeleton.tscn"
 }
 
-@export_enum(
-	"Ranger",
-	"Mage",
-	"Knight",
-	"Barbarian",
-	"Rogue",
-	"Skeleton"
-) var character_type := "Ranger"
+var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 
 @export var move_speed := 6.0
 @export var acceleration := 18.0
@@ -33,16 +27,17 @@ var dodge_cd_timer := 0.0
 var is_dodging := false
 var dodge_dir := Vector3.ZERO
 
-@onready var mesh_container: Node3D = $Mesh
+@onready var mesh_animator: Node3D = $Mesh
 
 var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
+	add_to_group("player")
 	_spawn_character_model()
 
 func _spawn_character_model():
-	for child in mesh_container.get_children():
+	for child in mesh_animator.get_children():
 		child.queue_free()
 
 	var scene_path : String = CHARACTER_SCENES.get(character_type, DEFAULT_CHARACTER)
@@ -52,12 +47,20 @@ func _spawn_character_model():
 
 	var scene := load(scene_path)
 	model_instance = scene.instantiate()
-	mesh_container.add_child(model_instance)
+	mesh_animator.add_child(model_instance)
 
 	anim_player = _find_animation_player(model_instance)
 	if anim_player == null:
 		push_error("Model has no AnimationPlayer: %s" % character_type)
 		return
+	
+	anim_player.set_script(ANIM_PLAYER_SCRIPT)
+	
+	if mesh_animator.animation_tree:
+		mesh_animator.animation_tree.anim_player = anim_player.get_path()
+	else:
+		push_error("Mesh has no AnimationTree")
+
 
 func _find_animation_player(node: Node) -> AnimationPlayer:
 	if node is AnimationPlayer:
@@ -144,6 +147,11 @@ func _handle_timers(delta):
 
 func _attack():
 	_play_attack_anim()
+
+func _interact(hit_object):
+	if hit_object is Interactable:
+		hit_object.interact(self)
+
 
 func _play_idle_anim():
 	if anim_player:
