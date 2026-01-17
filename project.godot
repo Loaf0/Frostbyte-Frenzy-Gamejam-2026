@@ -15,6 +15,13 @@ run/main_scene="uid://c6jfyvqs4jxdj"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalBus="*res://scripts/global_scripts/SignalBus.gd"
+Save="*res://scripts/global_scripts/Save.gd"
+Global="*res://scripts/global_scripts/Global.gd"
+SceneChanger="*res://scripts/global_scripts/scene_changer/SceneChanger.tscn"
+
 [input]
 
 move_up={

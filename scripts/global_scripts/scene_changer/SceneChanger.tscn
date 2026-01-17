@@ -1,0 +1,72 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmwfwjtm3aret"]
+
+[ext_resource type="Script" uid="uid://bf6iayj45aws1" path="res://scripts/global_scripts/scene_changer/scene_changer.gd" id="1_5nf47"]
+
+[sub_resource type="Animation" id="Animation_5nf47"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0.027451, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_7b4dx"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0.027451, 1), Color(0, 0, 0.027451, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_voks3"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0.027451, 0), Color(0, 0, 0.027451, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_voks3"]
+_data = {
+&"RESET": SubResource("Animation_5nf47"),
+&"fade_in": SubResource("Animation_7b4dx"),
+&"fade_out": SubResource("Animation_voks3")
+}
+
+[node name="SceneChanger" type="CanvasLayer"]
+script = ExtResource("1_5nf47")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0, 0, 0.027451, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_voks3")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

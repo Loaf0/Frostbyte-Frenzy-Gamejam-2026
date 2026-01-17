@@ -1,5 +1,5 @@
 Dungeon Gen (Tyler)
-Tile creation (Kayla)
+Tile creation + Boss Arena (Kayla)
 Player Twin Stick Controller + camera move slighty in direction of mouse
 Player Modular Weapon System (Tyler)
 Player Stat system
@@ -11,6 +11,8 @@ Character select possibly do the in room camera the looks around
 Basic Enemy AI
 
 Super abilities
+
+visually instanced bullet system with pooling
 
 Design and create Boss (save for last 2 hours)
 ⠀⠀⠀⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⣾⡳⣼⣆⠀⠀⢹⡄⠹⣷⣄⢠⠇⠻⣷⣶⢀⣸⣿⡾⡏⠀⠰⣿⣰⠏⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀
