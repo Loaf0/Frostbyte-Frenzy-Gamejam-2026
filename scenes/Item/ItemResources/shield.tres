@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://ccv651en0qxlu"]
+
+[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/Item/ModelScenes/Shield.tscn" id="1_532lr"]
+[ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/Item/ItemResource.gd" id="2_7twib"]
+
+[resource]
+script = ExtResource("2_7twib")
+item_name = "Shield"
+item_desc = "Increase Vigor"
+item_model = ExtResource("1_532lr")
+stat_mod1 = "Vigor"
+stat_amt1 = 0.1
+metadata/_custom_type_script = "uid://3wd3qa4y3rpc"

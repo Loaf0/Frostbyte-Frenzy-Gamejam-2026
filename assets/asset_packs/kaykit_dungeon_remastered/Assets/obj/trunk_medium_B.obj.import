@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cms4u5mlps3s"
+path="res://.godot/imported/trunk_medium_B.obj-df3d3ad73148a00de675df0ad171b2ef.mesh"
+
+[deps]
+
+files=["res://.godot/imported/trunk_medium_B.obj-df3d3ad73148a00de675df0ad171b2ef.mesh"]
+
+source_file="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/trunk_medium_B.obj"
+dest_files=["res://.godot/imported/trunk_medium_B.obj-df3d3ad73148a00de675df0ad171b2ef.mesh", "res://.godot/imported/trunk_medium_B.obj-df3d3ad73148a00de675df0ad171b2ef.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
