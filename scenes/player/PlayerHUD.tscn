@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://bwsnxx2yxc7n8"]
+
+[node name="PlayerHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BossBar" type="ProgressBar" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 142.0
+offset_right = -114.0
+offset_bottom = 60.0
+grow_horizontal = 2
+
+[node name="RollMeter" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -91.0
+offset_top = -95.0
+offset_right = -64.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 1.0
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="PlayerMeters" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -122.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerMeters"]
+layout_mode = 2
+
+[node name="HealthMeter" type="ProgressBar" parent="PlayerMeters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+value = 100.0
+
+[node name="StaminaMeter" type="ProgressBar" parent="PlayerMeters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+value = 100.0
+
+[node name="ManaMeter" type="ProgressBar" parent="PlayerMeters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 1.0
+value = 100.0
+
+[node name="AbilitySpot" type="Panel" parent="PlayerMeters/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3

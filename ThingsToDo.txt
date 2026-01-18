@@ -7,6 +7,7 @@ Player HUD / ingame pause (Kayla)
 Player Animation Tree (Tyler)
 Simple Item Pickups
 Main menu + Options (Tyler)
+DONE Main Menu Map (Kayla)
 Character select possibly do the in room camera the looks around
 Basic Enemy AI
 
