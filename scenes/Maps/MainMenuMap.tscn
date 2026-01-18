@@ -1,0 +1,329 @@
+[gd_scene load_steps=26 format=3 uid="uid://baaje6ks5mvj6"]
+
+[ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_6nws3"]
+[ext_resource type="Texture2D" uid="uid://1o8c0pu0mn3d" path="res://assets/textures/prototyping/png/Dark/texture_08.png" id="3_dutah"]
+[ext_resource type="ArrayMesh" uid="uid://cbtox5htich6k" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/floor_wood_large_dark.obj" id="3_xhcht"]
+[ext_resource type="ArrayMesh" uid="uid://7houxvwnlci2" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/floor_wood_large.obj" id="4_dutah"]
+[ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="4_gwmye"]
+[ext_resource type="ArrayMesh" uid="uid://brn6qwat1e4cu" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_doorway.obj" id="5_6mkad"]
+[ext_resource type="ArrayMesh" uid="uid://dd7fem4sx0swy" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/chair.obj" id="5_27sug"]
+[ext_resource type="ArrayMesh" uid="uid://vij0u5154rme" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_scaffold.obj" id="5_dpjs2"]
+[ext_resource type="ArrayMesh" uid="uid://dypl6524g1oo0" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/table_long_decorated_C.obj" id="6_davhg"]
+[ext_resource type="ArrayMesh" uid="uid://dj2k63gjyn3ee" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_doorway_door.obj" id="6_q2d5q"]
+[ext_resource type="ArrayMesh" uid="uid://qdpm5nbjt6b2" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/table_medium_decorated_A.obj" id="7_6mkad"]
+[ext_resource type="ArrayMesh" uid="uid://c1damjlhgoiy3" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/stool.obj" id="8_q2d5q"]
+[ext_resource type="ArrayMesh" uid="uid://64us1ojs8q5p" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall.obj" id="8_wrodd"]
+[ext_resource type="ArrayMesh" uid="uid://dmm40f16yqp85" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/barrel_large_decorated.obj" id="9_1pq7v"]
+[ext_resource type="ArrayMesh" uid="uid://rtfg5w7c8wev" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_window_closed_scaffold.obj" id="9_3b13f"]
+[ext_resource type="ArrayMesh" uid="uid://yearggvpjqnp" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_shelves.obj" id="10_5r4ik"]
+[ext_resource type="ArrayMesh" uid="uid://dvsj3cbtcyblq" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/barrel_small_stack.obj" id="10_vd2yy"]
+[ext_resource type="ArrayMesh" uid="uid://bdvecrirqn2l0" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/table_long_decorated_A.obj" id="13_dpjs2"]
+
+[sub_resource type="Environment" id="Environment_dmqo5"]
+ssao_radius = 0.01
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 0.95
+adjustment_saturation = 1.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ha0u0"]
+render_priority = 0
+shader = ExtResource("1_6nws3")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.5
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
+
+[sub_resource type="QuadMesh" id="QuadMesh_5fjo8"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_fud2h"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_yksbw"]
+resource_name = "loop"
+length = 30.0
+loop_mode = 1
+step = 1.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5peia"]
+_data = {
+&"RESET": SubResource("Animation_fud2h"),
+&"loop": SubResource("Animation_yksbw")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27sug"]
+albedo_texture = ExtResource("3_dutah")
+
+[node name="MainMenuMap" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+oversampling = false
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_dmqo5")
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -4.142697, 9.465608, -4.8565407)
+projection = 1
+size = 8.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_ha0u0")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_5fjo8")
+skeleton = NodePath("../../../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_5peia")
+}
+autoplay = "loop"
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.6093629, -0.77628386, 0.16143133, -0.0065092305, 0.19869363, 0.98003995, -0.7928646, -0.59825087, 0.11602352, 0, -2.6891937, 0)
+shadow_enabled = true
+directional_shadow_split_1 = 0.01
+directional_shadow_max_distance = 8192.0
+
+[node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="SubViewportContainer/SubViewport/World"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_27sug")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+transform = Transform3D(5.448552, 0, 0, 0, 1, 0, 0, 0, 5.448552, 0, 0.53740025, 0)
+visible = false
+mesh = ExtResource("3_xhcht")
+
+[node name="Floor" type="Node3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+
+[node name="FloorWoodLarge" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.56, -4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, -4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.56, -4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.56, 0)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge5" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 0)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge6" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.56, 0)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge7" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.56, 4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge8" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="FloorWoodLarge9" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.56, 4)
+mesh = ExtResource("4_dutah")
+skeleton = NodePath("../../../../../..")
+
+[node name="Wall" type="Node3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+
+[node name="WallScaffold" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0.1, -6)
+mesh = ExtResource("5_dpjs2")
+skeleton = NodePath("../../../../../..")
+
+[node name="WallDoorway" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -6)
+mesh = ExtResource("5_6mkad")
+skeleton = NodePath("../../Decor")
+
+[node name="WallDoorwayDoor" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall/WallDoorway"]
+mesh = ExtResource("6_q2d5q")
+skeleton = NodePath("../../../Decor")
+
+[node name="WallScaffold2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0.1, -6)
+mesh = ExtResource("5_dpjs2")
+skeleton = NodePath("../../../../../..")
+
+[node name="Wall" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0.1, -4)
+mesh = ExtResource("8_wrodd")
+
+[node name="WallWindowClosedScaffold" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0.1, 0)
+mesh = ExtResource("9_3b13f")
+skeleton = NodePath("../../../../../..")
+
+[node name="Wall2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 6, 0.1, 4)
+mesh = ExtResource("8_wrodd")
+
+[node name="WallScaffold3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 4, 0.1, 6)
+mesh = ExtResource("5_dpjs2")
+skeleton = NodePath("../../../../../..")
+
+[node name="WallShelves" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0.1, 6)
+mesh = ExtResource("10_5r4ik")
+skeleton = NodePath("../../../../../..")
+
+[node name="WallShelves2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4, 0.1, 6)
+mesh = ExtResource("10_5r4ik")
+skeleton = NodePath("../../../../../..")
+
+[node name="Wall3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -6, 0.1, 4)
+mesh = ExtResource("8_wrodd")
+
+[node name="WallWindowClosedScaffold2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -6, 0.1, 0)
+mesh = ExtResource("9_3b13f")
+skeleton = NodePath("../../../../../..")
+
+[node name="Wall4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Wall"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -6, 0.1, -4)
+mesh = ExtResource("8_wrodd")
+
+[node name="Decor" type="Node3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+
+[node name="TableMediumDecoratedA" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.397896, 0.50000024, 0.4111725)
+mesh = ExtResource("7_6mkad")
+
+[node name="Chair" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, 3.2566888, 0.6103198, -0.38511324)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, 3.1140478, 0.6103198, 1.3266797)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25881904, 1.0019429, 0.6103198, 2.0687118)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair4" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-0.8660254, 0, 0.50000006, 0, 1, 0, -0.50000006, 0, -0.8660254, -0.19587374, 0.6103198, 0.24996197)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair5" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.25881907, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, 0.25881907, 1.6534302, 0.6103198, -1.2121707)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="TableMediumDecoratedA2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.49999997, 0, -0.86602545, 0, 1, 0, 0.86602545, 0, 0.49999997, -3.3566163, 0.50000024, -3.1345417)
+mesh = ExtResource("7_6mkad")
+
+[node name="Chair6" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.7071068, 0, -0.70710695, 0, 1, 0, 0.70710695, 0, 0.7071068, -1.737616, 0.6103198, -1.9229228)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair7" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-5.9604645e-08, 0, -1, 0, 1, 0, 1, 0, -5.9604645e-08, -3.291393, 0.6103198, -1.1905571)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair8" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-0.96592593, 0, -0.25881898, 0, 1, 0, 0.25881898, 0, -0.96592593, -4.9900637, 0.6103198, -2.6486778)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair9" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(1.1920929e-07, 0, 1, 0, 1, 0, -1, 0, 1.1920929e-07, -4.0138884, 0.6103198, -4.595392)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="Chair10" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.9659258, 0, 0.25881898, 0, 1, 0, -0.25881898, 0, 0.9659258, -1.8229922, 0.6103198, -3.7249146)
+mesh = ExtResource("5_27sug")
+skeleton = NodePath("../../../../../..")
+
+[node name="TableLongDecorated" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.7708352, 0.5, 3.0188532)
+mesh = ExtResource("13_dpjs2")
+
+[node name="Stool" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.9659258, 0, 0.25881904, 0, 1, 0, -0.25881904, 0, 0.9659258, -2.3852596, 0.49999976, 1.3127804)
+mesh = ExtResource("8_q2d5q")
+skeleton = NodePath("../../../../../..")
+
+[node name="Stool2" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.8660254, 0, -0.5, 0, 1, 0, 0.5, 0, 0.8660254, -3.8200092, 0.5, 1.3391364)
+mesh = ExtResource("8_q2d5q")
+skeleton = NodePath("../../../../../..")
+
+[node name="Stool3" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -5.141558, 0.5000007, 1.3410176)
+mesh = ExtResource("8_q2d5q")
+skeleton = NodePath("../../../../../..")
+
+[node name="TableLongDecoratedC" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.642582, 0.49999976, -3.6780033)
+mesh = ExtResource("6_davhg")
+skeleton = NodePath("../..")
+
+[node name="BarrelSmallStack" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-0.50000006, 0, -0.8660254, 0, 1, 0, 0.8660254, 0, -0.50000006, 4.901161, 0.50000024, 2.8339968)
+mesh = ExtResource("10_vd2yy")
+
+[node name="BarrelLargeDecorated" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/Decor"]
+transform = Transform3D(-0.99999994, 0, 0, 0, 1, 0, 0, 0, -0.99999994, 4.6169143, 0.501991, 4.7346077)
+mesh = ExtResource("9_1pq7v")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
+omni_range = 3.0
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_gwmye")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.48617458, -1.7562479)
