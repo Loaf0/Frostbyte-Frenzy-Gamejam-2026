@@ -13,6 +13,8 @@ const CHARACTER_SCENES : Dictionary[Global.CharacterClass, String] = {
 
 var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 
+var _isMnK : bool
+
 @export var move_speed := 6.0
 @export var acceleration := 18.0
 @export var friction := 48.0
@@ -108,13 +110,17 @@ func _handle_movement(delta):
 	if is_dodging:
 		velocity = dodge_dir * dodge_speed
 		return
-
+	
+	if _isMnK:
+		_mouse_look()
+	else:
+		_controller_look()
+	
 	if move_input != Vector3.ZERO:
 		velocity = velocity.move_toward(
 			move_input * move_speed,
 			acceleration * delta
 		)
-		look_at(global_position + move_input, Vector3.UP)
 		_play_move_anim()
 	else:
 		velocity = velocity.move_toward(
@@ -122,6 +128,38 @@ func _handle_movement(delta):
 			friction * delta
 		)
 		_play_idle_anim()
+
+func _input(event: InputEvent):
+	#this just checks to see if they are using mnk or controller
+	if event is InputEventKey or event is InputEventMouse:
+		_isMnK = true
+	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		_isMnK = false
+
+func _controller_look():
+	var stick_rotation: Vector2 = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y), Input.get_joy_axis(0, JOY_AXIS_RIGHT_X))
+	stick_rotation *= -1.0
+	if stick_rotation.length() > 0.2:
+		#idk why this needs - 2.4 on the y but it was improperly rotating so i brute force fixed it
+		self.rotation = Basis(Vector3(0.0, 1.0, 0.0), stick_rotation.angle()).get_euler() - Vector3(0.0, 2.4, 0.0)
+	else:
+		look_at(global_position + move_input, Vector3.UP)
+	return
+
+func _mouse_look():
+	var mouse_pos = get_viewport().get_mouse_position()
+	var cam = get_node("../Camera3D")
+	
+	var plane : Plane = Plane(Vector3.UP, 1)
+	var world_pos = plane.intersects_ray(cam.project_ray_origin(mouse_pos), cam.project_ray_normal(mouse_pos))
+	
+	if world_pos != null:
+		world_pos.y = global_position.y
+		
+		if world_pos == global_position:
+			return
+		look_at(world_pos, Vector3.UP)
+	return
 
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
