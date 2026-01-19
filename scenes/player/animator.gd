@@ -4,6 +4,9 @@ extends Node3D
 @onready var animation : AnimationNodeAnimation
 @onready var weapon_manager : Node3D
 
+var weapon_blend_target : float = 0.0
+@export var blend_speed : float = 5.0
+
 var current_weapon : Global.WeaponType
 var walk_vector := Vector2.ZERO
 var sub_path : String = ""
@@ -13,8 +16,10 @@ func _ready() -> void:
 	#walk_blend_tree = 
 	#animation = 
 
-#While roling set rollblend to 1 else zero and on roll set roll blendspace2d
-# Mesh script (the one provided in the prompt)
+func _process(delta: float) -> void:
+	var current_blend = animation_tree.get("parameters/Blend2/blend_amount")
+	var new_blend = move_toward(current_blend, weapon_blend_target, blend_speed * delta)
+	animation_tree.set("parameters/Blend2/blend_amount", new_blend)
 
 func start_roll(direction: Vector3):
 	if not animation_tree:
@@ -33,7 +38,7 @@ func start_roll(direction: Vector3):
 		state_machine_playback.travel("movement_advanced_Dodge_Right")
 	else:
 		state_machine_playback.travel("movement_advanced_Dodge_Backward")
-		
+
 func stop_roll():
 	if not animation_tree:
 		return
@@ -50,10 +55,12 @@ func update_walk_vector(target_move_vec: Vector3, delta: float) -> void:
 
 func update_weapon_hold_animations():
 	if current_weapon:
-		animation_tree.set("parameters/Blend2/blend_amount", 1.0)
+		weapon_blend_target = 0.85
+		_update_state_machine_path()
 	else:
-		animation_tree.set("parameters/Blend2/blend_amount", 0.0)
-		return
+		weapon_blend_target = 0.5
+
+func _update_state_machine_path():
 	var state_machine_playback : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
 	if [Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE].has(current_weapon):
 		state_machine_playback.travel("2HandedMelee")
@@ -67,10 +74,18 @@ func update_weapon_hold_animations():
 	elif [Global.WeaponType.SPELL_BOOK, Global.WeaponType.STAFF].has(current_weapon):
 		state_machine_playback.travel("Spellbook")
 		sub_path = "Spellbook"
-	
-func attack_animation(attack_name : String):
+
+func attack_animation(attack_name: String, speed: float = 1.0):
 	if not animation_tree: 
 		return
-	var cur_playback : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/" + sub_path + "/playback")
+	
+	update_weapon_hold_animations()
+
+	var speed_path = "parameters/StateMachine/" + sub_path + "/TimeScale/scale"
+	animation_tree.set(speed_path, speed)
+
+	var playback_path = "parameters/StateMachine/" + sub_path + "/playback"
+	var cur_playback: AnimationNodeStateMachinePlayback = animation_tree.get(playback_path)
+	#animation_tree.get("parameters/StateMachine/2HandedMelee/playback")
 	if cur_playback:
 		cur_playback.start(attack_name)

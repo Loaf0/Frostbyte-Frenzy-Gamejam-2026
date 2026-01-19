@@ -40,7 +40,7 @@ func _spawn_weapon_model() -> void:
 	if not weapon_mesh_container:
 		weapon_mesh_container = get_parent().weapon_mesh_container
 		if not weapon_mesh_container:
-			push_error("Cannot spawn weapon: weapon_mesh_container is null")
+			push_error("weapon_mesh_container is null")
 			return
 
 	weapon_instance = equipped_weapon.world_model.instantiate()
@@ -89,23 +89,16 @@ func _do_projectile_attack() -> void:
 	projectile.damage = get_ranged_damage()
 
 func _play_attack_animation() -> void:
-	if animator == null:
-		return
-	if animations.is_empty():
+	if animator == null or animations.is_empty():
 		return
 
 	var anim_name := animations[attack_anim_index]
-
 	attack_anim_index = (attack_anim_index + 1) % animations.size()
 
 	var speed := get_attack_speed()
 
-	if animator.has_method("play"):
-		animator.play(anim_name, -1, speed)
-	# animator.play(anim_name, -1, speed)
-	# animation must turn on and turn off hitboxes
-	# on end of attack animation ALWAYS turn off hitboxes to be sure using signal
-	pass
+	if animator.has_method("attack_animation"):
+		animator.attack_animation(anim_name, speed)
 
 func _stat(stat: int) -> float:
 	return get_parent().stats.get(stat, 0.0)

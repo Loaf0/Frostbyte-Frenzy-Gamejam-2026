@@ -8,4 +8,5 @@ script = ExtResource("1_moo6l")
 weapon_name = "Sword"
 weapon_type = 5
 world_model = ExtResource("2_f8iqa")
+attack1_anim = "melee_combat_Melee_1H_Attack_Slice_Horizontal"
 metadata/_custom_type_script = "uid://hvnclq1neash"

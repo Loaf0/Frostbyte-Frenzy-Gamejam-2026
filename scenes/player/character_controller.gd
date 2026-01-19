@@ -32,7 +32,7 @@ var weapon_mesh_container : BoneAttachment3D
 var rotation_timer: float = 0.0
 var visual_rotation_y: float = 0.0
 
-@export var mouse_idle_threshold := 1.0
+@export var mouse_idle_threshold := 2.0
 var mouse_idle_timer := 0.0
 var last_mouse_pos := Vector2.ZERO
 
@@ -182,6 +182,8 @@ func _handle_input():
 
 	if Input.is_action_just_pressed("dodge"):
 		_try_dodge()
+	if Input.is_action_just_pressed("attack"):
+		_try_attack()
 
 func _handle_movement(delta):
 	if is_dodging:
@@ -231,6 +233,10 @@ func _mouse_look():
 		if world_pos == global_position:
 			return
 		look_at(world_pos, Vector3.UP)
+
+func _try_attack():
+	# compare stamina
+	weapon_manager.attack()
 
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
