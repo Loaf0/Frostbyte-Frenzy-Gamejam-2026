@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ClassResource" load_steps=14 format=3 uid="uid://ceh0ggg7ecd0v"]
+[gd_resource type="Resource" script_class="ClassResource" load_steps=15 format=3 uid="uid://ceh0ggg7ecd0v"]
 
 [ext_resource type="PackedScene" uid="uid://ck1cm1jhswgra" path="res://scenes/rigged_models/players/ranger.tscn" id="1_23fyi"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="1_qdyte"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_23fyi"]
 [ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_b75wc"]
+[ext_resource type="Resource" uid="uid://xvso3je8k6lx" path="res://scenes/weapons/weapon_resources/sword.tres" id="4_7xqgu"]
 
 [sub_resource type="Resource" id="Resource_23fyi"]
 script = ExtResource("3_23fyi")
@@ -63,5 +64,6 @@ script = ExtResource("1_qdyte")
 name = "Ranger"
 model_path = ExtResource("1_23fyi")
 special_ability = ExtResource("3_b75wc")
+starting_weapon = ExtResource("4_7xqgu")
 stat_modifiers = Array[ExtResource("3_23fyi")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"

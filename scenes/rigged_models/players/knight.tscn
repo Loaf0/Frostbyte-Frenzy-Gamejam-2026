@@ -10,7 +10,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://c5vhg1k8l1u71" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Animations/exported_anims/special.res" id="7_d8q5p"]
 [ext_resource type="AnimationLibrary" uid="uid://byylwrio1ftht" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Animations/exported_anims/tools.res" id="8_k68uy"]
 
-[sub_resource type="Animation" id="Animation_nji0f"]
+[sub_resource type="Animation" id="Animation_qfm4m"]
 resource_name = "Death_A"
 length = 0.8
 tracks/0/type = "position_3d"
@@ -406,7 +406,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_egutg"]
+[sub_resource type="Animation" id="Animation_sqb8w"]
 resource_name = "Death_A_Pose"
 length = 0.033333335
 tracks/0/type = "position_3d"
@@ -802,7 +802,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.9999998, 0.9999998, 1)
 
-[sub_resource type="Animation" id="Animation_c6y2m"]
+[sub_resource type="Animation" id="Animation_qxq3l"]
 resource_name = "Death_B"
 length = 2.6333334
 tracks/0/type = "position_3d"
@@ -1198,7 +1198,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_nyqcv"]
+[sub_resource type="Animation" id="Animation_ygqus"]
 resource_name = "Death_B_Pose"
 length = 0.033333335
 tracks/0/type = "position_3d"
@@ -1594,7 +1594,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.9999998, 0.9999998, 0.9999999)
 
-[sub_resource type="Animation" id="Animation_5vpbt"]
+[sub_resource type="Animation" id="Animation_p5wuj"]
 resource_name = "Hit_A"
 length = 0.6666667
 tracks/0/type = "position_3d"
@@ -1990,7 +1990,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_qgegc"]
+[sub_resource type="Animation" id="Animation_85vre"]
 resource_name = "Hit_B"
 length = 0.8666667
 tracks/0/type = "position_3d"
@@ -2386,7 +2386,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_twp1c"]
+[sub_resource type="Animation" id="Animation_3p7tm"]
 resource_name = "Idle_A"
 length = 1.0666667
 tracks/0/type = "position_3d"
@@ -2782,7 +2782,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_j8c55"]
+[sub_resource type="Animation" id="Animation_s4oo1"]
 resource_name = "Idle_B"
 length = 2.1333334
 tracks/0/type = "position_3d"
@@ -3178,7 +3178,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 1, 1)
 
-[sub_resource type="Animation" id="Animation_05u6f"]
+[sub_resource type="Animation" id="Animation_fjalj"]
 resource_name = "Interact"
 length = 1.3
 tracks/0/type = "position_3d"
@@ -3574,7 +3574,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_d4uh3"]
+[sub_resource type="Animation" id="Animation_xm0fs"]
 resource_name = "PickUp"
 length = 1.3
 tracks/0/type = "position_3d"
@@ -3970,7 +3970,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_51sqr"]
+[sub_resource type="Animation" id="Animation_ejn3g"]
 resource_name = "Spawn_Air"
 length = 1.3
 tracks/0/type = "position_3d"
@@ -4366,7 +4366,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.033333335, 1, 0.9999998, 0.9999998, 1, 1.3, 1, 0.99999994, 1, 1)
 
-[sub_resource type="Animation" id="Animation_74cmw"]
+[sub_resource type="Animation" id="Animation_31ybr"]
 resource_name = "Spawn_Ground"
 length = 1.3
 tracks/0/type = "position_3d"
@@ -4762,7 +4762,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.033333335, 1, 0.99999994, 0.9999998, 1, 1.3, 1, 0.99999994, 1, 1)
 
-[sub_resource type="Animation" id="Animation_xscga"]
+[sub_resource type="Animation" id="Animation_sjxx6"]
 resource_name = "T-Pose"
 length = 0.033333335
 tracks/0/type = "position_3d"
@@ -5158,7 +5158,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_xwcj8"]
+[sub_resource type="Animation" id="Animation_k4p2d"]
 resource_name = "Throw"
 length = 1.3666667
 tracks/0/type = "position_3d"
@@ -5554,7 +5554,7 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="Animation" id="Animation_grbv6"]
+[sub_resource type="Animation" id="Animation_ujf36"]
 resource_name = "Use_Item"
 length = 1.6
 tracks/0/type = "position_3d"
@@ -5950,23 +5950,23 @@ tracks/55/interp = 1
 tracks/55/loop_wrap = true
 tracks/55/keys = PackedFloat32Array(0, 1, 0.99999994, 0.99999994, 1)
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jmmq6"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xdnri"]
 _data = {
-&"Death_A": SubResource("Animation_nji0f"),
-&"Death_A_Pose": SubResource("Animation_egutg"),
-&"Death_B": SubResource("Animation_c6y2m"),
-&"Death_B_Pose": SubResource("Animation_nyqcv"),
-&"Hit_A": SubResource("Animation_5vpbt"),
-&"Hit_B": SubResource("Animation_qgegc"),
-&"Idle_A": SubResource("Animation_twp1c"),
-&"Idle_B": SubResource("Animation_j8c55"),
-&"Interact": SubResource("Animation_05u6f"),
-&"PickUp": SubResource("Animation_d4uh3"),
-&"Spawn_Air": SubResource("Animation_51sqr"),
-&"Spawn_Ground": SubResource("Animation_74cmw"),
-&"T-Pose": SubResource("Animation_xscga"),
-&"Throw": SubResource("Animation_xwcj8"),
-&"Use_Item": SubResource("Animation_grbv6")
+&"Death_A": SubResource("Animation_qfm4m"),
+&"Death_A_Pose": SubResource("Animation_sqb8w"),
+&"Death_B": SubResource("Animation_qxq3l"),
+&"Death_B_Pose": SubResource("Animation_ygqus"),
+&"Hit_A": SubResource("Animation_p5wuj"),
+&"Hit_B": SubResource("Animation_85vre"),
+&"Idle_A": SubResource("Animation_3p7tm"),
+&"Idle_B": SubResource("Animation_s4oo1"),
+&"Interact": SubResource("Animation_fjalj"),
+&"PickUp": SubResource("Animation_xm0fs"),
+&"Spawn_Air": SubResource("Animation_ejn3g"),
+&"Spawn_Ground": SubResource("Animation_31ybr"),
+&"T-Pose": SubResource("Animation_sjxx6"),
+&"Throw": SubResource("Animation_k4p2d"),
+&"Use_Item": SubResource("Animation_ujf36")
 }
 
 [node name="Knight" instance=ExtResource("1_f1jep")]
@@ -6019,8 +6019,9 @@ bones/22/rotation = Quaternion(7.430099e-05, 1, 0.00034055117, 5.358187e-05)
 bones/22/scale = Vector3(1, 0.99999905, 1.000002)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Rig_Medium" index="1"]
+root_node = NodePath("../..")
 libraries = {
-&"actions": SubResource("AnimationLibrary_jmmq6"),
+&"actions": SubResource("AnimationLibrary_xdnri"),
 &"melee_combat": ExtResource("2_ydjl4"),
 &"movement": ExtResource("2_fn7l0"),
 &"movement_advanced": ExtResource("4_8k12s"),

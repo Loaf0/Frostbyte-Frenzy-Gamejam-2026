@@ -127,11 +127,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
 canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
@@ -244,3 +244,11 @@ omni_range = 3.0
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_75nsi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 1.6607938, -1.7562479)
+rotation_fps = 12.0
+mouse_idle_threshold = 1.0
+move_speed = 6.0
+acceleration = 18.0
+friction = 48.0
+dodge_speed = 14.0
+dodge_duration = 0.25
+dodge_cooldown = 0.5

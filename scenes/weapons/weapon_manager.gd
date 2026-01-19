@@ -3,15 +3,18 @@ extends Node
 
 @export var equipped_weapon : WeaponResource
 var weapon_quality : float
-var weapon_mesh_container : Node3D
+var weapon_mesh_container : BoneAttachment3D
 var weapon_instance: Node3D
-var animator : Node3D
+@onready var animator : Node3D = $"../Mesh"
 var animations: Array[String] = []
 var attack_anim_index: int = 0 
 
+#func _ready() -> void:
+	#weapon_mesh_container = get_parent().weapon_mesh_container
 
-func _ready() -> void:
-	weapon_mesh_container = get_parent().weapon_mesh_container
+func _physics_process(_delta: float):
+	if Input.is_action_just_pressed("debug_equip_sword"):
+		equip(load("res://scenes/weapons/weapon_resources/sword.tres"), Global.WeaponQuality.POOR)
 
 func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if weapon == null:
@@ -31,13 +34,18 @@ func _clear_weapon_model() -> void:
 		weapon_instance = null
 
 func _spawn_weapon_model() -> void:
-	if not equipped_weapon.world_model:
+	if not equipped_weapon or not equipped_weapon.world_model:
 		return
+
+	if not weapon_mesh_container:
+		weapon_mesh_container = get_parent().weapon_mesh_container
+		if not weapon_mesh_container:
+			push_error("Cannot spawn weapon: weapon_mesh_container is null")
+			return
 
 	weapon_instance = equipped_weapon.world_model.instantiate()
 	weapon_mesh_container.add_child(weapon_instance)
-	weapon_instance.owner = get_tree().current_scene
-
+	
 	apply_world_model_transforms(weapon_instance)
 
 func _build_attack_animation_list() -> void:
