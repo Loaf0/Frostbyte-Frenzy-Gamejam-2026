@@ -1,0 +1,67 @@
+[gd_resource type="Resource" script_class="ClassResource" load_steps=14 format=3 uid="uid://bbbjgfts80ody"]
+
+[ext_resource type="PackedScene" uid="uid://3br7ccbia2y5" path="res://scenes/rigged_models/players/rogue.tscn" id="1_wjwg7"]
+[ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="2_s8ljc"]
+[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_3arbk"]
+[ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_bi6pp"]
+
+[sub_resource type="Resource" id="Resource_23fyi"]
+script = ExtResource("3_bi6pp")
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_b75wc"]
+script = ExtResource("3_bi6pp")
+stat = 1
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_7xqgu"]
+script = ExtResource("3_bi6pp")
+stat = 2
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_4wkvv"]
+script = ExtResource("3_bi6pp")
+stat = 3
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_nq4n3"]
+script = ExtResource("3_bi6pp")
+stat = 4
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_10va0"]
+script = ExtResource("3_bi6pp")
+stat = 5
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_0gcy2"]
+script = ExtResource("3_bi6pp")
+stat = 6
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_lfnwf"]
+script = ExtResource("3_bi6pp")
+stat = 7
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_f5vr2"]
+script = ExtResource("3_bi6pp")
+stat = 8
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[resource]
+script = ExtResource("2_s8ljc")
+name = "Rogue"
+model_path = ExtResource("1_wjwg7")
+special_ability = ExtResource("3_3arbk")
+stat_modifiers = Array[ExtResource("3_bi6pp")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
+metadata/_custom_type_script = "uid://owmj2hm8arsr"

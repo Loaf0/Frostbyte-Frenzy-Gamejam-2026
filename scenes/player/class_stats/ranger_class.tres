@@ -1,9 +1,67 @@
-[gd_resource type="Resource" script_class="ClassResource" load_steps=3 format=3 uid="uid://ceh0ggg7ecd0v"]
+[gd_resource type="Resource" script_class="ClassResource" load_steps=14 format=3 uid="uid://ceh0ggg7ecd0v"]
 
+[ext_resource type="PackedScene" uid="uid://ck1cm1jhswgra" path="res://scenes/rigged_models/players/ranger.tscn" id="1_23fyi"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="1_qdyte"]
-[ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="2_qdyte"]
+[ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_23fyi"]
+[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_b75wc"]
+
+[sub_resource type="Resource" id="Resource_23fyi"]
+script = ExtResource("3_23fyi")
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_b75wc"]
+script = ExtResource("3_23fyi")
+stat = 1
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_7xqgu"]
+script = ExtResource("3_23fyi")
+stat = 2
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_4wkvv"]
+script = ExtResource("3_23fyi")
+stat = 3
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_nq4n3"]
+script = ExtResource("3_23fyi")
+stat = 4
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_10va0"]
+script = ExtResource("3_23fyi")
+stat = 5
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_0gcy2"]
+script = ExtResource("3_23fyi")
+stat = 6
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_lfnwf"]
+script = ExtResource("3_23fyi")
+stat = 7
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_f5vr2"]
+script = ExtResource("3_23fyi")
+stat = 8
+amount = 1.0
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("1_qdyte")
 name = "Ranger"
+model_path = ExtResource("1_23fyi")
+special_ability = ExtResource("3_b75wc")
+stat_modifiers = Array[ExtResource("3_23fyi")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"

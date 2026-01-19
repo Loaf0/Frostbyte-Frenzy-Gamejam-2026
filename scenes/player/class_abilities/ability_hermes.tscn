@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://pv13y4n1j384"]
+
+[ext_resource type="Script" uid="uid://cmrc2h4enax1k" path="res://scenes/player/class_abilities/ability_hermes.gd" id="1_70xyi"]
+
+[node name="Ability" type="Node3D"]
+script = ExtResource("1_70xyi")

@@ -1,17 +1,21 @@
 Dungeon Gen (Tyler)
 Tile creation + Boss Arena (Kayla)
 Player Twin Stick Controller + camera move slighty in direction of mouse
-Player Modular Weapon System (Tyler)
 Player Stat system
 Player HUD / ingame pause (Kayla)
 Player Animation Tree (Tyler)
-Simple Item Pickups
+Player Modular Weapon System (Tyler)
+Create Weapons
+Simple Item Pickups System (Tyler) - Structure is there not created yet
+Create Items
+Super abilities System (Tyler) - Structure is there not created yet
+Create Super Abilities
 Main menu + Options (Tyler)
-DONE Main Menu Map (Kayla)
+Main Menu Map (Kayla) - Finished
 Character select possibly do the in room camera the looks around
 Basic Enemy AI
 
-Super abilities
+
 
 visually instanced bullet system with pooling
 
