@@ -12,7 +12,9 @@ height = 1.25
 [node name="arrow" type="Node3D"]
 script = ExtResource("1_lwydh")
 
-[node name="arrow_bow" parent="." instance=ExtResource("2_di1w4")]
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="arrow_bow" parent="Visuals" instance=ExtResource("2_di1w4")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)

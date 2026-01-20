@@ -12,7 +12,9 @@ height = 1.25
 [node name="bolt" type="Node3D"]
 script = ExtResource("1_hdg0r")
 
-[node name="arrow_crossbow" parent="." instance=ExtResource("2_hdg0r")]
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="arrow_crossbow" parent="Visuals" instance=ExtResource("2_hdg0r")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)

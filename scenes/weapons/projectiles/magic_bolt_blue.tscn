@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://da13spiqtv625"]
+[gd_scene load_steps=11 format=3 uid="uid://da13spiqtv625"]
 
 [ext_resource type="Texture2D" uid="uid://he6j6o81bxwi" path="res://scenes/weapons/projectiles/pngegg.png" id="1_70tq3"]
 [ext_resource type="Script" uid="uid://cchscsbe4b5pn" path="res://scenes/weapons/projectiles/projectile.gd" id="1_guyyw"]
@@ -20,10 +20,10 @@ scale_min = 0.79999995
 scale_max = 1.1999999
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_guyyw"]
+render_priority = 10
 transparency = 4
 shading_mode = 0
 diffuse_mode = 1
-specular_mode = 1
 vertex_color_use_as_albedo = true
 albedo_color = Color(0.57254905, 0.7921569, 1, 1)
 albedo_texture = ExtResource("1_70tq3")
@@ -38,15 +38,33 @@ material = SubResource("StandardMaterial3D_guyyw")
 size = Vector2(1.2, 1.2)
 orientation = 2
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ru6qw"]
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(1, 0, 1)
+initial_velocity_max = 2.82
+angular_velocity_min = 79.999985
+angular_velocity_max = 285.46
+gravity = Vector3(0, 0, 0)
+scale_min = 0.79999995
+scale_max = 1.1999999
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ru6qw"]
+material = SubResource("StandardMaterial3D_guyyw")
+size = Vector2(0.25, 0.35)
+orientation = 2
+
 [node name="MagicBoltBlue" type="Node3D"]
 script = ExtResource("1_guyyw")
 impact_effect = ExtResource("2_ru6qw")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
 transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_2mh8r")
-skeleton = NodePath("../Area3D")
+skeleton = NodePath("../../Area3D")
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -55,6 +73,7 @@ shape = SubResource("SphereShape3D_2mh8r")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 amount = 12
+lifetime = 0.3
 preprocess = 1.0
 use_fixed_seed = true
 seed = 2023845988
@@ -62,6 +81,16 @@ local_coords = true
 draw_order = 2
 process_material = SubResource("ParticleProcessMaterial_guyyw")
 draw_pass_1 = SubResource("PlaneMesh_b3ty0")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+amount = 12
+lifetime = 0.25
+preprocess = 1.0
+use_fixed_seed = true
+seed = 2023845988
+draw_order = 2
+process_material = SubResource("ParticleProcessMaterial_ru6qw")
+draw_pass_1 = SubResource("PlaneMesh_ru6qw")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -1)

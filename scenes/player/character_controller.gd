@@ -256,6 +256,7 @@ func _mouse_look():
 
 func _try_attack():
 	# compare stamina
+	_mouse_look()
 	weapon_manager.attack(last_mouse_world_pos)
 
 func _try_faith_ability():
