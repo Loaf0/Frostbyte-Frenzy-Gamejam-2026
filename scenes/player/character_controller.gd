@@ -21,6 +21,7 @@ const CHARACTER_STATS : Dictionary[Global.CharacterClass, String] = {
 var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 
 var _isMnK : bool
+var last_mouse_world_pos : Vector3 = Vector3.ZERO
 
 @export var selected_character : Global.CharacterClass = Global.CharacterClass.RANGER 
 var model_skeleton : Skeleton3D
@@ -228,6 +229,7 @@ func _controller_look():
 	else:
 		if move_input.length() > 0.001:
 			var look_target := global_position + move_input.normalized()
+			last_mouse_world_pos = look_target
 			look_at(look_target, Vector3.UP)
 
 func _mouse_look():
@@ -248,12 +250,13 @@ func _mouse_look():
 	
 	if world_pos:
 		world_pos.y = global_position.y
+		last_mouse_world_pos = world_pos
 		if world_pos.distance_to(global_position) > 0.1:
 			look_at(world_pos, Vector3.UP)
 
 func _try_attack():
 	# compare stamina
-	weapon_manager.attack()
+	weapon_manager.attack(last_mouse_world_pos)
 
 func _try_faith_ability():
 	#ability.faith_cost

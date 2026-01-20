@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://c5r6jney0hl0y"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://c5r6jney0hl0y"]
 
 [ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_etmrh"]
+[ext_resource type="PackedScene" uid="uid://da13spiqtv625" path="res://scenes/weapons/projectiles/magic_bolt_blue.tscn" id="1_tkivt"]
 [ext_resource type="PackedScene" uid="uid://kmgvxy2jm2wp" path="res://scenes/weapons/weapon_resources/spellbook.tscn" id="2_etmrh"]
 
 [resource]
@@ -8,5 +9,9 @@ script = ExtResource("1_etmrh")
 weapon_name = "Spellbook"
 weapon_type = 2
 world_model = ExtResource("2_etmrh")
-attack1_anim = "ranged_combat_Ranged_Magic_Shoot"
+projectile = ExtResource("1_tkivt")
+world_model_pos = Vector3(-0.056979656, 0.20847157, 0.08247876)
+world_model_rot = Vector3(-1.3567084, -1.38128, 1.5746694)
+attack1_anim = "actions_Throw"
+attack2_anim = "actions_Interact"
 metadata/_custom_type_script = "uid://hvnclq1neash"

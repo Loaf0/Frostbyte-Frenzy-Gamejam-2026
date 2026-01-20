@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct0i080s46xcr"]
+
+[ext_resource type="Texture2D" uid="uid://he6j6o81bxwi" path="res://scenes/weapons/projectiles/pngegg.png" id="1_6pkay"]
+[ext_resource type="Script" uid="uid://pjmkufhj77lp" path="res://scenes/weapons/projectiles/collision_particle.gd" id="2_7ygl0"]
+
+[sub_resource type="Curve" id="Curve_guyyw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.5078864, 0.5392405), -2.3101442, -2.3101442, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6pkay"]
+curve = SubResource("Curve_guyyw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1st1q"]
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 0, 1)
+spread = 90.0
+flatness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+angular_velocity_min = 79.999985
+angular_velocity_max = 285.46
+gravity = Vector3(0, 0, 0)
+damping_max = 1.0
+scale_min = 0.0
+scale_max = 10.0
+scale_curve = SubResource("CurveTexture_6pkay")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ru6qw"]
+transparency = 4
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.57254905, 0.7921569, 1, 1)
+albedo_texture = ExtResource("1_6pkay")
+refraction_scale = 1.0
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = 0.45
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_uif8e"]
+material = SubResource("StandardMaterial3D_ru6qw")
+size = Vector2(1.2, 1.2)
+orientation = 2
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+emitting = false
+amount = 12
+one_shot = true
+preprocess = 1.0
+explosiveness = 0.93
+randomness = 1.0
+local_coords = true
+draw_order = 2
+process_material = SubResource("ParticleProcessMaterial_1st1q")
+draw_pass_1 = SubResource("PlaneMesh_uif8e")
+script = ExtResource("2_7ygl0")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

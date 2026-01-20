@@ -65,7 +65,7 @@ func _build_attack_animation_list() -> void:
 	if equipped_weapon.attack3_anim != "":
 		animations.append(equipped_weapon.attack3_anim)
 
-func attack() -> void:
+func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 	if not _has_weapon():
 		return
 	
@@ -78,8 +78,11 @@ func attack() -> void:
 	match equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			_do_melee_attack()
-		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW, Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
-			_do_projectile_attack()
+		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
+			_do_projectile_attack(target_dir)
+		Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
+			await get_tree().create_timer(0.5).timeout
+			_do_projectile_attack(target_dir)
 
 func _do_melee_attack() -> void:
 	if not weapon_instance:
@@ -106,16 +109,27 @@ func _stop_trail() -> void:
 		attack()
 
 
-func _do_projectile_attack() -> void:
+func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	if equipped_weapon.projectile == null:
 		return
-
-	var projectile := equipped_weapon.projectile.instantiate()
-	get_tree().current_scene.add_child(projectile)
-
-	projectile.global_transform = weapon_mesh_container.global_transform
-	projectile.damage = get_ranged_damage()
-
+	
+	var target_dir = (last_mouse_world_pos - self.global_position).normalized()
+	target_dir.y = 0
+	target_dir = target_dir.normalized()
+	
+	var proj_instance = equipped_weapon.projectile.instantiate()
+	get_tree().root.add_child(proj_instance)
+	
+	proj_instance.global_transform = weapon_mesh_container.global_transform
+	
+	if target_dir != Vector3.ZERO:
+		proj_instance.direction = target_dir.normalized()
+	else:
+		proj_instance.direction = -weapon_mesh_container.global_transform.basis.z.normalized()
+	
+	proj_instance.damage = get_ranged_damage()
+	proj_instance.shooter = get_parent()
+	
 func _play_attack_animation() -> void:
 	if animator == null or animations.is_empty():
 		return

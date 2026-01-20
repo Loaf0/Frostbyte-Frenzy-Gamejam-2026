@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://crlwe8djrrtps"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://crlwe8djrrtps"]
 
 [ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_3pdvn"]
+[ext_resource type="PackedScene" uid="uid://bondrqsaol0kt" path="res://scenes/weapons/projectiles/magic_bolt_red.tscn" id="1_pigde"]
 [ext_resource type="PackedScene" uid="uid://cpqpmqbo2ibxu" path="res://scenes/weapons/weapon_resources/staff.tscn" id="2_3pdvn"]
 
 [resource]
@@ -8,5 +9,7 @@ script = ExtResource("1_3pdvn")
 weapon_name = "Staff"
 weapon_type = 3
 world_model = ExtResource("2_3pdvn")
-attack1_anim = "ranged_combat_Ranged_Magic_Shoot"
+projectile = ExtResource("1_pigde")
+attack1_anim = "melee_combat_Melee_1H_Attack_Chop"
+attack2_anim = "melee_combat_Melee_1H_Attack_Slice_Diagonal"
 metadata/_custom_type_script = "uid://hvnclq1neash"

@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://5tmlgfi5qp0b"]
+
+[ext_resource type="Script" uid="uid://cchscsbe4b5pn" path="res://scenes/weapons/projectiles/projectile.gd" id="1_hdg0r"]
+[ext_resource type="PackedScene" uid="uid://bxlyg7yi7udpi" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/arrow_crossbow.fbx" id="2_hdg0r"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2mh8r"]
+radius = 0.25
+height = 1.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2mh8r"]
+
+[node name="bolt" type="Node3D"]
+script = ExtResource("1_hdg0r")
+
+[node name="arrow_crossbow" parent="." instance=ExtResource("2_hdg0r")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.9106855e-15, -4.371139e-08, -1, -1, -4.371139e-08, 0, -4.371139e-08, 1, -4.371139e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_2mh8r")
+skeleton = NodePath("../Area3D")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_2mh8r")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)

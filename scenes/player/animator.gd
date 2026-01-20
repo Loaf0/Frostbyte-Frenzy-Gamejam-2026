@@ -72,9 +72,12 @@ func _update_state_machine_path():
 	elif [Global.WeaponType.CROSSBOW].has(current_weapon):
 		state_machine_playback.travel("Crossbow")
 		sub_path = "Crossbow"
-	elif [Global.WeaponType.SPELL_BOOK, Global.WeaponType.STAFF].has(current_weapon):
+	elif [Global.WeaponType.SPELL_BOOK].has(current_weapon):
 		state_machine_playback.travel("Spellbook")
 		sub_path = "Spellbook"
+	elif [Global.WeaponType.STAFF].has(current_weapon):
+		state_machine_playback.travel("Staff")
+		sub_path = "Staff"
 
 func attack_animation(attack_name: String, speed: float = 1.0):
 	if not animation_tree or not animation_player:
@@ -111,6 +114,8 @@ func _get_cached_anim_path(short_name: String) -> String:
 		modified_name = short_name.replace("melee_combat_", "melee_combat/")
 	elif short_name.begins_with("ranged_combat_"):
 		modified_name = short_name.replace("ranged_combat_", "ranged_combat/")
+	elif short_name.begins_with("actions_"):
+		modified_name = short_name.replace("actions_", "actions/")
 	return modified_name
 
 func _on_attack_finished():
