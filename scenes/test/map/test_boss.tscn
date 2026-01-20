@@ -1,0 +1,217 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8o785gisich1"]
+
+[ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_6feg7"]
+[ext_resource type="Texture2D" uid="uid://1o8c0pu0mn3d" path="res://assets/textures/prototyping/png/Dark/texture_08.png" id="2_c5glr"]
+[ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="2_k5klt"]
+[ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="3_k5klt"]
+[ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="5_k5klt"]
+
+[sub_resource type="Environment" id="Environment_o883s"]
+ssao_radius = 0.01
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 0.95
+adjustment_saturation = 1.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qvaan"]
+albedo_texture = ExtResource("2_c5glr")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75nsi"]
+render_priority = 0
+shader = ExtResource("1_6feg7")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.5
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
+
+[sub_resource type="QuadMesh" id="QuadMesh_o883s"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="test_boss" type="Node3D"]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+oversampling = false
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_o883s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.25881904, -0.6830128, 0.68301266, -1.4901163e-08, 0.70710677, 0.7071069, -0.9659259, 0.18301271, -0.1830127, 0, -2.6891937, 0)
+shadow_enabled = true
+directional_shadow_split_1 = 0.01
+directional_shadow_max_distance = 8192.0
+
+[node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="SubViewportContainer/SubViewport/World"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 8)
+size = Vector3(26, 1, 26)
+material = SubResource("StandardMaterial3D_qvaan")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 0)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -6)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -11)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 11)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 5)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 0)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, -6)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, -11)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 11)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 5)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.33333397, 3.75, 11.666666)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5.666666, 3.75, 11.666666)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.333334, 3.75, 11.666666)
+height = 7.5
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
+radius = 0.73095703
+height = 0.75
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
+omni_range = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -4.5, 7.3, -4.8565407)
+projection = 1
+size = 15.0
+script = ExtResource("2_k5klt")
+target_path = NodePath("../Player")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_75nsi")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_o883s")
+skeleton = NodePath("../../../..")
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_k5klt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -1.7562479)
+mouse_idle_threshold = 1.0
+dodge_cooldown = 0.5
+
+[node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
+transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 5, 0, 7)

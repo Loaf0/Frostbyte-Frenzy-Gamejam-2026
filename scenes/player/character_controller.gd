@@ -230,18 +230,25 @@ func _controller_look():
 			look_at(look_target, Vector3.UP)
 
 func _mouse_look():
+	var cam = get_viewport().get_camera_3d()
+	if not cam: 
+		return
+
 	var mouse_pos = get_viewport().get_mouse_position()
-	var cam = get_node("../Camera3D")
+	var screen_size = get_viewport().get_visible_rect().size
+	var screen_center = screen_size / 2.0
 	
-	var plane : Plane = Plane(Vector3.UP, 1)
+	var dist_from_center = mouse_pos.distance_to(screen_center)
+	var max_dist = (screen_size.y / 2.0) * 0.8 
+	cam.look_distance = clamp(dist_from_center / max_dist, 0.0, 1.0)
+	
+	var plane := Plane(Vector3.UP, global_position.y)
 	var world_pos = plane.intersects_ray(cam.project_ray_origin(mouse_pos), cam.project_ray_normal(mouse_pos))
 	
-	if world_pos != null:
+	if world_pos:
 		world_pos.y = global_position.y
-		
-		if world_pos == global_position:
-			return
-		look_at(world_pos, Vector3.UP)
+		if world_pos.distance_to(global_position) > 0.1:
+			look_at(world_pos, Vector3.UP)
 
 func _try_attack():
 	# compare stamina

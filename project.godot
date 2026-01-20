@@ -22,6 +22,10 @@ Save="*res://scripts/global_scripts/Save.gd"
 Global="*res://scripts/global_scripts/Global.gd"
 SceneChanger="*res://scripts/global_scripts/scene_changer/SceneChanger.tscn"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 move_up={

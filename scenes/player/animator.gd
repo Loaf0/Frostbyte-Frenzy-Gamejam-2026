@@ -13,8 +13,6 @@ var sub_path : String = ""
 
 func _ready() -> void:
 	pass
-	#walk_blend_tree = 
-	#animation = 
 
 func _process(delta: float) -> void:
 	var current_blend = animation_tree.get("parameters/Blend2/blend_amount")
