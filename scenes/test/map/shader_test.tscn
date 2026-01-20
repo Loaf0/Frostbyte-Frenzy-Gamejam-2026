@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6jfyvqs4jxdj"]
+[gd_scene load_steps=14 format=3 uid="uid://c6jfyvqs4jxdj"]
 
 [ext_resource type="Texture2D" uid="uid://1o8c0pu0mn3d" path="res://assets/textures/prototyping/png/Dark/texture_08.png" id="1_o883s"]
 [ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_yi6kq"]
 [ext_resource type="Texture2D" uid="uid://dx6tjb8n8uk3d" path="res://assets/textures/prototyping/png/Green/texture_07.png" id="2_yi6kq"]
+[ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="3_erm2j"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="4_75nsi"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
@@ -11,19 +12,6 @@ adjustment_enabled = true
 adjustment_brightness = 1.1
 adjustment_contrast = 0.95
 adjustment_saturation = 1.2
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_75nsi"]
-render_priority = 0
-shader = ExtResource("1_yi6kq")
-shader_parameter/lightIntensity = 1.25
-shader_parameter/lineAlpha = 0.5
-shader_parameter/useLighting = true
-shader_parameter/lineHighlight = 0.2
-shader_parameter/lineShadow = 0.55
-
-[sub_resource type="QuadMesh" id="QuadMesh_o883s"]
-flip_faces = true
-size = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_fud2h"]
 length = 0.001
@@ -118,6 +106,19 @@ albedo_texture = ExtResource("2_yi6kq")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi6kq"]
 albedo_texture = ExtResource("1_o883s")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_75nsi"]
+render_priority = 0
+shader = ExtResource("1_yi6kq")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.5
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
+
+[sub_resource type="QuadMesh" id="QuadMesh_o883s"]
+flip_faces = true
+size = Vector2(2, 2)
+
 [node name="shader_test" type="Node3D"]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -132,6 +133,7 @@ stretch = true
 stretch_shrink = 3
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
 canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
 audio_listener_enable_3d = true
@@ -141,18 +143,6 @@ render_target_update_mode = 4
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_o883s")
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -4.5, 7.3, -4.8565407)
-projection = 1
-size = 8.0
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-material_override = SubResource("ShaderMaterial_75nsi")
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_o883s")
-skeleton = NodePath("../../../..")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport"]
 root_node = NodePath("../../..")
@@ -242,13 +232,20 @@ material = SubResource("StandardMaterial3D_erm2j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
 omni_range = 3.0
 
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -4.5, 7.3, -4.8565407)
+projection = 1
+size = 8.0
+script = ExtResource("3_erm2j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_75nsi")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_o883s")
+skeleton = NodePath("../../../..")
+
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_75nsi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 1.6607938, -1.7562479)
-rotation_fps = 12.0
 mouse_idle_threshold = 1.0
-move_speed = 6.0
-acceleration = 18.0
-friction = 48.0
-dodge_speed = 14.0
-dodge_duration = 0.25
 dodge_cooldown = 0.5

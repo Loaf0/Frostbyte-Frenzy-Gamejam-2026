@@ -2,7 +2,10 @@ extends Node3D
 
 @onready var animation_tree : AnimationTree = $AnimationTree
 @onready var animation : AnimationNodeAnimation
+@onready var animation_player : AnimationPlayer
 @onready var weapon_manager : Node3D
+var anim_path_cache: Dictionary = {}
+@export var is_attacking = false
 
 var weapon_blend_target : float = 0.0
 @export var blend_speed : float = 5.0
@@ -12,7 +15,7 @@ var walk_vector := Vector2.ZERO
 var sub_path : String = ""
 
 func _ready() -> void:
-	pass
+	is_attacking = false
 
 func _process(delta: float) -> void:
 	var current_blend = animation_tree.get("parameters/Blend2/blend_amount")
@@ -74,16 +77,43 @@ func _update_state_machine_path():
 		sub_path = "Spellbook"
 
 func attack_animation(attack_name: String, speed: float = 1.0):
-	if not animation_tree: 
+	if not animation_tree or not animation_player:
 		return
-	
-	update_weapon_hold_animations()
 
-	var speed_path = "parameters/StateMachine/" + sub_path + "/TimeScale/scale"
-	animation_tree.set(speed_path, speed)
+	update_weapon_hold_animations()
 
 	var playback_path = "parameters/StateMachine/" + sub_path + "/playback"
 	var cur_playback: AnimationNodeStateMachinePlayback = animation_tree.get(playback_path)
-	#animation_tree.get("parameters/StateMachine/2HandedMelee/playback")
+	
 	if cur_playback:
 		cur_playback.start(attack_name)
+		is_attacking = true
+		
+		var speed_path = "parameters/StateMachine/" + sub_path + "/TimeScale/scale"
+		animation_tree.set(speed_path, speed)
+
+		var full_path = _get_cached_anim_path(attack_name)
+		#print(full_path)
+		if animation_player.has_animation(full_path):
+			var anim = animation_player.get_animation(full_path)
+			var adjusted_time = anim.length / speed * 0.85 # cut off a little early for smoothness
+			
+			if weapon_manager.has_method("start_attack_state"):
+				weapon_manager.start_attack_state()
+			
+			get_tree().create_timer(adjusted_time).timeout.connect(_on_attack_finished)
+
+func _get_cached_anim_path(short_name: String) -> String:
+	if anim_path_cache.has(short_name):
+		return anim_path_cache[short_name]
+	var modified_name = short_name
+	if short_name.begins_with("melee_combat_"):
+		modified_name = short_name.replace("melee_combat_", "melee_combat/")
+	elif short_name.begins_with("ranged_combat_"):
+		modified_name = short_name.replace("ranged_combat_", "ranged_combat/")
+	return modified_name
+
+func _on_attack_finished():
+	is_attacking = false
+	if weapon_manager.has_method("stop_attack_state"):
+		weapon_manager.stop_attack_state()

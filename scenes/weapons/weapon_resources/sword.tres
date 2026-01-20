@@ -10,5 +10,7 @@ weapon_type = 5
 world_model = ExtResource("2_f8iqa")
 attack1_anim = "melee_combat_Melee_1H_Attack_Slice_Horizontal"
 attack2_anim = "melee_combat_Melee_1H_Attack_Stab"
+damage_mult2 = 1.4
 attack3_anim = "melee_combat_Melee_1H_Attack_Chop"
+damage_mult3 = 1.1
 metadata/_custom_type_script = "uid://hvnclq1neash"

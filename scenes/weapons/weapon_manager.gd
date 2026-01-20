@@ -8,13 +8,19 @@ var weapon_instance: Node3D
 @onready var animator : Node3D = $"../Mesh"
 var animations: Array[String] = []
 var attack_anim_index: int = 0 
-
-#func _ready() -> void:
-	#weapon_mesh_container = get_parent().weapon_mesh_container
+var hit_targets: Array[Node3D] = []
+var active_trail: Node = null
+var trail_active := false
+var attack_queued = false
+var current_attack_multiplier: float = 1.0
 
 func _physics_process(_delta: float):
 	if Input.is_action_just_pressed("debug_equip_sword"):
 		equip(load("res://scenes/weapons/weapon_resources/sword.tres"), Global.WeaponQuality.POOR)
+
+func _process(_delta: float) -> void:
+	if trail_active and active_trail:
+		active_trail.add_point()
 
 func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if weapon == null:
@@ -62,7 +68,11 @@ func _build_attack_animation_list() -> void:
 func attack() -> void:
 	if not _has_weapon():
 		return
-
+	
+	if animator.is_attacking:
+		attack_queued = true
+		return
+	
 	_play_attack_animation()
 
 	match equipped_weapon.weapon_type:
@@ -72,11 +82,29 @@ func attack() -> void:
 			_do_projectile_attack()
 
 func _do_melee_attack() -> void:
+	if not weapon_instance:
+		return
+
+	active_trail = weapon_instance.get_node_or_null("TrailRoot")
+	if active_trail:
+		trail_active = true
+		active_trail.visible = true
 	# This is where you would:
 	# enable a hitbox
 	# query overlapping bodies
 	# apply damage
 	pass
+
+func _stop_trail() -> void:
+	if active_trail:
+		active_trail.stop()
+		active_trail.visible = false
+	trail_active = false
+	active_trail = null
+	if attack_queued:
+		attack_queued = false
+		attack()
+
 
 func _do_projectile_attack() -> void:
 	if equipped_weapon.projectile == null:
@@ -91,12 +119,16 @@ func _do_projectile_attack() -> void:
 func _play_attack_animation() -> void:
 	if animator == null or animations.is_empty():
 		return
-
+		
 	var anim_name := animations[attack_anim_index]
+	match attack_anim_index:
+		0: current_attack_multiplier = equipped_weapon.damage_mult1
+		1: current_attack_multiplier = equipped_weapon.damage_mult2
+		2: current_attack_multiplier = equipped_weapon.damage_mult3
+		_: current_attack_multiplier = 1.0
+		
 	attack_anim_index = (attack_anim_index + 1) % animations.size()
-
 	var speed := get_attack_speed()
-
 	if animator.has_method("attack_animation"):
 		animator.attack_animation(anim_name, speed)
 
@@ -110,18 +142,19 @@ func get_melee_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.STRENGTH) * 0.04)
+	var base_dmg = equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.STRENGTH) * 0.04)
+	return base_dmg * current_attack_multiplier
 
 func get_ranged_damage() -> float:
 	if not _has_weapon():
 		return 0.0
-
+		
 	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.05)
 
 func get_magic_damage() -> float:
 	if not _has_weapon():
 		return 0.0
-
+		
 	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
 
 func get_attack_speed() -> float:
@@ -161,3 +194,43 @@ func apply_world_model_transforms(weapon_node: Node3D) -> void:
 	weapon_node.position = equipped_weapon.world_model_pos
 	weapon_node.rotation = equipped_weapon.world_model_rot
 	weapon_node.scale = equipped_weapon.world_model_scale * get_attack_size()
+
+func start_attack_state() -> void:
+	hit_targets = []
+	
+	#cant get this to work ignore for now
+	#active_trail = weapon_instance.get_node_or_null("TrailRoot")
+	#if active_trail:
+		#trail_active = true
+		#active_trail.visible = true
+	
+	var hitbox = _get_weapon_hitbox()
+	if hitbox:
+		hitbox.monitoring = true
+		if not hitbox.body_entered.is_connected(_on_hitbox_body_entered):
+			hitbox.body_entered.connect(_on_hitbox_body_entered)
+	pass
+
+func stop_attack_state() -> void:
+	var hitbox = _get_weapon_hitbox()
+	if hitbox:
+		hitbox.monitoring = false
+	#if active_trail:
+		#active_trail.stop()
+		#active_trail.visible = false
+	#trail_active = false
+	#active_trail = null
+	pass
+
+func _get_weapon_hitbox() -> Area3D:
+	if weapon_instance:
+		return weapon_instance.get_node_or_null("Hitbox") as Area3D
+	return null
+
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	if body.is_in_group("enemy") and not hit_targets.has(body):
+		hit_targets.append(body)
+		if body.has_method("take_damage"):
+			var damage = get_melee_damage()
+			body.take_damage(damage)
+			print("Hit %s for %f damage" % [body.name, damage])

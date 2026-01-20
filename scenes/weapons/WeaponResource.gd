@@ -30,5 +30,8 @@ extends Resource
 
 @export_category("Animations")
 @export var attack1_anim : String
+@export var damage_mult1 : float = 1
 @export var attack2_anim : String
+@export var damage_mult2 : float = 1
 @export var attack3_anim : String
+@export var damage_mult3 : float = 1

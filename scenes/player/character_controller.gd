@@ -83,10 +83,9 @@ func _spawn_character_model():
 	if mesh_animator.animation_tree:
 		var tree = mesh_animator.animation_tree
 		tree.active = false
-		tree.anim_player = "" 
-		tree.anim_player = tree.get_path_to(anim_player)
+		tree.anim_player = tree.get_path_to(anim_player) 
+		animator.animation_player = anim_player 
 		tree.active = true
-		tree.advance(0)
 	
 	model_skeleton = find_skeleton_in_tree(self)
 	
@@ -211,6 +210,8 @@ func _handle_movement(delta):
 		velocity = velocity.move_toward(move_input * move_speed, acceleration * delta)
 	else:
 		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
+	
+	velocity.y = 0 if is_on_floor() else -4
 
 func _input(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouse:
