@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://daans3121guma"]
+
+[ext_resource type="PackedScene" uid="uid://bd0ews5a5paak" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/sword_2handed_color.fbx" id="1_8rqvc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wisxr"]
+radius = 0.8
+height = 2.7
+
+[node name="Golden_sword" type="Node3D"]
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9499999, 0)
+shape = SubResource("CapsuleShape3D_wisxr")
+
+[node name="sword_2handed_color" parent="." instance=ExtResource("1_8rqvc")]

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://tamw6ttiq5lh"]
+
+[ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_s7kb3"]
+[ext_resource type="PackedScene" uid="uid://dvedjfhfo21hk" path="res://scenes/weapons/weapon_resources/bow.tscn" id="2_s7kb3"]
+
+[resource]
+script = ExtResource("1_s7kb3")
+weapon_name = "Bow"
+weapon_type = 1
+world_model = ExtResource("2_s7kb3")
+attack1_anim = "ranged_combat_Ranged_Bow_Release"
+metadata/_custom_type_script = "uid://hvnclq1neash"

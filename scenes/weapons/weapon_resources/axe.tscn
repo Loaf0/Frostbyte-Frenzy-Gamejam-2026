@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bls6w4a3k2cxn"]
+
+[ext_resource type="PackedScene" uid="uid://ckte7qaqi0ag2" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/axe_2handed.fbx" id="1_trpd6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wisxr"]
+radius = 0.8
+height = 2.7
+
+[node name="Axe" type="Node3D"]
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9499999, 0)
+shape = SubResource("CapsuleShape3D_wisxr")
+
+[node name="axe_2handed" parent="." instance=ExtResource("1_trpd6")]
+transform = Transform3D(1.1, 0, 0, 0, 1.2, 0, 0, 0, 1.1, 0, 0.29999998, 0)

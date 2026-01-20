@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://onqnh54rgt2"]
+
+[ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_o6g11"]
+[ext_resource type="PackedScene" uid="uid://bls6w4a3k2cxn" path="res://scenes/weapons/weapon_resources/axe.tscn" id="2_o6g11"]
+
+[resource]
+script = ExtResource("1_o6g11")
+weapon_name = "Axe"
+weapon_type = 4
+world_model = ExtResource("2_o6g11")
+attack1_anim = "melee_combat_Melee_1H_Attack_Slice_Horizontal"
+attack2_anim = "melee_combat_Melee_1H_Attack_Stab"
+attack3_anim = "melee_combat_Melee_1H_Attack_Chop"
+metadata/_custom_type_script = "uid://hvnclq1neash"

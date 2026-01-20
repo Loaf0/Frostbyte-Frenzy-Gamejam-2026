@@ -1,11 +1,17 @@
 extends Ability
 
+@export var ability_uptime : float = 5.0
+
 func _ready() -> void:
 	faith_cost = 60
-	if(get_parent().is_in_group("player")):
-		player = get_parent()
-	else:
-		push_error("No player found")
 
 func use_ability():
-	return
+	if !player:
+		player = get_parent()
+	print("Ability Used!")
+	player.dodge_cooldown = 0.25
+	var timer = get_tree().create_timer(ability_uptime)
+	timer.timeout.connect(_on_timer_timeout)
+	
+func _on_timer_timeout() -> void:
+	player.dodge_cooldown = player.get_dodge_cooldown()

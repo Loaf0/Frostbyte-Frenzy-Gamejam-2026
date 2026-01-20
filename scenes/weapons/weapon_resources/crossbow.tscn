@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://miigi0ulpo5m"]
+
+[ext_resource type="PackedScene" uid="uid://i86eahkcopsy" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/crossbow_2handed.fbx" id="1_fg7jf"]
+
+[node name="Crossbow" type="Node3D"]
+
+[node name="crossbow_2handed" parent="." instance=ExtResource("1_fg7jf")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

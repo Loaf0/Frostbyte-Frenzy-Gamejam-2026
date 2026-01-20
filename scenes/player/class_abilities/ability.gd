@@ -5,10 +5,10 @@ var faith_cost : int = 100
 var player : CharacterBody3D
 
 func _ready() -> void:
-	if(get_parent().is_in_group("player")):
-		player = get_parent()
-	else:
-		push_error("No player found")
+	pass
 
 func use_ability():
-	return
+	if !player:
+		player = get_parent()
+	pass
+	

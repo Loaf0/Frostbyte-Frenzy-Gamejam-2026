@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://c5r6jney0hl0y"]
+
+[ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_etmrh"]
+[ext_resource type="PackedScene" uid="uid://kmgvxy2jm2wp" path="res://scenes/weapons/weapon_resources/spellbook.tscn" id="2_etmrh"]
+
+[resource]
+script = ExtResource("1_etmrh")
+weapon_name = "Spellbook"
+weapon_type = 2
+world_model = ExtResource("2_etmrh")
+attack1_anim = "ranged_combat_Ranged_Magic_Shoot"
+metadata/_custom_type_script = "uid://hvnclq1neash"

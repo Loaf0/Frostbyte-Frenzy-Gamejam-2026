@@ -25,6 +25,7 @@ var _isMnK : bool
 @export var selected_character : Global.CharacterClass = Global.CharacterClass.RANGER 
 var model_skeleton : Skeleton3D
 var weapon_mesh_container : BoneAttachment3D
+var ability : Node3D
 @onready var weapon_manager : WeaponManager = $WeaponManager
 @onready var animator : Node3D = $Mesh
 
@@ -42,7 +43,7 @@ var last_mouse_pos := Vector2.ZERO
 
 @export var dodge_speed := 14.0
 @export var dodge_duration := 0.25
-@export var dodge_cooldown := 0.5
+@export var dodge_cooldown := 1.0
 
 var stats: Dictionary = {}
 
@@ -115,6 +116,12 @@ func _apply_class():
 	for stat in stat_sheet.stat_modifiers:
 		stats[stat.stat] = stat.amount
 	
+	# instanciate ability
+	ability = stat_sheet.special_ability.instantiate()
+	add_child(ability)
+	if ability:
+		ability.player = self
+	
 	#load weapon
 	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
 	weapon_manager.animator = animator
@@ -184,6 +191,8 @@ func _handle_input():
 		_try_dodge()
 	if Input.is_action_just_pressed("attack"):
 		_try_attack()
+	if Input.is_action_just_pressed("faith_power"):
+		_try_faith_ability()
 
 func _handle_movement(delta):
 	if is_dodging:
@@ -238,6 +247,10 @@ func _try_attack():
 	# compare stamina
 	weapon_manager.attack()
 
+func _try_faith_ability():
+	#ability.faith_cost
+	ability.use_ability()
+
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
 		return
@@ -276,5 +289,8 @@ func _interact(hit_object):
 func _stat(stat: int) -> float:
 	return stats.get(stat, 0.0)
 
+func get_dodge_cooldown() -> float:
+	return max(0.35, 2.5 - (_stat(Global.Stat.AGILITY) * .5))
+
 func get_super_cooldown() -> float:
-	return max(1.0, 10.0 - _stat(Global.Stat.FAITH) * 0.25)
+	return max(1.0, 10.0 - (_stat(Global.Stat.FAITH) * 0.25))
