@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Frostbyte2026"
-run/main_scene="uid://c6jfyvqs4jxdj"
+run/main_scene="uid://c8o785gisich1"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 

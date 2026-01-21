@@ -1,10 +1,13 @@
-[gd_resource type="AnimationNodeBlendTree" load_steps=80 format=3 uid="uid://mlxhvapew22i"]
+[gd_resource type="AnimationNodeBlendTree" load_steps=88 format=3 uid="uid://mlxhvapew22i"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_yj68g"]
 filter_enabled = true
 filters = ["", "%GeneralSkeleton:Chest", "%GeneralSkeleton:Hips", "%GeneralSkeleton:LeftHand", "%GeneralSkeleton:RightHand", "%GeneralSkeleton:Spine", "%GeneralSkeleton:hand.l", "%GeneralSkeleton:hand.r", "%GeneralSkeleton:handslot.l", "%GeneralSkeleton:handslot.r", "%GeneralSkeleton:lowerarm.l", "%GeneralSkeleton:lowerarm.r", "%GeneralSkeleton:upperarm.l", "%GeneralSkeleton:upperarm.r"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_i0h2s"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_delnp"]
+animation = &"actions/Idle_B"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i0h2s"]
 animation = &"movement_advanced/Dodge_Backward"
@@ -54,7 +57,25 @@ xfade_time = 0.2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r2cbo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p8piy"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jwuqp"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1ndt6"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vccjp"]
+advance_mode = 0
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0xw7u"]
+states/Start/position = Vector2(11, 100)
+states/actions_Idle_B/node = SubResource("AnimationNodeAnimation_delnp")
+states/actions_Idle_B/position = Vector2(155, 100)
 states/movement_advanced_Dodge_Backward/node = SubResource("AnimationNodeAnimation_i0h2s")
 states/movement_advanced_Dodge_Backward/position = Vector2(497, 77)
 states/movement_advanced_Dodge_Forward/node = SubResource("AnimationNodeAnimation_qfbde")
@@ -63,7 +84,7 @@ states/movement_advanced_Dodge_Left/node = SubResource("AnimationNodeAnimation_j
 states/movement_advanced_Dodge_Left/position = Vector2(497, 126)
 states/movement_advanced_Dodge_Right/node = SubResource("AnimationNodeAnimation_0xw7u")
 states/movement_advanced_Dodge_Right/position = Vector2(497, 168)
-transitions = ["Start", "movement_advanced_Dodge_Forward", SubResource("AnimationNodeStateMachineTransition_jjnif"), "Start", "movement_advanced_Dodge_Backward", SubResource("AnimationNodeStateMachineTransition_jbnnl"), "Start", "movement_advanced_Dodge_Left", SubResource("AnimationNodeStateMachineTransition_yu6mu"), "Start", "movement_advanced_Dodge_Right", SubResource("AnimationNodeStateMachineTransition_y2slo"), "movement_advanced_Dodge_Forward", "End", SubResource("AnimationNodeStateMachineTransition_nnowi"), "movement_advanced_Dodge_Backward", "End", SubResource("AnimationNodeStateMachineTransition_ri8sx"), "movement_advanced_Dodge_Left", "End", SubResource("AnimationNodeStateMachineTransition_delnp"), "movement_advanced_Dodge_Right", "End", SubResource("AnimationNodeStateMachineTransition_fccqj")]
+transitions = ["Start", "movement_advanced_Dodge_Forward", SubResource("AnimationNodeStateMachineTransition_jjnif"), "Start", "movement_advanced_Dodge_Backward", SubResource("AnimationNodeStateMachineTransition_jbnnl"), "Start", "movement_advanced_Dodge_Left", SubResource("AnimationNodeStateMachineTransition_yu6mu"), "Start", "movement_advanced_Dodge_Right", SubResource("AnimationNodeStateMachineTransition_y2slo"), "movement_advanced_Dodge_Forward", "End", SubResource("AnimationNodeStateMachineTransition_nnowi"), "movement_advanced_Dodge_Backward", "End", SubResource("AnimationNodeStateMachineTransition_ri8sx"), "movement_advanced_Dodge_Left", "End", SubResource("AnimationNodeStateMachineTransition_delnp"), "movement_advanced_Dodge_Right", "End", SubResource("AnimationNodeStateMachineTransition_fccqj"), "Start", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_r2cbo"), "actions_Idle_B", "movement_advanced_Dodge_Forward", SubResource("AnimationNodeStateMachineTransition_p8piy"), "actions_Idle_B", "movement_advanced_Dodge_Backward", SubResource("AnimationNodeStateMachineTransition_jwuqp"), "actions_Idle_B", "movement_advanced_Dodge_Left", SubResource("AnimationNodeStateMachineTransition_1ndt6"), "actions_Idle_B", "movement_advanced_Dodge_Right", SubResource("AnimationNodeStateMachineTransition_vccjp")]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ioxgp"]
 animation = &"movement/Running_A"
@@ -191,10 +212,13 @@ transitions = ["Start", "melee_combat_Melee_2H_Idle", SubResource("AnimationNode
 graph_offset = Vector2(-141, -245)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yj68g"]
-animation = &"ranged_combat/Ranged_Bow_Idle"
+animation = &"actions/Idle_B"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j4nxn"]
-animation = &"ranged_combat/Ranged_Bow_Release"
+animation = &"actions/Interact"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fccqj"]
+animation = &"ranged_combat/Ranged_1H_Reload"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tffgl"]
 advance_mode = 2
@@ -204,13 +228,20 @@ xfade_time = 0.2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8jnsc"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5mf0n"]
-states/ranged_combat_Ranged_Bow_Idle/node = SubResource("AnimationNodeAnimation_yj68g")
-states/ranged_combat_Ranged_Bow_Idle/position = Vector2(402, 102)
-states/ranged_combat_Ranged_Bow_Release/node = SubResource("AnimationNodeAnimation_j4nxn")
-states/ranged_combat_Ranged_Bow_Release/position = Vector2(402, -19)
-transitions = ["Start", "ranged_combat_Ranged_Bow_Idle", SubResource("AnimationNodeStateMachineTransition_tffgl"), "ranged_combat_Ranged_Bow_Release", "ranged_combat_Ranged_Bow_Idle", SubResource("AnimationNodeStateMachineTransition_pk8ii")]
-graph_offset = Vector2(21, -168)
+states/actions_Idle_B/node = SubResource("AnimationNodeAnimation_yj68g")
+states/actions_Idle_B/position = Vector2(392, 100)
+states/actions_Interact/node = SubResource("AnimationNodeAnimation_j4nxn")
+states/actions_Interact/position = Vector2(347, -24)
+states/ranged_combat_Ranged_1H_Reload/node = SubResource("AnimationNodeAnimation_fccqj")
+states/ranged_combat_Ranged_1H_Reload/position = Vector2(640, -18)
+transitions = ["Start", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_tffgl"), "actions_Interact", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_pk8ii"), "ranged_combat_Ranged_1H_Reload", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_8jnsc")]
+graph_offset = Vector2(-18, -99)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_28m0y"]
 animation = &"ranged_combat/Ranged_1H_Aiming"
@@ -338,7 +369,7 @@ advance_mode = 0
 states/2HandedMelee/node = SubResource("AnimationNodeStateMachine_tffgl")
 states/2HandedMelee/position = Vector2(393, -36)
 states/Bow/node = SubResource("AnimationNodeStateMachine_5mf0n")
-states/Bow/position = Vector2(187, 193)
+states/Bow/position = Vector2(194, -36)
 states/Crossbow/node = SubResource("AnimationNodeStateMachine_kxw46")
 states/Crossbow/position = Vector2(393, 193)
 states/Spellbook/node = SubResource("AnimationNodeStateMachine_vo27k")
@@ -349,12 +380,12 @@ states/Start/position = Vector2(57, 81)
 states/actions_Idle_B/node = SubResource("AnimationNodeAnimation_tffgl")
 states/actions_Idle_B/position = Vector2(393, 81)
 transitions = ["Start", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_4hvnv"), "actions_Idle_B", "2HandedMelee", SubResource("AnimationNodeStateMachineTransition_kxw46"), "2HandedMelee", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_8qxvo"), "actions_Idle_B", "Bow", SubResource("AnimationNodeStateMachineTransition_5q8fn"), "Bow", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_vo27k"), "actions_Idle_B", "Spellbook", SubResource("AnimationNodeStateMachineTransition_genst"), "Spellbook", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_niom3"), "actions_Idle_B", "Crossbow", SubResource("AnimationNodeStateMachineTransition_ttakn"), "Crossbow", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_rw8a5"), "actions_Idle_B", "Staff", SubResource("AnimationNodeStateMachineTransition_i858l"), "Staff", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_s63m3")]
-graph_offset = Vector2(-21, -76)
+graph_offset = Vector2(-24, -52)
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_i0h2s"]
 
 [resource]
-graph_offset = Vector2(-603.41925, -133.92143)
+graph_offset = Vector2(-646.68286, -320.10773)
 nodes/output/position = Vector2(440, 60)
 nodes/RunningBlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_j4nxn")
 nodes/RunningBlendSpace2D/position = Vector2(-980, -260)

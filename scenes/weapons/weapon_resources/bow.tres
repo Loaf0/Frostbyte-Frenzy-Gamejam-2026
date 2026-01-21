@@ -7,8 +7,8 @@
 [resource]
 script = ExtResource("1_s7kb3")
 weapon_name = "Bow"
-weapon_type = 1
 world_model = ExtResource("2_s7kb3")
 projectile = ExtResource("1_5hud7")
-attack1_anim = "ranged_combat_Ranged_Bow_Release"
+world_model_rot = Vector3(0.2241749, -2.069474, 0.13354108)
+attack1_anim = "actions_Interact"
 metadata/_custom_type_script = "uid://hvnclq1neash"

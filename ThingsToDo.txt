@@ -1,24 +1,37 @@
-Dungeon Gen (Tyler)
-Tile creation + Boss Arena (Kayla)
-Player Twin Stick Controller + camera move slighty in direction of mouse
-Player Stat system
-Player HUD / ingame pause (Kayla)
-Player Animation Tree (Tyler)
-Player Modular Weapon System (Tyler)
-Create Weapons
-Simple Item Pickups System (Tyler) - Structure is there not created yet
+#last 29 minutes Dungeon Gen (Kayla)
+#DONE Player Twin Stick Controller + camera move slighty in direction of mouse
+#DONE Player Stat system mabye???
+#DONE Player Animation Tree (Tyler)
+#DONE Player Modular Weapon System (Tyler)
+#DONE Create Weapons - go back and fix bow anim
+#DONE Super abilities System (Tyler) - Structure is there not created yet
+#DONE Main Menu Map (Kayla) - Finished
+
+imple Item Pickups System (Tyler) - Structure is there not created yet
 Create Items
-Super abilities System (Tyler) - Structure is there not created yet
-Create Super Abilities
-Main menu + Options (Tyler)
-Main Menu Map (Kayla) - Finished
-Character select possibly do the in room camera the looks around
+Create Super Abilities 2/6 - need to add effects too
+
+
+Tile creation + Boss Arena (Kayla)
+Player HUD / ingame pause (Kayla)
+Main menu + Options (Tyler) - Character select possibly do the in room camera the looks around
 Basic Enemy AI
+bow and crossbow left handed
+
+Boss AI - visually instanced bullet system with pooling (Tyler)
 
 
-
-visually instanced bullet system with pooling
-
+Current Order of Prior
+	Kayla 
+		Player hud
+		Pause Menu
+		
+		
+	Tyler
+		Main Menu
+		Character Select
+		Boss
+		
 Design and create Boss (save for last 2 hours)
 	  ⢀⡀       ⣾⡳⣼⣆⠀⠀⢹⡄⠹⣷⣄⢠⠇⠻⣷⣶⢀⣸⣿⡾⡏⠀⠰⣿⣰⠏⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀
 		 ⣀⡀⣀⣀⣀⡹⣟⡪⢟⣷⠦⠬⣿⣦⣌⡙⠿⡆⠻⡌⠿⣦⣿⣿⣿⣿⣦⣿⡿⠟⠚⠉⠀⠉⠳⣄⡀⠀⠀⠁⠀
@@ -51,3 +64,9 @@ Design and create Boss (save for last 2 hours)
 ⣀⣤⣴⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠘⣷⣻⡟⠀⡼⠁⣴⣿⣿⣯⣥⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣀⠀
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣯⣿⣤⣤⣤⣬⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ 🤞🤞🏻
+
+
+Credit 
+Kaykit
+ELV Games
+Kenny

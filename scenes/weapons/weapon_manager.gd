@@ -79,6 +79,7 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			_do_melee_attack()
 		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
+			await get_tree().create_timer(0.5).timeout
 			_do_projectile_attack(target_dir)
 		Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
 			await get_tree().create_timer(0.5).timeout
@@ -107,7 +108,6 @@ func _stop_trail() -> void:
 	if attack_queued:
 		attack_queued = false
 		attack()
-
 
 func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	if equipped_weapon.projectile == null:

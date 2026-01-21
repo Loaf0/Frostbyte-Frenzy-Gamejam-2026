@@ -38,13 +38,20 @@ var visual_rotation_y: float = 0.0
 var mouse_idle_timer := 0.0
 var last_mouse_pos := Vector2.ZERO
 
-@export var move_speed := 6.0
+@export var move_speed := 6.0 # add update when stats change
 @export var acceleration := 18.0
 @export var friction := 48.0
 
 @export var dodge_speed := 14.0
 @export var dodge_duration := 0.25
-@export var dodge_cooldown := 1.0
+@export var dodge_cooldown := 1.0 # add update when stats change
+
+@export var max_stamina = 100
+var current_stamina = max_stamina
+@export var max_mana = 100
+var current_mana = max_mana
+@export var max_health = 100 # add update when stats change
+var current_health = max_health
 
 var stats: Dictionary = {}
 

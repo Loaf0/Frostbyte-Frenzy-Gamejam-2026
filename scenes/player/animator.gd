@@ -55,7 +55,7 @@ func update_walk_vector(target_move_vec: Vector3, delta: float) -> void:
 	animation_tree.set(path, walk_vector)
 
 func update_weapon_hold_animations():
-	if current_weapon:
+	if current_weapon != null:
 		weapon_blend_target = 0.85
 		_update_state_machine_path()
 	else:
