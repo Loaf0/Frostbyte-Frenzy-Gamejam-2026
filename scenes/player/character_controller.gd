@@ -285,7 +285,7 @@ func _try_dodge():
 		animator.start_roll(dodge_dir)
 
 func _handle_timers(delta):
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") or Input.is_action_just_pressed("faith_power") :
 		mouse_idle_timer = mouse_idle_threshold
 	
 	if is_dodging:
