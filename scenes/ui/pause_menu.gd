@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var start_button : Button = $CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer/Resume
 @onready var options_button : Button = $CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer/Options
@@ -43,11 +43,11 @@ func _process(_delta: float) -> void:
 			back.visible = false
 			ui.visible = false
 			get_tree().paused = false
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		else:
 			back.visible = true
 			ui.visible = true
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			get_tree().paused = true
 			main_menu.visible = true
 			stats_menu.visible = false
@@ -59,7 +59,7 @@ func _on_start_pressed() -> void:
 	back.visible = false
 	ui.visible = false
 	get_tree().paused = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_open_options_pressed() -> void:
 	main_menu.visible = false

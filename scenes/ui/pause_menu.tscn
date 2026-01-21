@@ -33,22 +33,20 @@ default_font_size = 20
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_p4dqk"]
 
-[node name="PauseMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="PauseMenu" type="CanvasLayer"]
 script = ExtResource("1_6tw0m")
 
 [node name="TextureRect" type="ColorRect" parent="."]
 show_behind_parent = true
 z_index = -100
 custom_minimum_size = Vector2(384, 216)
-layout_mode = 0
 offset_right = 384.0
 offset_bottom = 216.0
 mouse_filter = 1
 color = Color(0.0509804, 0.0509804, 0.0509804, 0.458824)
 
 [node name="CanvasLayer" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_right = 384.0
 offset_bottom = 216.0
@@ -248,9 +246,12 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MainMenu" type="Control" parent="CanvasLayer"]
 layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2

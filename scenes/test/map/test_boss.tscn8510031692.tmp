@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="2_k5klt"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="3_k5klt"]
 [ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="5_k5klt"]
-[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/win_button.tscn" id="7_nkuo3"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01
@@ -32,6 +31,13 @@ shader_parameter/lineShadow = 0.55
 [sub_resource type="QuadMesh" id="QuadMesh_o883s"]
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="GDScript" id="GDScript_qvaan"]
+script/source = "extends Button
+
+func _on_pressed() -> void:
+	print(\"you win\")
+"
 
 [node name="test_boss" type="Node3D" node_paths=PackedStringArray("your_subviewport")]
 script = ExtResource("1_nkuo3")
@@ -220,4 +226,13 @@ selected_character = 0
 [node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 5, 0, 7)
 
-[node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_nkuo3")]
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewportContainer/SubViewport"]
+
+[node name="Win Button" type="Button" parent="SubViewportContainer/SubViewport/CanvasLayer"]
+offset_right = 133.66667
+offset_bottom = 31.666668
+text = "This button wins"
+script = SubResource("GDScript_qvaan")
+
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CanvasLayer/Win Button" to="." method="_on_win_button_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CanvasLayer/Win Button" to="SubViewportContainer/SubViewport/CanvasLayer/Win Button" method="_on_pressed"]
