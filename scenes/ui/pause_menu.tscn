@@ -1,0 +1,356 @@
+[gd_scene load_steps=16 format=3 uid="uid://cvfbv1ki3n2vw"]
+
+[ext_resource type="Script" uid="uid://hm6busoixidf" path="res://scenes/ui/pause_menu.gd" id="1_6tw0m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4syi3"]
+
+[sub_resource type="Theme" id="Theme_q7u2s"]
+default_font_size = 15
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cq3bu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3vsjx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vsjx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cq3bu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jixtp"]
+font_size = 45
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7u2s"]
+
+[sub_resource type="Theme" id="Theme_7g58x"]
+default_font_size = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4syi3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p4dqk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8p68"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3u71f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p4dqk"]
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_6tw0m")
+
+[node name="TextureRect" type="ColorRect" parent="."]
+show_behind_parent = true
+z_index = -100
+custom_minimum_size = Vector2(384, 216)
+layout_mode = 0
+offset_right = 384.0
+offset_bottom = 216.0
+mouse_filter = 1
+color = Color(0.0509804, 0.0509804, 0.0509804, 0.458824)
+
+[node name="CanvasLayer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 384.0
+offset_bottom = 216.0
+
+[node name="OptionsMenu" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/OptionsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/OptionsMenu/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="Controls" type="Button" parent="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer"]
+z_index = 100
+material = SubResource("ShaderMaterial_4syi3")
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cq3bu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3vsjx")
+text = "Controls
+"
+
+[node name="Audio" type="Button" parent="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_3vsjx")
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cq3bu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3vsjx")
+text = "Audio"
+
+[node name="Return" type="Button" parent="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer"]
+z_index = 100
+material = SubResource("ShaderMaterial_cq3bu")
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cq3bu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3vsjx")
+text = "Return"
+
+[node name="Controls" type="Control" parent="CanvasLayer/OptionsMenu/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Spacing" type="BoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer/Spacing"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_override_font_sizes/font_size = 76
+text = "Gameplay"
+horizontal_alignment = 1
+
+[node name="Control" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer/Control"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+text = "Sensitivity"
+horizontal_alignment = 1
+
+[node name="Sens" type="HSlider" parent="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer/Control"]
+layout_mode = 2
+min_value = 0.01
+max_value = 6.0
+step = 0.1
+value = 1.01
+allow_greater = true
+allow_lesser = true
+
+[node name="Audio" type="Control" parent="CanvasLayer/OptionsMenu/HBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -200
+alignment = 1
+
+[node name="MFX" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/MFX"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+text = "Music Effects"
+horizontal_alignment = 1
+
+[node name="MFX_volume" type="HSlider" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/MFX"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.75
+allow_greater = true
+allow_lesser = true
+
+[node name="UFX" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/UFX"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+text = "Ui Effects"
+horizontal_alignment = 1
+
+[node name="UFX_volume" type="HSlider" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/UFX"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.75
+allow_greater = true
+allow_lesser = true
+
+[node name="SFX" type="VBoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/SFX"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+text = "Sound Effects"
+horizontal_alignment = 1
+
+[node name="SFX_volume" type="HSlider" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/SFX"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.75
+allow_greater = true
+allow_lesser = true
+
+[node name="Spacing" type="BoxContainer" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/Spacing"]
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_override_font_sizes/font_size = 76
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="StatsMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MainMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Tile" type="Control" parent="CanvasLayer/MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/MainMenu/VBoxContainer/Tile"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -84.0
+offset_right = 84.0
+offset_bottom = 63.0
+grow_horizontal = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_jixtp")
+horizontal_alignment = 1
+
+[node name="Options" type="Control" parent="CanvasLayer/MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MainMenu/VBoxContainer/Options"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -134.0
+offset_right = 49.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="Resume" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer"]
+z_index = -100
+material = SubResource("ShaderMaterial_q7u2s")
+layout_mode = 2
+theme = SubResource("Theme_7g58x")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4syi3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p4dqk")
+text = "Resume"
+
+[node name="Stats" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer"]
+z_index = -100
+material = SubResource("ShaderMaterial_c8p68")
+layout_mode = 2
+theme = SubResource("Theme_7g58x")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_4syi3")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_p4dqk")
+text = "Stats"
+
+[node name="Options" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer"]
+z_index = -100
+material = SubResource("ShaderMaterial_3u71f")
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cq3bu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3vsjx")
+text = "Options"
+
+[node name="Quit" type="Button" parent="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer"]
+z_index = -100
+material = SubResource("ShaderMaterial_p4dqk")
+layout_mode = 2
+theme = SubResource("Theme_q7u2s")
+theme_type_variation = &"FlatButton"
+theme_override_constants/outline_size = 0
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_cq3bu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3vsjx")
+text = "Quit"
+
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer/Controls" to="." method="_on_open_options_controls_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer/Audio" to="." method="_on_open_options_audio_pressed"]
+[connection signal="pressed" from="CanvasLayer/OptionsMenu/HBoxContainer/VBoxContainer/Return" to="." method="_on_return_to_main_menu_pressed"]
+[connection signal="value_changed" from="CanvasLayer/OptionsMenu/HBoxContainer/Controls/VBoxContainer/Control/Sens" to="." method="_on_sens_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/MFX/MFX_volume" to="." method="_on_mfx_volume_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/UFX/UFX_volume" to="." method="_on_ufx_volume_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/OptionsMenu/HBoxContainer/Audio/VBoxContainer/SFX/SFX_volume" to="." method="_on_sfx_volume_value_changed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer/Resume" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer/Options" to="." method="_on_open_options_pressed"]
+[connection signal="pressed" from="CanvasLayer/MainMenu/VBoxContainer/Options/VBoxContainer/Quit" to="." method="_on_exit_pressed"]
