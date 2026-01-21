@@ -63,7 +63,7 @@ script = ExtResource("1_5nf47")
 z_index = -100
 offset_right = 1920.0
 offset_bottom = 1080.0
-mouse_filter = 2
+mouse_filter = 1
 color = Color(0, 0, 0.027451, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
