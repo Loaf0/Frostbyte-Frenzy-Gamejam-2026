@@ -27,6 +27,7 @@ scale_max = 10.0
 scale_curve = SubResource("CurveTexture_6pkay")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ru6qw"]
+render_priority = 10
 transparency = 4
 blend_mode = 1
 shading_mode = 0
@@ -42,14 +43,14 @@ grow_amount = 0.45
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_uif8e"]
 material = SubResource("StandardMaterial3D_ru6qw")
-size = Vector2(1.2, 1.2)
+size = Vector2(0.3, 0.3)
 orientation = 2
 
 [node name="GPUParticles3D" type="GPUParticles3D"]
 emitting = false
-amount = 12
+amount = 6
 one_shot = true
-preprocess = 1.0
+speed_scale = 4.0
 explosiveness = 0.93
 randomness = 1.0
 local_coords = true

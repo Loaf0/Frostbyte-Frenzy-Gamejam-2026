@@ -189,7 +189,7 @@ func _handle_input():
 
 	if Input.is_action_just_pressed("dodge"):
 		_try_dodge()
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_pressed("attack"):
 		_try_attack()
 	if Input.is_action_just_pressed("faith_power"):
 		_try_faith_ability()

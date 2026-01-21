@@ -43,6 +43,7 @@ func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	get_tree().root.add_child(proj_instance)
 	
 	proj_instance.global_transform = get_parent().global_transform
+	proj_instance.global_transform.origin.y +=1
 	
 	if target_dir != Vector3.ZERO:
 		proj_instance.direction = target_dir.normalized()

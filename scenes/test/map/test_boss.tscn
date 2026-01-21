@@ -211,7 +211,7 @@ skeleton = NodePath("../../../..")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_k5klt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -1.7562479)
-selected_character = 0
+selected_character = 5
 
 [node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 5, 0, 7)

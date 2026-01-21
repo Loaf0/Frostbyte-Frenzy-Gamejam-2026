@@ -47,6 +47,7 @@ func _handle_impact(body: Node) -> void:
 		var effect = impact_effect.instantiate()
 		get_tree().current_scene.add_child(effect)
 		effect.global_position = global_position
+		effect.global_rotation = global_rotation
 
 	visuals.hide()
 	area_3d.set_deferred("monitoring", false)
