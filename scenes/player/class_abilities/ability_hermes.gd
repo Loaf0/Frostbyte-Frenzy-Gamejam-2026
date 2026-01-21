@@ -5,7 +5,7 @@ extends Ability
 func _ready() -> void:
 	faith_cost = 60
 
-func use_ability():
+func use_ability(_last_mouse_world_pos: Vector3):
 	if !player:
 		player = get_parent()
 	print("Ability Used!")

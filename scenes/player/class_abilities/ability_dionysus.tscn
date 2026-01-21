@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4uaxw38kvfx0"]
+
+[ext_resource type="Script" uid="uid://dmavpu880pf5m" path="res://scenes/player/class_abilities/ability_dionysus.gd" id="1_q4g2y"]
+
+[node name="Ability" type="Node3D"]
+script = ExtResource("1_q4g2y")
+metadata/_custom_type_script = "uid://cw24nhidxjrlt"

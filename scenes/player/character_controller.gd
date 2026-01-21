@@ -261,7 +261,8 @@ func _try_attack():
 
 func _try_faith_ability():
 	#ability.faith_cost
-	ability.use_ability()
+	_mouse_look()
+	ability.use_ability(last_mouse_world_pos)
 
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
