@@ -1,11 +1,14 @@
-[gd_scene load_steps=119 format=4 uid="uid://baaje6ks5mvj6"]
+[gd_scene load_steps=134 format=4 uid="uid://baaje6ks5mvj6"]
 
 [ext_resource type="Texture2D" uid="uid://boevw831p8uvc" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Characters/fbx/barbarian_texture.png" id="1_4hgns"]
 [ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_6nws3"]
 [ext_resource type="Script" uid="uid://b03iovbl0bx" path="res://scenes/Maps/main_menu.gd" id="1_sdkyp"]
 [ext_resource type="PackedScene" uid="uid://cesvppf1djiqr" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/staff.fbx" id="2_bo3lw"]
 [ext_resource type="PackedScene" uid="uid://cd6ass686gj7x" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/axe_1handed.fbx" id="2_dq34o"]
+[ext_resource type="FontFile" uid="uid://dx64cq2hbd78j" path="res://assets/fonts/ROMANUS.otf" id="2_sdkyp"]
 [ext_resource type="PackedScene" uid="uid://dnqme8wgv2k3i" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/spellbook_open.fbx" id="2_wmlw1"]
+[ext_resource type="Texture2D" uid="uid://biwt6rsgjtesx" path="res://assets/ui_assets/FantasyUI/Default/Border/panel-border-009-colored.png" id="3_bjrqu"]
+[ext_resource type="FontFile" uid="uid://drfcmoi4emsha" path="res://assets/fonts/jancient.ttf" id="3_wmlw1"]
 [ext_resource type="ArrayMesh" uid="uid://7houxvwnlci2" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/floor_wood_large.obj" id="4_dutah"]
 [ext_resource type="ArrayMesh" uid="uid://brn6qwat1e4cu" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/wall_doorway.obj" id="5_6mkad"]
 [ext_resource type="ArrayMesh" uid="uid://dd7fem4sx0swy" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/obj/chair.obj" id="5_27sug"]
@@ -28,10 +31,67 @@
 [ext_resource type="Texture2D" uid="uid://cd1e4via02dda" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Characters/fbx/knight_texture.png" id="17_oowpt"]
 [ext_resource type="PackedScene" uid="uid://v17ee1016qvj" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/sword_1handed.fbx" id="18_oowpt"]
 [ext_resource type="Texture2D" uid="uid://dc3yvhiafq6x1" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/characters/fbx/skeleton_texture.png" id="19_bo3lw"]
-[ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="19_wrodd"]
 [ext_resource type="ArrayMesh" uid="uid://0bww8ybyq5kv" path="res://assets/asset_packs/kaykit_restaurant_bits/Assets/obj/food_stew.obj" id="29_q6mpn"]
 [ext_resource type="PackedScene" uid="uid://bykkxeemckweo" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/gltf/plate_stack.gltf.glb" id="30_sdkyp"]
 [ext_resource type="PackedScene" uid="uid://cdots7nbgbe8t" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/gltf/chest.glb" id="32_bjrqu"]
+
+[sub_resource type="Gradient" id="Gradient_rn3np"]
+offsets = PackedFloat32Array(0.48955223, 1)
+colors = PackedColorArray(0, 0, 0, 0.65882355, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bjrqu"]
+gradient = SubResource("Gradient_rn3np")
+use_hdr = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_rn3np"]
+line_spacing = -5.0
+font = ExtResource("2_sdkyp")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.3137255)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.8117647)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sdkyp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rn3np"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjrqu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wmlw1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7h8kf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bjrqu"]
+line_spacing = -5.0
+font = ExtResource("2_sdkyp")
+font_size = 32
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.3137255)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wmlw1"]
+line_spacing = -5.0
+font = ExtResource("2_sdkyp")
+font_size = 18
+outline_size = 1
+outline_color = Color(0, 0, 0, 0.3137255)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7h8kf"]
+line_spacing = -4.0
+font = ExtResource("2_sdkyp")
+font_size = 18
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oowpt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8e0a0"]
 
 [sub_resource type="Environment" id="Environment_dmqo5"]
 ssao_radius = 0.01
@@ -2685,16 +2745,314 @@ oversampling = false
 size = Vector2i(384, 216)
 render_target_update_mode = 4
 
+[node name="MainMenu" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.497
+anchor_bottom = 1.0
+offset_right = 0.1519928
+texture = SubResource("GradientTexture1D_bjrqu")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.497
+anchor_bottom = 0.282
+offset_right = -32.848007
+offset_bottom = -21.245335
+text = "  Fareless 
+  Souls"
+label_settings = SubResource("LabelSettings_rn3np")
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/MainMenu"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.32900003
+anchor_right = 0.25
+anchor_bottom = 1.0
+offset_top = 23.935997
+grow_vertical = 0
+alignment = 1
+
+[node name="Button" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_sdkyp")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sdkyp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Start"
+
+[node name="Button2" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_sdkyp")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sdkyp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Options"
+
+[node name="Button4" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_sdkyp")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sdkyp")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Exit"
+
+[node name="CharacterSelect" type="Control" parent="SubViewportContainer/SubViewport"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.497
+anchor_bottom = 1.0
+offset_right = 11.485336
+texture = SubResource("GradientTexture1D_bjrqu")
+expand_mode = 1
+
+[node name="CharacterName" type="Label" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_right = 0.411
+anchor_bottom = 0.17600001
+offset_left = -0.14400005
+offset_right = 0.17599487
+offset_bottom = -0.016002655
+text = "Theseus"
+label_settings = SubResource("LabelSettings_bjrqu")
+vertical_alignment = 1
+
+[node name="GodName" type="Label" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.14400001
+anchor_right = 0.28
+anchor_bottom = 0.326
+offset_left = -0.14400005
+offset_top = -0.104002
+offset_right = 38.146667
+offset_bottom = -17.416
+text = "Son of Dionysus"
+label_settings = SubResource("LabelSettings_wmlw1")
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Stats" type="Label" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.016
+anchor_top = 0.367
+anchor_right = 0.42400002
+anchor_bottom = 0.94400007
+offset_left = -0.14400005
+offset_top = 0.061332703
+offset_right = -0.14933777
+offset_bottom = 8.429337
+text = "Weapon : 
+
+Vigor :
+Strength :
+Dexterity :
+Knowledge :
+Faith :"
+label_settings = SubResource("LabelSettings_7h8kf")
+autowrap_mode = 3
+
+[node name="StartGame" type="Button" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 81.0
+offset_top = -24.0
+offset_right = 165.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_wmlw1")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_oowpt")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Start"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewportContainer/SubViewport/CharacterSelect/StartGame"]
+show_behind_parent = true
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.002
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -0.16898666
+offset_top = 5.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_bjrqu")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 13
+
+[node name="PrevCharacter" type="Button" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 0
+offset_left = 205.33333
+offset_top = 11.666667
+offset_right = 255.33333
+offset_bottom = 28.666668
+theme_override_fonts/font = ExtResource("3_wmlw1")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8e0a0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Prev"
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="SubViewportContainer/SubViewport/CharacterSelect/PrevCharacter"]
+show_behind_parent = true
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.036000002
+anchor_right = 1.0020001
+anchor_bottom = 0.98200005
+offset_left = -0.11112213
+offset_top = -8.5443325
+offset_right = -0.22176361
+offset_bottom = 2.3736668
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bjrqu")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 13
+
+[node name="Return" type="Button" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 0
+offset_left = 269.0
+offset_top = 11.666667
+offset_right = 314.0
+offset_bottom = 28.666668
+theme_override_fonts/font = ExtResource("3_wmlw1")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8e0a0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Return"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewportContainer/SubViewport/CharacterSelect/Return"]
+show_behind_parent = true
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.22500001
+anchor_top = -0.467
+anchor_right = 1.2
+anchor_bottom = 1.0
+offset_left = 0.15832901
+offset_top = 0.006667614
+offset_bottom = 2.333332
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bjrqu")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 13
+
+[node name="NextCharacter" type="Button" parent="SubViewportContainer/SubViewport/CharacterSelect"]
+layout_mode = 0
+offset_left = 327.0
+offset_top = 11.666667
+offset_right = 378.33334
+offset_bottom = 28.666668
+theme_override_fonts/font = ExtResource("3_wmlw1")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8e0a0")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rn3np")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_bjrqu")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_wmlw1")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7h8kf")
+text = "Next"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SubViewportContainer/SubViewport/CharacterSelect/NextCharacter"]
+show_behind_parent = true
+texture_filter = 3
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.036000002
+anchor_right = 1.0020001
+anchor_bottom = 0.98200005
+offset_left = -0.11115265
+offset_top = -3.3413315
+offset_right = -0.22182465
+offset_bottom = -2.8293343
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bjrqu")
+region_rect = Rect2(0, 0, 48, 48)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 13
+
+[node name="Options" type="Control" parent="SubViewportContainer/SubViewport"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_dmqo5")
 
 [node name="POI" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.86515146, 0.20558082, -0.45743796, 0, 0.9121202, 0.40992305, 0.5015107, 0.35464555, -0.78912205, -5.413883, 5.5340714, -3.2665076)
+transform = Transform3D(-0.70710677, 0.5, -0.5, 0, 0.7071069, 0.70710677, 0.70710677, 0.5, -0.5, -6.2733784, 9.638037, -6.425195)
 projection = 1
 fov = 44.0
-size = 1.85
+size = 9.5
 near = 0.001
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/POI/Camera3D"]
@@ -2747,12 +3105,12 @@ camera_zoom = 1.85
 
 [node name="Characters" type="Node3D" parent="SubViewportContainer/SubViewport/World"]
 
-[node name="0" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="RANGER" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(-0.6427876, 0, -0.7660444, 0, 1, 0, 0.7660444, 0, -0.6427876, 3.1642954, 0.56024766, 0.76402336)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/0"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium"]
 motion_scale = 0.40566343
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -2916,53 +3274,53 @@ bones/22/position = Vector3(2.980216e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(7.430099e-05, 1, 0.00034055117, 5.358187e-05)
 bones/22/scale = Vector3(1, 0.99999905, 1.000002)
 
-[node name="Ranger_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_jn6ov")
 skin = SubResource("Skin_013fu")
 
-[node name="Ranger_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_8tvvi")
 skin = SubResource("Skin_013fu")
 
-[node name="Ranger_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_uprrr")
 skin = SubResource("Skin_013fu")
 
-[node name="Ranger_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_til8q")
 skin = SubResource("Skin_013fu")
 
-[node name="Ranger_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_u7i6d")
 skin = SubResource("Skin_013fu")
 
-[node name="Ranger_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_8mihw")
 skin = SubResource("Skin_unu6v")
 
-[node name="Ranger_Quiver" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_Quiver" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 visible = false
 mesh = SubResource("ArrayMesh_whvn0")
 skin = SubResource("Skin_kxdqv")
 
-[node name="Ranger_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="Ranger_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_qfbtu")
 skin = SubResource("Skin_unu6v")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(0.55363894, 0.21062452, -0.80568004, 0.40854785, 0.77435595, 0.48317736, 0.72565246, -0.5966646, 0.3426634, -0.41193244, 1.0955487, 0.2940927)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="mug_full" parent="SubViewportContainer/SubViewport/World/Characters/0/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("16_wrodd")]
+[node name="mug_full" parent="SubViewportContainer/SubViewport/World/Characters/RANGER/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("16_wrodd")]
 transform = Transform3D(-0.99912286, -2.9802322e-08, 0.04187557, -7.450581e-09, 1, -7.450581e-09, -0.0418756, -3.7252903e-09, -0.9991229, 0.27082658, 0.0073993206, 0.040570974)
 
-[node name="3" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="BARBARIAN" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(-0.691223, 0, -0.72264147, 0, 1, 0, 0.72264147, 0, -0.691223, 0.7632533, 0.8, 2.9668915)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/3"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium"]
 unique_name_in_owner = true
 transform = Transform3D(0.98127925, 0, 0.19259042, 0, 1, 0, -0.19259042, 0, 0.98127925, -0.09913087, 0, 0.39359927)
 motion_scale = 0.40566343
@@ -3128,48 +3486,48 @@ bones/22/position = Vector3(2.980216e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(7.430099e-05, 1, 0.00034055117, 5.358187e-05)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="Barbarian_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_3lgr0")
 skin = SubResource("Skin_t8fkx")
 
-[node name="Barbarian_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_x4fda")
 skin = SubResource("Skin_wmt26")
 
-[node name="Barbarian_BearHat" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_BearHat" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_0a16u")
 skin = SubResource("Skin_wmt26")
 
-[node name="Barbarian_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_e2vsk")
 skin = SubResource("Skin_xp71d")
 
-[node name="Barbarian_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_7fiw7")
 skin = SubResource("Skin_xp71d")
 
-[node name="Barbarian_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_8tn6r")
 skin = SubResource("Skin_xp71d")
 
-[node name="Barbarian_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="Barbarian_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_wcufm")
 skin = SubResource("Skin_xp71d")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(0.00027581703, -0.14560303, -0.9893433, 0.90491956, 0.42108312, -0.061719116, 0.42558232, -0.89525896, 0.13187517, -0.46424097, 1.4892244, 0.31370398)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="axe_1handed" parent="SubViewportContainer/SubViewport/World/Characters/3/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_dq34o")]
+[node name="axe_1handed" parent="SubViewportContainer/SubViewport/World/Characters/BARBARIAN/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_dq34o")]
 transform = Transform3D(-0.9848077, 0, 0.1736483, 0, 1, 0, -0.1736483, 0, -0.9848077, 0, 0, 0)
 
-[node name="2" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="KNIGHT" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(0.50000006, 0, -0.8660255, 0, 1, 0, 0.8660255, 0, 0.50000006, 3.1051946, 0.6, -2.8290896)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/2"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium"]
 motion_scale = 0.40566343
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -3333,56 +3691,56 @@ bones/22/position = Vector3(2.980216e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(3.292037e-05, 0.99999976, 0.0007611811, 2.332581e-05)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="Knight_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_0nkay")
 skin = SubResource("Skin_1cy85")
 
-[node name="Knight_Helmet" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_Helmet" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_6c5qv")
 skin = SubResource("Skin_1cy85")
 
-[node name="Knight_HelmetVisor" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_HelmetVisor" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_rsrjs")
 skin = SubResource("Skin_msegl")
 
-[node name="Knight_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_eni6s")
 skin = SubResource("Skin_pt7i3")
 
-[node name="Knight_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_wmol8")
 skin = SubResource("Skin_pt7i3")
 
-[node name="Knight_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_b46ts")
 skin = SubResource("Skin_0e6kd")
 
-[node name="Knight_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_hnipj")
 skin = SubResource("Skin_0e6kd")
 
-[node name="Knight_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_5l4a5")
 skin = SubResource("Skin_pt7i3")
 
-[node name="Knight_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="Knight_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_byjii")
 skin = SubResource("Skin_1cy85")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(-0.9539697, -0.27371806, -0.12255746, -0.1274238, 8.940697e-08, 0.99184847, -0.2714868, 0.96181005, -0.034878254, -0.5339995, 0.20725659, 0.06277813)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="sword_1handed" parent="SubViewportContainer/SubViewport/World/Characters/2/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("18_oowpt")]
+[node name="sword_1handed" parent="SubViewportContainer/SubViewport/World/Characters/KNIGHT/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("18_oowpt")]
 transform = Transform3D(0.9869662, -0.16091853, -0.0016744509, 0.16091858, 0.9867511, 0.02067337, -0.0016744733, -0.020673368, 0.9997849, 0, 0, 0)
 
-[node name="1" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="MAGE" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(-0.9022198, -0.117670335, 0.4149134, 0.05160662, 0.9256904, 0.37474516, -0.4281777, 0.35951492, -0.82910365, -4.0511065, 0.86507213, 1.440784)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/1"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium"]
 motion_scale = 0.40566343
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -3546,53 +3904,53 @@ bones/22/position = Vector3(2.980216e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(7.430099e-05, 1, 0.00034055117, 5.358187e-05)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="Mage_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_cqbkl")
 skin = SubResource("Skin_7b7uw")
 
-[node name="Mage_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_hvh3n")
 skin = SubResource("Skin_7b7uw")
 
-[node name="Mage_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_43npt")
 skin = SubResource("Skin_7b7uw")
 
-[node name="Mage_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_fo4kg")
 skin = SubResource("Skin_ivvb3")
 
-[node name="Mage_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_yuo8j")
 skin = SubResource("Skin_ivvb3")
 
-[node name="Mage_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_tibum")
 skin = SubResource("Skin_7b7uw")
 
-[node name="Mage_Hat" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_Hat" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 visible = false
 mesh = SubResource("ArrayMesh_a40qt")
 skin = SubResource("Skin_q2gas")
 
-[node name="Mage_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="Mage_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_o68o1")
 skin = SubResource("Skin_7b7uw")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(-0.006023754, 0.24470294, -0.9695794, -0.6223512, 0.7580141, 0.19517444, 0.7827147, 0.6045946, 0.14772505, -0.44924167, 0.7353539, -0.13136771)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="spellbook_open" parent="SubViewportContainer/SubViewport/World/Characters/1/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_wmlw1")]
+[node name="spellbook_open" parent="SubViewportContainer/SubViewport/World/Characters/MAGE/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_wmlw1")]
 transform = Transform3D(0.25344154, 0.05248522, -0.9659258, -0.2027873, 0.97922283, 0, 0.94585663, 0.19587748, 0.25881907, 0.08, 0.26, -0.415)
 
-[node name="4" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="ROGUE" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(0.82834405, 0, -0.5602199, 0, 1, 0, 0.5602199, 0, 0.82834405, -0.99940443, 0.6, 3.5297751)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/4"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium"]
 motion_scale = 0.40566343
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -3756,52 +4114,52 @@ bones/22/position = Vector3(2.980216e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(-0.0001521608, 0.9999999, 0.00062766677, -0.00010840553)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="RogueHooded_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_osnkc")
 skin = SubResource("Skin_y20au")
 
-[node name="RogueHooded_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_x8v3w")
 skin = SubResource("Skin_y20au")
 
-[node name="RogueHooded_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_xt5th")
 skin = SubResource("Skin_bfhnk")
 
-[node name="RogueHooded_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_l1bc8")
 skin = SubResource("Skin_k4gb6")
 
-[node name="RogueHooded_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_hi47y")
 skin = SubResource("Skin_k4gb6")
 
-[node name="RogueHooded_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_a74ve")
 skin = SubResource("Skin_y20au")
 
-[node name="RogueHooded_Mask" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_Mask" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_n28bi")
 skin = SubResource("Skin_bfhnk")
 
-[node name="RogueHooded_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="RogueHooded_Cape" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_7s6mk")
 skin = SubResource("Skin_gc27w")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(-0.6895908, 0.39538968, -0.6067383, -0.5899485, 0.17922017, 0.7872997, 0.42002985, 0.900859, 0.10967094, -0.23251766, 0.84593874, 0.4623289)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="key_gltf" parent="SubViewportContainer/SubViewport/World/Characters/4/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("6_gsiji")]
+[node name="key_gltf" parent="SubViewportContainer/SubViewport/World/Characters/ROGUE/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("6_gsiji")]
 transform = Transform3D(0.6845471, -0.7289686, 0, 0.7289686, 0.6845471, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="5" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
+[node name="SKELETON" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters"]
 transform = Transform3D(-0.9934946, 0, 0.11387929, 0, 1, 0, -0.11387929, 0, -0.9934946, -4.6507425, 0.6, -2.4364882)
 
-[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/5"]
+[node name="Rig_Medium" type="Node3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON"]
 
-[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium"]
+[node name="GeneralSkeleton" type="Skeleton3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium"]
 motion_scale = 0.40566343
 bones/0/name = "Root"
 bones/0/parent = -1
@@ -3965,59 +4323,59 @@ bones/22/position = Vector3(2.9802163e-08, 0.114978686, -0.11924696)
 bones/22/rotation = Quaternion(-1.11844045e-07, 0.9999997, 0.00079983484, 1.5071431e-07)
 bones/22/scale = Vector3(1, 1, 1)
 
-[node name="Skeleton_Warrior_Helmet" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Helmet" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(1, 4.811871e-15, 1.3373791e-14, -4.5178726e-15, 0.9997602, -0.02189681, -1.3475949e-14, 0.02189681, 0.9997602, 3.6440653e-15, 1.0681443, 0.055070568)
 visible = false
 bone_name = "Head"
 bone_idx = 14
 
-[node name="Skeleton_Warrior_Helmet" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton/Skeleton_Warrior_Helmet"]
+[node name="Skeleton_Warrior_Helmet" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton/Skeleton_Warrior_Helmet"]
 transform = Transform3D(1, 1.009742e-28, 0, 1.2621774e-28, 1, -4.3711378e-08, 0, 4.3711385e-08, 1, 0, -0.025552629, -1.359731e-07)
 mesh = SubResource("ArrayMesh_b3vgv")
 skeleton = NodePath("")
 
-[node name="Skeleton_Warrior_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_ArmLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_2mhif")
 skin = SubResource("Skin_025jx")
 
-[node name="Skeleton_Warrior_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_ArmRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_f3jgx")
 skin = SubResource("Skin_025jx")
 
-[node name="Skeleton_Warrior_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_3ef32")
 skin = SubResource("Skin_025jx")
 
-[node name="Skeleton_Warrior_Cloak" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Cloak" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_ssgjg")
 skin = SubResource("Skin_025jx")
 
-[node name="Skeleton_Warrior_Eyes" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Eyes" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_kojju")
 skin = SubResource("Skin_qtasn")
 
-[node name="Skeleton_Warrior_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Head" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_kpc7y")
 skin = SubResource("Skin_5wi8n")
 
-[node name="Skeleton_Warrior_Jaw" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_Jaw" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_e0r2j")
 skin = SubResource("Skin_irign")
 
-[node name="Skeleton_Warrior_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_LegLeft" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_qkmp6")
 skin = SubResource("Skin_025jx")
 
-[node name="Skeleton_Warrior_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="Skeleton_Warrior_LegRight" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_uwtkd")
 skin = SubResource("Skin_025jx")
 
-[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton"]
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton"]
 transform = Transform3D(-0.34519807, 0.89750206, -0.27446103, -0.37784547, 0.13479185, 0.9160045, 0.8591107, 0.4199067, 0.29258713, -0.4729763, 0.69568944, 0.5258419)
 bone_name = "handslot.r"
 bone_idx = 13
 
-[node name="staff" parent="SubViewportContainer/SubViewport/World/Characters/5/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_bo3lw")]
+[node name="staff" parent="SubViewportContainer/SubViewport/World/Characters/SKELETON/Rig_Medium/GeneralSkeleton/BoneAttachment3D" instance=ExtResource("2_bo3lw")]
 
 [node name="Floor" type="Node3D" parent="SubViewportContainer/SubViewport/World"]
 
@@ -4444,6 +4802,10 @@ shadow_enabled = true
 directional_shadow_split_1 = 0.01
 directional_shadow_max_distance = 8192.0
 
-[node name="PlayerHud" parent="SubViewportContainer" instance=ExtResource("19_wrodd")]
-visible = false
-layout_mode = 2
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MainMenu/VBoxContainer/Button" to="." method="_on_go_to_character_select_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MainMenu/VBoxContainer/Button2" to="." method="_on_go_to_options_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/MainMenu/VBoxContainer/Button4" to="." method="_on_exit_game_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CharacterSelect/StartGame" to="." method="_on_character_confirm_selection_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CharacterSelect/PrevCharacter" to="." method="_on_prev_character_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CharacterSelect/Return" to="." method="_on_character_select_return_pressed"]
+[connection signal="pressed" from="SubViewportContainer/SubViewport/CharacterSelect/NextCharacter" to="." method="_on_next_character_pressed"]

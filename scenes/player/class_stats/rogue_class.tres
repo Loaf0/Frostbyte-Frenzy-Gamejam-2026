@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_s8ljc")
-name = "Rogue"
+name = "Kaelen"
+god_subtitle = "Daughter of Hermes"
 model_path = ExtResource("1_wjwg7")
 special_ability = ExtResource("3_3arbk")
 starting_weapon = ExtResource("4_yfjtl")

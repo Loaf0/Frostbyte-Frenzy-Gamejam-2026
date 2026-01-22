@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("1_qdyte")
-name = "Ranger"
+name = "Theseus"
+god_subtitle = "Son of Dionysus"
 model_path = ExtResource("1_23fyi")
 special_ability = ExtResource("3_7xqgu")
 starting_weapon = ExtResource("4_7xqgu")

@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="2_k5klt"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="3_k5klt"]
 [ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="5_k5klt"]
-[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="7_nkuo3"]
+[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/win_button.tscn" id="7_nkuo3"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01

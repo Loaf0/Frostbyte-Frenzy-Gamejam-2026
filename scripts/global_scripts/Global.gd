@@ -13,10 +13,19 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
 	CharacterClass.MAGE : true,
-	CharacterClass.KNIGHT : true,
-	CharacterClass.BARBARIAN : true,
-	CharacterClass.ROGUE : true,
-	CharacterClass.SKELETON : true
+	CharacterClass.KNIGHT : false,
+	CharacterClass.BARBARIAN : false,
+	CharacterClass.ROGUE : false,
+	CharacterClass.SKELETON : false
+}
+
+var name_map : Dictionary = {
+	Global.CharacterClass.RANGER: "RANGER",
+	Global.CharacterClass.BARBARIAN: "BARBARIAN",
+	Global.CharacterClass.KNIGHT: "KNIGHT",
+	Global.CharacterClass.MAGE: "MAGE",
+	Global.CharacterClass.ROGUE: "ROGUE",
+	Global.CharacterClass.SKELETON: "SKELETON",
 }
 
 var sfx_volume : float = 0.75

@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_systc")
-name = "Knight"
+name = "Leonidas"
+god_subtitle = "Son of Ares"
 model_path = ExtResource("1_ylmq1")
 special_ability = ExtResource("3_systc")
 starting_weapon = ExtResource("4_4p1ol")

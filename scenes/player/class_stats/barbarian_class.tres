@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_jkw2t")
-name = "Barbarian"
+name = "Faldor"
+god_subtitle = "Son of Heracles"
 model_path = ExtResource("1_waujw")
 special_ability = ExtResource("3_jkw2t")
 starting_weapon = ExtResource("4_rbol8")

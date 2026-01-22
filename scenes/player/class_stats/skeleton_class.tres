@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_fanfa")
-name = "Skeleton"
+name = "FEMORE"
+god_subtitle = "Child of Charon"
 model_path = ExtResource("1_73qyx")
 special_ability = ExtResource("3_fanfa")
 starting_weapon = ExtResource("4_fsasn")

@@ -61,7 +61,8 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_vp8bn")
-name = "Mage"
+name = "Phoebe"
+god_subtitle = "Daughter of Hestia"
 model_path = ExtResource("1_qyshm")
 special_ability = ExtResource("3_vp8bn")
 starting_weapon = ExtResource("4_jvo4u")
