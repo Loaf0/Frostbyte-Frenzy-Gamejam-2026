@@ -10,7 +10,7 @@ func _on_pressed() -> void:
 [node name="PauseMenu" type="CanvasLayer"]
 
 [node name="Win Button" type="Button" parent="."]
-offset_right = 133.66667
+offset_right = 136.0
 offset_bottom = 31.666668
 text = "This button wins"
 script = SubResource("GDScript_qvaan")

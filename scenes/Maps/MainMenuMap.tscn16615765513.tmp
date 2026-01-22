@@ -2691,10 +2691,10 @@ environment = SubResource("Environment_dmqo5")
 [node name="POI" type="Node3D" parent="SubViewportContainer/SubViewport"]
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.86515146, 0.20558082, -0.45743796, 0, 0.9121202, 0.40992305, 0.5015107, 0.35464555, -0.78912205, -5.413883, 5.5340714, -3.2665076)
+transform = Transform3D(-0.50000006, 0.4330126, -0.75, -8.080765e-08, 0.86602545, 0.49999994, 0.8660254, 0.25000006, -0.43301275, 0.06886244, 4.1006656, -1.7385201)
 projection = 1
 fov = 44.0
-size = 1.85
+size = 9.5
 near = 0.001
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/POI/Camera3D"]
@@ -2719,29 +2719,24 @@ script = SubResource("GDScript_dpjs2")
 camera_zoom = 3.5
 
 [node name="CHARACTER_1" type="Node3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.4999999, 0.43301275, -0.75000006, -1.2369108e-07, 0.8660254, 0.50000006, 0.86602545, 0.2500001, -0.43301257, -1.2570666, 3.4833028, 1.2994511)
 script = SubResource("GDScript_dpjs2")
-camera_zoom = 2.5
+camera_zoom = 9.5
 
 [node name="CHARACTER_2" type="Node3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.9659258, -0.0669874, 0.2500001, -6.4391884e-08, 0.9659258, 0.2588191, -0.25881916, 0.25000003, -0.93301266, -3.1937015, 2.3464851, 0.5780535)
 script = SubResource("GDScript_dpjs2")
-camera_zoom = 2.0
+camera_zoom = 9.5
 
 [node name="CHARACTER_3" type="Node3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(0.25881916, 0.25000012, -0.93301266, -7.9301984e-08, 0.9659258, 0.25881913, 0.9659258, -0.066987276, 0.25000015, -2.527184, 3.2541885, -1.8193274)
 script = SubResource("GDScript_dpjs2")
-camera_zoom = 2.5
+camera_zoom = 9.5
 
 [node name="CHARACTER_4" type="Node3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.86515146, 0.20558079, -0.45743796, 0, 0.9121201, 0.40992305, 0.5015107, 0.35464552, -0.78912205, -5.413883, 5.5340714, -3.2665076)
 script = SubResource("GDScript_dpjs2")
-camera_zoom = 1.85
+camera_zoom = 9.5
 
 [node name="CHARACTER_5" type="Node3D" parent="SubViewportContainer/SubViewport/POI"]
-transform = Transform3D(-0.9396926, 0.11697777, -0.32139388, -2.9900345e-08, 0.9396926, 0.34202015, 0.3420202, 0.32139382, -0.8830222, -4.403528, 2.2384655, -4.2950306)
 script = SubResource("GDScript_dpjs2")
-camera_zoom = 1.85
+camera_zoom = 9.5
 
 [node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
 

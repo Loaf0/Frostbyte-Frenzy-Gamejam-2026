@@ -12,10 +12,6 @@ func save_all():
 
 func save_settings():
 	print(ProjectSettings.globalize_path("user://save.cfg"))
-	#save_file.set_value("Settings", "MOUSE_SENS", Global.mouse_sensitivity)
-	#save_file.set_value("Settings", "UFX_VOL", Global.ufx_volume)
-	#save_file.set_value("Settings", "SFX_VOL", Global.sfx_volume)
-	#save_file.set_value("Settings", "MFX_VOL", Global.music_volume)
 	
 	save_file.save(SAVE_PATH)
 
@@ -24,20 +20,17 @@ func load_settings():
 	if err != OK:
 		return
 	
-	#Global.mouse_sensitivity = save_file.get_value("Settings", "MOUSE_SENS", 1) # default to 1 if none were saved
-	#Global.ufx_volume = save_file.get_value("Settings", "UFX_VOL", .75)
-	#Global.sfx_volume = save_file.get_value("Settings", "SFX_VOL", .75)
-	#Global.music_volume = save_file.get_value("Settings", "MFX_VOL", .75)
 
 func save_player():
-	save_file.set_value("Player", "ABILITY_1_UNLOCKED", false)
+	save_file.set_value("Player", "UNLOCKED_CHARACTERS", Global.unlocked_characters)
 	save_file.save(SAVE_PATH)
 
-# would pass in player reference and apply all stored values
 func load_player():
 	var err = save_file.load(SAVE_PATH)
 	if err != OK:
 		return
 	
-	# load player data
-	pass
+	var loaded_chars = save_file.get_value("Player", "UNLOCKED_CHARACTERS", {})
+	
+	for char_key in loaded_chars:
+		Global.unlocked_characters[int(char_key)] = loaded_chars[char_key]
