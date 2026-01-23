@@ -36,6 +36,12 @@ var loaded_class_sheets: Dictionary[Global.CharacterClass, ClassResource] = {}
 @onready var god_name: Label = $SubViewportContainer/SubViewport/CharacterSelect/GodName
 @onready var stats: Label = $SubViewportContainer/SubViewport/CharacterSelect/Stats
 
+# options
+@onready var sfx_volume: HSlider = $SubViewportContainer/SubViewport/Options/sfx_volume
+@onready var msfx_volume: HSlider = $SubViewportContainer/SubViewport/Options/msfx_volume
+@onready var completion_percentage: Label = $"SubViewportContainer/SubViewport/Options/completion percentage"
+
+
 @export var lerp_speed: float = 5.0
 var target_poi: Node3D
 var current_character_index: int = 0
@@ -48,6 +54,11 @@ func _ready() -> void:
 	_load_all_class_sheets()
 	target_poi = main_location
 	_set_menu_state(true, false, false)
+	sfx_volume.value = Global.sfx_volume
+	msfx_volume.value = Global.music_volume
+
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(Global.sfx_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(Global.music_volume))
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed:
@@ -166,6 +177,16 @@ func _on_go_to_character_select_pressed() -> void:
 func _on_go_to_options_pressed() -> void:
 	_set_menu_state(false, false, true)
 	target_poi = options_location
+	
+	var total_chars := Global.CharacterClass.values().size()
+	var unlocked := 0
+	for i in Global.CharacterClass.values():
+		if Global.unlocked_characters.get(i, false):
+			unlocked += 1
+
+	@warning_ignore("integer_division")
+	var completion_percent := roundf(unlocked / total_chars * 100)
+	completion_percentage.text = "Completion: " + str(completion_percent) + '%'
 
 func _on_exit_game_pressed() -> void:
 	get_tree().quit()
@@ -178,3 +199,31 @@ func _set_menu_state(show_main: bool, show_char_select: bool, show_options: bool
 	main_menu.visible = show_main
 	character_select.visible = show_char_select
 	options.visible = show_options
+
+
+func _on_msfx_volume_value_changed(_value: float) -> void:
+	#play sound
+	pass # Replace with function body.
+
+func _on_sfx_volume_value_changed(_value: float) -> void:
+	#play sound
+	pass # Replace with function body.
+
+func _on_sfx_volume_drag_ended(value_changed: bool) -> void:
+	if value_changed:
+		var bus_index = AudioServer.get_bus_index("SFX") 
+		var slider_value = sfx_volume.value # 0→1
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(slider_value))
+		Global.sfx_volume = slider_value 
+
+func _on_msfx_volume_drag_ended(value_changed: bool) -> void:
+	if value_changed:
+		var bus_index = AudioServer.get_bus_index("Music")
+		var slider_value = msfx_volume.value
+		AudioServer.set_bus_volume_db(bus_index, linear_to_db(slider_value))
+		Global.music_volume = slider_value 
+
+func _on_back_pressed() -> void:
+	Save.save_settings()
+	go_to_main()
+	_set_menu_state(true, false, false)

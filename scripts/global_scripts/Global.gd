@@ -4,7 +4,7 @@ extends Node
 ## across the project.
 
 # Constants
-const RARITY_COLORS := {Global.WeaponQuality.POOR:Color(0.6, 0.6, 0.6), Global.WeaponQuality.COMMON:Color(1.0, 1.0, 1.0), Global.WeaponQuality.UNCOMMON:Color(0.3, 1.0, 0.3), Global.WeaponQuality.RARE:Color(0.2, 0.4, 1.0), Global.WeaponQuality.EPIC:Color(0.7, 0.3, 1.0), Global.WeaponQuality.LEGENDARY:Color(1.0, 0.7, 0.2)}
+var RARITY_COLORS := {Global.WeaponQuality.POOR:Color(0.6, 0.6, 0.6), Global.WeaponQuality.COMMON:Color(1.0, 1.0, 1.0), Global.WeaponQuality.UNCOMMON:Color(0.3, 1.0, 0.3), Global.WeaponQuality.RARE:Color(0.2, 0.4, 1.0), Global.WeaponQuality.EPIC:Color(0.7, 0.3, 1.0), Global.WeaponQuality.LEGENDARY:Color(1.0, 0.7, 0.2)}
 enum WeaponType {BOW, CROSSBOW, SPELL_BOOK, STAFF, BATTLE_AXE, LONG_SWORD}
 enum CharacterClass {RANGER, BARBARIAN, MAGE, KNIGHT, ROGUE, SKELETON}
 enum Stat {VIGOR, AGILITY, DEXTERITY, STRENGTH, KNOWLEDGE, STAMINA_REGEN, MANA_REGEN, ATTACK_SIZE, FAITH, NONE}
@@ -31,9 +31,8 @@ var name_map : Dictionary = {
 	Global.CharacterClass.SKELETON: "SKELETON",
 }
 
-var sfx_volume : float = 0.75
-var music_volume : float = 0.75
-var ufx_volume : float = 0.75
+var sfx_volume : float = 1.0
+var music_volume : float = 1.0
 
 func _ready() -> void:
 	Save.load_settings()
@@ -45,10 +44,3 @@ func unlock_character(char_class: CharacterClass):
 		unlocked_characters[char_class] = true
 		Save.save_player()
 		print("Character Unlocked: ", CharacterClass.keys()[char_class])
-
-func update_volumes(new_sfx_volume : float = sfx_volume, new_ufx_volume : float = ufx_volume, new_mfx_volume : float = music_volume):
-	sfx_volume = new_sfx_volume
-	ufx_volume = new_ufx_volume
-	music_volume = new_mfx_volume
-
-	Save.save_settings()

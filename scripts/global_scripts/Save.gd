@@ -11,8 +11,13 @@ func save_all():
 	save_settings()
 
 func save_settings():
-	print(ProjectSettings.globalize_path("user://save.cfg"))
+	var sfx_value := Global.sfx_volume
+	var msfx_value := Global.music_volume
 	
+	save_file.set_value("Audio", "SFX_VOLUME", sfx_value)
+	save_file.set_value("Audio", "MSFX_VOLUME", msfx_value)
+
+	# Save the file
 	save_file.save(SAVE_PATH)
 
 func load_settings():
@@ -20,6 +25,14 @@ func load_settings():
 	if err != OK:
 		return
 	
+	var sfx_value := float(save_file.get_value("Audio", "SFX_VOLUME", 1.0))
+	var msfx_value := float(save_file.get_value("Audio", "MSFX_VOLUME", 1.0))
+
+	Global.sfx_volume = sfx_value
+	Global.music_volume = msfx_value
+
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(sfx_value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(msfx_value))
 
 func save_player():
 	save_file.set_value("Player", "UNLOCKED_CHARACTERS", Global.unlocked_characters)
