@@ -1,4 +1,5 @@
 extends Interactable
+class_name WeaponPickup
 
 @export var weapon : WeaponResource
 @export var quality : Global.WeaponQuality

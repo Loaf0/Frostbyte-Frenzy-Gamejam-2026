@@ -38,13 +38,20 @@ var visual_rotation_y: float = 0.0
 var mouse_idle_timer := 0.0
 var last_mouse_pos := Vector2.ZERO
 
-@export var move_speed := 6.0 # add update when stats change
+@export var base_move_speed := 6.0
+@export var agility_move_speed_bonus := 0.4
+
+@export var base_dodge_cooldown := 2.5
+@export var agility_dodge_cooldown_reduction := 0.15
+@export var min_dodge_cooldown := 0.35
+
+@export var move_speed := base_move_speed
 @export var acceleration := 18.0
 @export var friction := 48.0
 
 @export var dodge_speed := 14.0
 @export var dodge_duration := 0.25
-@export var dodge_cooldown := 1.0 # add update when stats change
+@export var dodge_cooldown := base_dodge_cooldown
 
 @export var max_stamina = 100
 var current_stamina = max_stamina
@@ -164,7 +171,7 @@ func _apply_class():
 	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
 	weapon_manager.animator = animator
 	
-	_recalculate_health()
+	_recalculate_derived_stats()
 
 func create_weapon_attachment(skeleton: Skeleton3D) -> BoneAttachment3D:
 	var attachment := BoneAttachment3D.new()
@@ -367,7 +374,12 @@ func _set_red_flash(value: float):
 
 func _interact(hit_object):
 	if hit_object is Interactable:
-		hit_object.interact(self)
+		
+		pass
+		#hit_object.interact(self)
+
+func _on_item_picked_up(item: ItemResource):
+	add_item_stats(item.stat_modifiers)
 
 func _stat(stat: int) -> float:
 	return stats.get(stat, 0.0)
@@ -377,10 +389,22 @@ func get_dodge_cooldown() -> float:
 
 func get_super_cooldown() -> float:
 	return max(1.0, 10.0 - (_stat(Global.Stat.FAITH) * 0.25))
-
-func _recalculate_health():
+	
+func _recalculate_derived_stats():
+	# VIGOR
 	max_health = max(int(_stat(Global.Stat.VIGOR) * vigor_health_multiplier), 1)
-	current_health = max_health
+	current_health = min(current_health, max_health)
+
+	move_speed = base_move_speed + (_stat(Global.Stat.AGILITY) * agility_move_speed_bonus)
+
+	# AGILITY
+	dodge_cooldown = max(
+		min_dodge_cooldown,
+		base_dodge_cooldown - (_stat(Global.Stat.AGILITY) * agility_dodge_cooldown_reduction)
+	)
+	
+	if weapon_manager:
+		weapon_manager.recalculate_weapon_stats()
 
 func take_damage(amount: float) -> void:
 	if is_dodging:
@@ -394,6 +418,12 @@ func take_damage(amount: float) -> void:
 
 	if current_health <= 0:
 		die()
+
+func add_item_stats(modifiers: Array[StatModifier]) -> void:
+	for mod in modifiers:
+		stats[mod.stat] = stats.get(mod.stat, 0.0) + mod.amount
+	
+	_recalculate_derived_stats()
 
 func die():
 	pass

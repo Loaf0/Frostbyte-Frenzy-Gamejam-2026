@@ -14,6 +14,12 @@ var trail_active := false
 var attack_queued = false
 var current_attack_multiplier: float = 1.0
 
+var damage := 0.0
+var attack_speed := 1.0
+var stamina_cost := 0.0
+var mana_cost := 0.0
+var attack_size := 1.0
+
 func _physics_process(_delta: float):
 	if Input.is_action_just_pressed("debug_equip_sword"):
 		equip(load("res://scenes/weapons/weapon_resources/sword.tres"), Global.WeaponQuality.POOR)
@@ -25,13 +31,16 @@ func _process(_delta: float) -> void:
 func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if weapon == null:
 		return
-	animator.current_weapon = weapon.weapon_type
+
 	equipped_weapon = weapon
 	weapon_quality = Global.QUALITY_MULTIPLIERS.get(quality, 1.0)
+	animator.current_weapon = weapon.weapon_type
 
 	_build_attack_animation_list()
 	_clear_weapon_model()
 	_spawn_weapon_model()
+
+	recalculate_weapon_stats()
 	#create model as child of weapon_mesh_container and apply transforms scaled with size modifier
 
 func _clear_weapon_model() -> void:
@@ -156,14 +165,14 @@ func get_melee_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	var base_dmg = equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.STRENGTH) * 0.04)
-	return base_dmg * current_attack_multiplier
+	return damage * current_attack_multiplier
+
 
 func get_ranged_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.05)
+	return damage
 
 func get_magic_damage() -> float:
 	if not _has_weapon():
@@ -172,13 +181,7 @@ func get_magic_damage() -> float:
 	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
 
 func get_attack_speed() -> float:
-	if not _has_weapon():
-		return 1.0
-		
-	if [Global.WeaponType.BOW, Global.WeaponType.CROSSBOW].has(equipped_weapon.weapon_type):
-		return equipped_weapon.base_attack_speed * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.035)
-		
-	return equipped_weapon.base_attack_speed * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.05)
+	return attack_speed
 
 func get_move_speed_multiplier() -> float:
 	return 1.0 + _stat(Global.Stat.AGILITY) * 0.05
@@ -189,20 +192,17 @@ func get_roll_cooldown() -> float:
 func get_stamina_cost() -> float:
 	if not _has_weapon():
 		return 0.0
-
-	return equipped_weapon.base_stamina_cost / (1.0 + _stat(Global.Stat.STAMINA_REGEN) * 0.05)
+	return stamina_cost
 
 func get_mana_cost() -> float:
 	if not _has_weapon():
 		return 0.0
-
-	return equipped_weapon.base_mana_cost / (1.0 + _stat(Global.Stat.MANA_REGEN) * 0.05)
+	return mana_cost
 
 func get_attack_size() -> float:
 	if not _has_weapon():
 		return 1.0
-
-	return equipped_weapon.base_size * weapon_quality * (1.0 + _stat(Global.Stat.ATTACK_SIZE) * 0.06)
+	return attack_size
 
 func apply_world_model_transforms(weapon_node: Node3D) -> void:
 	weapon_node.position = equipped_weapon.world_model_pos
@@ -241,10 +241,47 @@ func _get_weapon_hitbox() -> Area3D:
 		return weapon_instance.get_node_or_null("Hitbox") as Area3D
 	return null
 
+func recalculate_weapon_stats() -> void:
+	if not equipped_weapon:
+		return
+
+	var player = get_parent()
+
+	var base_damage = equipped_weapon.base_damage * weapon_quality
+	match equipped_weapon.weapon_type:
+		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
+			damage = base_damage * (1.0 + player._stat(Global.Stat.STRENGTH) * 0.05)
+		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
+			damage = base_damage * (1.0 + player._stat(Global.Stat.DEXTERITY) * 0.025)
+		Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
+			damage = base_damage * (1.0 + player._stat(Global.Stat.KNOWLEDGE) * 0.05)
+		_:
+			damage = base_damage
+
+	attack_speed = equipped_weapon.base_attack_speed * (
+		1.0 + player._stat(Global.Stat.DEXTERITY) * 0.1
+	)
+
+	match equipped_weapon.weapon_type:
+		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
+			attack_size = equipped_weapon.base_size * weapon_quality * (
+				1.0 + player._stat(Global.Stat.ATTACK_SIZE) * 0.05
+			)
+
+	stamina_cost = equipped_weapon.base_stamina_cost / (
+		1.0 + player._stat(Global.Stat.STAMINA_REGEN) * 0.05
+	)
+
+	mana_cost = equipped_weapon.base_mana_cost / (
+		1.0 + player._stat(Global.Stat.MANA_REGEN) * 0.05
+	)
+	
+	if weapon_instance:
+		apply_world_model_transforms(weapon_instance)
+
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy") and not hit_targets.has(body):
 		hit_targets.append(body)
 		if body.has_method("take_damage"):
-			var damage = get_melee_damage()
 			body.take_damage(damage)
 			print("Hit %s for %f damage" % [body.name, damage])
