@@ -15,10 +15,10 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
 	CharacterClass.MAGE : true,
-	CharacterClass.KNIGHT : false,
-	CharacterClass.BARBARIAN : false,
-	CharacterClass.ROGUE : false,
-	CharacterClass.SKELETON : false
+	CharacterClass.KNIGHT : true,
+	CharacterClass.BARBARIAN : true,
+	CharacterClass.ROGUE : true,
+	CharacterClass.SKELETON : true
 }
 
 var name_map : Dictionary = {

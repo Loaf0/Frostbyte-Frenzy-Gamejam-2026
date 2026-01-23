@@ -257,5 +257,6 @@ skeleton = NodePath("../../../..")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_75nsi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 1.6607938, -1.7562479)
+selected_character = 2
 mouse_idle_threshold = 1.0
 dodge_cooldown = 0.5
