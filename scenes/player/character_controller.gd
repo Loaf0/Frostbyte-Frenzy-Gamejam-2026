@@ -53,6 +53,12 @@ var current_mana = max_mana
 @export var max_health = 100 # add update when stats change
 var current_health = max_health
 
+@export var vigor_health_multiplier := 20.0
+
+var overlay_materials: Array[ShaderMaterial] = []
+var damage_flash_timer := 0.0
+const DAMAGE_FLASH_TIME := 0.15
+
 var stats: Dictionary = {}
 
 var move_input := Vector3.ZERO
@@ -100,6 +106,22 @@ func _spawn_character_model():
 	if model_skeleton:
 		weapon_mesh_container = create_weapon_attachment(model_skeleton)
 		weapon_manager.weapon_mesh_container = weapon_mesh_container
+	_setup_overlay_materials()
+
+func _setup_overlay_materials():
+	overlay_materials.clear()
+	var shader := load("res://assets/shaders/CharacterOverlay.gdshader")
+	var meshes := _get_all_mesh_instances(self)
+	
+	for m in meshes:
+		var overlay := ShaderMaterial.new()
+		overlay.shader = shader
+		overlay.set_shader_parameter("white_amount", 0.0)
+		overlay.set_shader_parameter("red_flash", 0.0)
+		
+		m.material_overlay = overlay
+		m.material_overlay.render_priority = 1
+		overlay_materials.append(overlay)
 
 func find_skeleton_in_tree(node: Node) -> Skeleton3D:
 	if node is Skeleton3D:
@@ -132,6 +154,8 @@ func _apply_class():
 	#load weapon
 	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
 	weapon_manager.animator = animator
+	
+	_recalculate_health()
 
 func create_weapon_attachment(skeleton: Skeleton3D) -> BoneAttachment3D:
 	var attachment := BoneAttachment3D.new()
@@ -164,6 +188,16 @@ func _handle_animations(delta : float):
 		walk_vec = global_transform.basis.inverse() * move_input
 	#print(walk_vec)
 	animator.update_walk_vector(walk_vec, delta)
+
+func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
+	var found: Array[MeshInstance3D] = []
+	if node is MeshInstance3D:
+		found.append(node)
+
+	for child in node.get_children():
+		found.append_array(_get_all_mesh_instances(child))
+
+	return found
 
 func _apply_stepped_rotation(delta: float):
 	rotation_timer += delta
@@ -274,7 +308,7 @@ func _try_faith_ability():
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
 		return
-
+	_set_white_overlay(1.0)
 	is_dodging = true
 	dodge_timer = dodge_duration
 	dodge_cd_timer = dodge_cooldown
@@ -291,6 +325,7 @@ func _handle_timers(delta):
 	if is_dodging:
 		dodge_timer -= delta
 		if dodge_timer <= 0.0:
+			_set_white_overlay(0.0)
 			is_dodging = false
 			velocity = velocity * 0.5
 			if animator.has_method("stop_roll"):
@@ -301,6 +336,21 @@ func _handle_timers(delta):
 	
 	if velocity.length() > 0.1 and mouse_idle_timer > 0.0:
 		mouse_idle_timer -= delta
+	
+	if damage_flash_timer > 0.0:
+		damage_flash_timer -= delta
+		var t := damage_flash_timer / DAMAGE_FLASH_TIME
+		_set_red_flash(t)
+	else:
+		_set_red_flash(0.0)
+
+func _set_white_overlay(value: float):
+	for mat in overlay_materials:
+		mat.set_shader_parameter("white_amount", value/2)
+
+func _set_red_flash(value: float):
+	for mat in overlay_materials:
+		mat.set_shader_parameter("red_flash", value/2)
 
 func _interact(hit_object):
 	if hit_object is Interactable:
@@ -314,3 +364,23 @@ func get_dodge_cooldown() -> float:
 
 func get_super_cooldown() -> float:
 	return max(1.0, 10.0 - (_stat(Global.Stat.FAITH) * 0.25))
+
+func _recalculate_health():
+	max_health = int(_stat(Global.Stat.VIGOR) * vigor_health_multiplier)
+	current_health = max_health
+
+func take_damage(amount: float) -> void:
+	if is_dodging:
+		return
+
+	current_health -= amount
+	current_health = max(current_health, 0)
+
+	damage_flash_timer = DAMAGE_FLASH_TIME
+	_set_red_flash(1.0)
+
+	if current_health <= 0:
+		die()
+
+func die():
+	pass

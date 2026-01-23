@@ -2786,6 +2786,7 @@ alignment = 1
 
 [node name="Button" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_sdkyp")
 theme_override_font_sizes/font_size = 22
@@ -2798,6 +2799,7 @@ text = "Start"
 
 [node name="Button2" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_sdkyp")
 theme_override_font_sizes/font_size = 16
@@ -2810,6 +2812,7 @@ text = "Options"
 
 [node name="Button4" type="Button" parent="SubViewportContainer/SubViewport/MainMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_sdkyp")
 theme_override_font_sizes/font_size = 16
