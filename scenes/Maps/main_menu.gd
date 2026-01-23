@@ -40,6 +40,8 @@ var loaded_class_sheets: Dictionary[Global.CharacterClass, ClassResource] = {}
 var target_poi: Node3D
 var current_character_index: int = 0
 
+@export var game_scene : String = "res://scenes/test/map/test_boss.tscn"
+
 func _ready() -> void:
 	Save.load_player()
 	update_character_visibility()
@@ -135,7 +137,9 @@ func _load_all_class_sheets() -> void:
 		loaded_class_sheets[character_class] = sheet
 
 func _on_character_confirm_selection_pressed() -> void:
-	pass # Replace with function body.
+	var selected_class: Global.CharacterClass = Global.CharacterClass.values()[current_character_index]
+	Global.selected_character = selected_class
+	SceneChanger.change_to(game_scene)
 
 func _on_prev_character_pressed() -> void:
 	var tries := 0

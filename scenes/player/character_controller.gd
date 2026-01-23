@@ -73,6 +73,11 @@ var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
+	if Global.selected_character != null:
+		selected_character = Global.selected_character
+	else:
+		selected_character = Global.CharacterClass.RANGER
+	
 	animator.weapon_manager = weapon_manager
 	_apply_class()
 	add_to_group("player")
@@ -238,7 +243,7 @@ func _handle_input():
 		_try_attack()
 	if Input.is_action_just_pressed("faith_power"):
 		_try_faith_ability()
-	if Input.is_action_just_pressed("ui_focus_next"):
+	if Input.is_action_just_pressed("ui_focus_next"): # tab
 		print(max_health)
 		print("STATS DICT:", stats)
 		print(" VIGOR:", _stat(Global.Stat.VIGOR))

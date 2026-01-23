@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SignalBus="*res://scripts/global_scripts/SignalBus.gd"
 Save="*res://scripts/global_scripts/Save.gd"
 Global="*res://scripts/global_scripts/Global.gd"
+SceneChanger="*res://scripts/global_scripts/scene_changer/SceneChanger.tscn"
 
 [display]
 

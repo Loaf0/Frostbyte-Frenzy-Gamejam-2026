@@ -10,6 +10,8 @@ enum Stat {VIGOR, AGILITY, DEXTERITY, STRENGTH, KNOWLEDGE, STAMINA_REGEN, MANA_R
 enum WeaponQuality {POOR, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY}
 const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0, WeaponQuality.UNCOMMON: 1.1, WeaponQuality.RARE: 1.25, WeaponQuality.EPIC: 1.4, WeaponQuality.LEGENDARY: 1.6,}
 
+@export var selected_character : CharacterClass = CharacterClass.ROGUE
+
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
 	CharacterClass.MAGE : true,

@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 ## This script handles smooth scene transitions using a fade-in/out animation.
 ## Usage :
