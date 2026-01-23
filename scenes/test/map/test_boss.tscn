@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="3_k5klt"]
 [ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="5_k5klt"]
 [ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="5_s1sui"]
-[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/win_button.tscn" id="7_nkuo3"]
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="9_4ncx1"]
+[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="10_11mlt"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01
@@ -231,4 +231,4 @@ selected_character = 0
 [node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 5, 0, 7)
 
-[node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("7_nkuo3")]
+[node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_11mlt")]
