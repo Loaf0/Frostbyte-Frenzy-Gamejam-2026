@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://dpl2ymqcvhdc7"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://dpl2ymqcvhdc7"]
 
+[ext_resource type="PackedScene" uid="uid://boceq4vsnrn1r" path="res://scenes/weapons/weapon_resources/gold_sword_model.tscn" id="1_e2flg"]
 [ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_kmdho"]
 [ext_resource type="PackedScene" uid="uid://b4fmqadp24q1x" path="res://scenes/weapons/weapon_resources/sword.tscn" id="2_e2flg"]
 
@@ -11,4 +12,5 @@ world_model = ExtResource("2_e2flg")
 attack1_anim = "melee_combat_Melee_1H_Attack_Slice_Horizontal"
 attack2_anim = "melee_combat_Melee_1H_Attack_Stab"
 attack3_anim = "melee_combat_Melee_1H_Attack_Chop"
+pickup_model = ExtResource("1_e2flg")
 metadata/_custom_type_script = "uid://hvnclq1neash"

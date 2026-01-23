@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1pt64w500ncy"]
+[gd_scene load_steps=3 format=3 uid="uid://d1pt64w500ncy"]
 
 [ext_resource type="Script" uid="uid://bl4hcwupmpd0e" path="res://scenes/weapons/weapon_pickups.gd" id="1_j0sjx"]
 
-[node name="WeaponPickups" type="Node3D"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_j0sjx"]
+height = 4.0
+
+[node name="WeaponPickups" type="Area3D"]
 script = ExtResource("1_j0sjx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_j0sjx")
+
+[node name="WeaponModelRoot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

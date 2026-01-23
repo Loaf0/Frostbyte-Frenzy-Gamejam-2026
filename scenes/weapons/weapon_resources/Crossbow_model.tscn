@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://fwqktrjl0mrq"]
+
+[ext_resource type="PackedScene" uid="uid://dn5muto6mnvh2" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/arrow_crossbow_bundle.fbx" id="1_8psof"]
+[ext_resource type="PackedScene" uid="uid://c2lxyty7j8yk7" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/crossbow_1handed.fbx" id="2_sgrcd"]
+
+[node name="weapon_mesh" type="Node3D"]
+
+[node name="arrow_crossbow_bundle" parent="." instance=ExtResource("1_8psof")]
+transform = Transform3D(-3.5806274e-08, -2.507182e-08, 1, -0.9961947, -0.08715576, -3.7855166e-08, 0.08715576, -0.9961947, -2.1855689e-08, 0, 0.4, 0)
+
+[node name="crossbow_1handed" parent="." instance=ExtResource("2_sgrcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)

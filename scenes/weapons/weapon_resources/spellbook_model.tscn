@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b25eoayiioktf"]
+
+[ext_resource type="PackedScene" uid="uid://dnqme8wgv2k3i" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/spellbook_open.fbx" id="1_khwgo"]
+
+[node name="Spellbook" type="Node3D"]
+
+[node name="spellbook_open" parent="." instance=ExtResource("1_khwgo")]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0)

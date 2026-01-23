@@ -35,3 +35,11 @@ extends Resource
 @export var damage_mult2 : float = 1
 @export var attack3_anim : String
 @export var damage_mult3 : float = 1
+
+@export_category("Pickup")
+@export var pickup_model: PackedScene
+@export var pickup_quality: Global.WeaponQuality = Global.WeaponQuality.COMMON
+@export var glow_intensity: float = 10.0
+@export var pulse_speed: float = 2.0
+@export var rotate_speed: float = 1.2
+@export var bob_height: float = 0.15

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhrx43skgb1u"]
+
+[ext_resource type="PackedScene" uid="uid://ckte7qaqi0ag2" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/axe_2handed.fbx" id="1_xbblf"]
+
+[node name="Axe" type="Node3D"]
+
+[node name="axe_2handed" parent="." instance=ExtResource("1_xbblf")]
+transform = Transform3D(1.1, 0, 0, 0, 1.2, 0, 0, 0, 1.1, 0, 0.29999998, 0)

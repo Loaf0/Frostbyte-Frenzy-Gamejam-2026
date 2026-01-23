@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmc5hcno85cy5"]
+
+[ext_resource type="PackedScene" uid="uid://bfkiu0yh7o3v8" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/sword_2handed.fbx" id="1_4jqm6"]
+
+[node name="weapon_mesh" type="Node3D"]
+
+[node name="sword_2handed" parent="." instance=ExtResource("1_4jqm6")]

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://tamw6ttiq5lh"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=5 format=3 uid="uid://tamw6ttiq5lh"]
 
 [ext_resource type="PackedScene" uid="uid://btqydioynd6u3" path="res://scenes/weapons/projectiles/arrow.tscn" id="1_5hud7"]
+[ext_resource type="PackedScene" uid="uid://3k3bfdmsu1lx" path="res://scenes/weapons/weapon_resources/bow_model.tscn" id="1_c4tt5"]
 [ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_s7kb3"]
 [ext_resource type="PackedScene" uid="uid://dvedjfhfo21hk" path="res://scenes/weapons/weapon_resources/bow.tscn" id="2_s7kb3"]
 
@@ -11,4 +12,5 @@ world_model = ExtResource("2_s7kb3")
 projectile = ExtResource("1_5hud7")
 world_model_rot = Vector3(0.2241749, -2.069474, 0.13354108)
 attack1_anim = "actions_Interact"
+pickup_model = ExtResource("1_c4tt5")
 metadata/_custom_type_script = "uid://hvnclq1neash"

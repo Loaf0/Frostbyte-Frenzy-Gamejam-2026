@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="WeaponResource" load_steps=3 format=3 uid="uid://xvso3je8k6lx"]
+[gd_resource type="Resource" script_class="WeaponResource" load_steps=4 format=3 uid="uid://xvso3je8k6lx"]
 
 [ext_resource type="Script" uid="uid://hvnclq1neash" path="res://scenes/weapons/WeaponResource.gd" id="1_moo6l"]
+[ext_resource type="PackedScene" uid="uid://bmc5hcno85cy5" path="res://scenes/weapons/weapon_resources/sword_model.tscn" id="1_nsdan"]
 [ext_resource type="PackedScene" uid="uid://b4fmqadp24q1x" path="res://scenes/weapons/weapon_resources/sword.tscn" id="2_f8iqa"]
 
 [resource]
@@ -13,4 +14,5 @@ attack2_anim = "melee_combat_Melee_1H_Attack_Stab"
 damage_mult2 = 1.4
 attack3_anim = "melee_combat_Melee_1H_Attack_Chop"
 damage_mult3 = 1.1
+pickup_model = ExtResource("1_nsdan")
 metadata/_custom_type_script = "uid://hvnclq1neash"

@@ -23,6 +23,8 @@ var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 var _isMnK : bool
 var last_mouse_world_pos : Vector3 = Vector3.ZERO
 
+@onready var interact_range: Area3D = $InteractRange
+
 @export var selected_character : Global.CharacterClass = Global.CharacterClass.RANGER 
 var model_skeleton : Skeleton3D
 var weapon_mesh_container : BoneAttachment3D
@@ -250,6 +252,8 @@ func _handle_input():
 		_try_attack()
 	if Input.is_action_just_pressed("faith_power"):
 		_try_faith_ability()
+	if Input.is_action_just_pressed("interact"):
+		_interact()
 	if Input.is_action_just_pressed("ui_focus_next"): # tab
 		print(max_health)
 		print("STATS DICT:", stats)
@@ -372,11 +376,32 @@ func _set_red_flash(value: float):
 	for mat in overlay_materials:
 		mat.set_shader_parameter("red_flash", value/2)
 
-func _interact(hit_object):
-	if hit_object is Interactable:
-		
-		pass
-		#hit_object.interact(self)
+func _interact():
+	print("interact" + str(interact_range.get_overlapping_areas()))
+	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
+	if interactables.size() == 0:
+		return
+	print(interactables)
+	var closest = interactables[0]
+	var min_dist := global_position.distance_to(closest.global_position)
+	for interactable in interactables:
+		var dist = global_position.distance_to(interactable.global_position)
+		if dist < min_dist:
+			min_dist = dist
+			closest = interactable
+
+	if closest is WeaponPickup:
+		var pickup: WeaponPickup = closest
+		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
+		pickup.queue_free()
+	else:
+		closest.interact(self)
+
+func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
+	if not weapon_manager:
+		push_error("No weapon_manager found!")
+		return
+	weapon_manager.equip(weapon, quality)
 
 func _on_item_picked_up(item: ItemResource):
 	add_item_stats(item.stat_modifiers)

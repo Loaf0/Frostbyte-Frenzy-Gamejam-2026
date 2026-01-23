@@ -1,8 +1,11 @@
 class_name WeaponManager
 extends Node
 
+@export var weapon_pickup_scene: PackedScene
+
 @export var equipped_weapon : WeaponResource
-var weapon_quality : float
+var weapon_quality : Global.WeaponQuality
+
 var weapon_mesh_container : BoneAttachment3D
 var weapon_instance: Node3D
 @onready var animator : Node3D = $"../Mesh"
@@ -20,27 +23,50 @@ var stamina_cost := 0.0
 var mana_cost := 0.0
 var attack_size := 1.0
 
-func _physics_process(_delta: float):
-	if Input.is_action_just_pressed("debug_equip_sword"):
-		equip(load("res://scenes/weapons/weapon_resources/sword.tres"), Global.WeaponQuality.POOR)
-
 func _process(_delta: float) -> void:
 	if trail_active and active_trail:
 		active_trail.add_point()
 
-func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
-	if weapon == null:
+func _drop_current_weapon() -> void:
+	if not equipped_weapon or not weapon_pickup_scene:
 		return
 
+	var pickup := weapon_pickup_scene.instantiate() as WeaponPickup
+	if not pickup:
+		push_error("Failed to instantiate WeaponPickup scene")
+		return
+
+	pickup.weapon_resource = equipped_weapon
+	pickup.use_override_quality = true
+	pickup.override_quality = weapon_quality
+
+	get_tree().current_scene.add_child(pickup)
+
+	var player_pos = get_parent().global_position
+	pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.0
+
+func _quality_enum_from_multiplier() -> Global.WeaponQuality:
+	for q in Global.QUALITY_MULTIPLIERS.keys():
+		if Global.QUALITY_MULTIPLIERS[q] == weapon_quality:
+			return q
+	return Global.WeaponQuality.COMMON
+
+func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
+	if not weapon:
+		return
+
+	if equipped_weapon:
+		_drop_current_weapon()
+
 	equipped_weapon = weapon
-	weapon_quality = Global.QUALITY_MULTIPLIERS.get(quality, 1.0)
+	weapon_quality = quality
 	animator.current_weapon = weapon.weapon_type
 
 	_build_attack_animation_list()
 	_clear_weapon_model()
 	_spawn_weapon_model()
-
 	recalculate_weapon_stats()
+
 	#create model as child of weapon_mesh_container and apply transforms scaled with size modifier
 
 func _clear_weapon_model() -> void:
@@ -178,7 +204,7 @@ func get_magic_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return equipped_weapon.base_damage * weapon_quality * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
+	return equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
 
 func get_attack_speed() -> float:
 	return attack_speed
@@ -247,7 +273,7 @@ func recalculate_weapon_stats() -> void:
 
 	var player = get_parent()
 
-	var base_damage = equipped_weapon.base_damage * weapon_quality
+	var base_damage = equipped_weapon.base_damage * _quality_mult()
 	match equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			damage = base_damage * (1.0 + player._stat(Global.Stat.STRENGTH) * 0.05)
@@ -264,7 +290,7 @@ func recalculate_weapon_stats() -> void:
 
 	match equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
-			attack_size = equipped_weapon.base_size * weapon_quality * (
+			attack_size = equipped_weapon.base_size * _quality_mult() * (
 				1.0 + player._stat(Global.Stat.ATTACK_SIZE) * 0.05
 			)
 
@@ -278,6 +304,9 @@ func recalculate_weapon_stats() -> void:
 	
 	if weapon_instance:
 		apply_world_model_transforms(weapon_instance)
+
+func _quality_mult() -> float:
+	return Global.QUALITY_MULTIPLIERS.get(weapon_quality, 1.0)
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy") and not hit_targets.has(body):
