@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bwsnxx2yxc7n8"]
+[gd_scene load_steps=2 format=3 uid="uid://bwsnxx2yxc7n8"]
+
+[ext_resource type="Script" uid="uid://do8lmc55ji872" path="res://scenes/player/player_hud.gd" id="1_xiwgm"]
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_xiwgm")
 
 [node name="BossBar" type="ProgressBar" parent="."]
 visible = false
@@ -42,7 +45,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -122.0
+offset_top = -33.0
 grow_horizontal = 2
 grow_vertical = 0
 

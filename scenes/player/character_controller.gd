@@ -53,7 +53,7 @@ var current_mana = max_mana
 @export var max_health = 100 # add update when stats change
 var current_health = max_health
 
-@export var vigor_health_multiplier := 20.0
+@export var vigor_health_multiplier := 10.0
 
 var overlay_materials: Array[ShaderMaterial] = []
 var damage_flash_timer := 0.0
@@ -73,9 +73,9 @@ var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
-	add_to_group("player")
 	animator.weapon_manager = weapon_manager
 	_apply_class()
+	add_to_group("player")
 
 func _spawn_character_model():
 	for child in mesh_animator.get_children():
@@ -140,10 +140,14 @@ func _apply_class():
 	await get_tree().process_frame
 
 	# apply stat sheet
-	var character_stats_path : String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
-	var stat_sheet : ClassResource = load(character_stats_path)
-	for stat in stat_sheet.stat_modifiers:
-		stats[stat.stat] = stat.amount
+	stats.clear()
+	for s in Global.Stat.values():
+		stats[s] = 0.0
+		
+	var character_stats_path: String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
+	var stat_sheet: ClassResource = load(character_stats_path)
+	for mod in stat_sheet.stat_modifiers:
+		stats[mod.stat] += mod.amount
 	
 	# instanciate ability
 	ability = stat_sheet.special_ability.instantiate()
@@ -234,7 +238,11 @@ func _handle_input():
 		_try_attack()
 	if Input.is_action_just_pressed("faith_power"):
 		_try_faith_ability()
-
+	if Input.is_action_just_pressed("ui_focus_next"):
+		print(max_health)
+		print("STATS DICT:", stats)
+		print(" VIGOR:", _stat(Global.Stat.VIGOR))
+	
 func _handle_movement(delta):
 	if is_dodging:
 		velocity = dodge_dir * dodge_speed
@@ -366,7 +374,7 @@ func get_super_cooldown() -> float:
 	return max(1.0, 10.0 - (_stat(Global.Stat.FAITH) * 0.25))
 
 func _recalculate_health():
-	max_health = int(_stat(Global.Stat.VIGOR) * vigor_health_multiplier)
+	max_health = max(int(_stat(Global.Stat.VIGOR) * vigor_health_multiplier), 1)
 	current_health = max_health
 
 func take_damage(amount: float) -> void:

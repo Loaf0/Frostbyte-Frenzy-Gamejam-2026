@@ -9,6 +9,7 @@
 
 [node name="BossBullet" type="Node3D"]
 script = ExtResource("1_qefik")
+damage = 3.5
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
@@ -16,6 +17,8 @@ billboard = 1
 texture = ExtResource("1_x3fal")
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("SphereShape3D_qefik")
