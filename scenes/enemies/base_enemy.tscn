@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=4 uid="uid://cfi3inwbbiake"]
+[gd_scene load_steps=19 format=4 uid="uid://dmq3a7lho1ybl"]
 
-[ext_resource type="Script" uid="uid://b27wuf67rtopf" path="res://scenes/enemies/base_enemy.gd" id="1_qf3h2"]
 [ext_resource type="Texture2D" uid="uid://dc3yvhiafq6x1" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/characters/fbx/skeleton_texture.png" id="1_r5xb8"]
+[ext_resource type="Script" uid="uid://bde5jac8bp3o8" path="res://scenes/enemies/base_enemy.gd" id="1_to42s"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_r5xb8"]
-height = 2.1125
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qf3h2"]
+height = 2.225
 radius = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xsjwp"]
@@ -491,11 +491,13 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [node name="BaseEnemy" type="CharacterBody3D"]
-script = ExtResource("1_qf3h2")
+script = ExtResource("1_to42s")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05625, 0)
-shape = SubResource("CylinderShape3D_r5xb8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1125, 0)
+shape = SubResource("CylinderShape3D_qf3h2")
 
 [node name="Skeleton_Minion" type="Node3D" parent="."]
 
@@ -701,7 +703,3 @@ skin = SubResource("Skin_hq6xx")
 [node name="Skeleton_Minion_LegRight" type="MeshInstance3D" parent="Skeleton_Minion/Rig_Medium/GeneralSkeleton"]
 mesh = SubResource("ArrayMesh_1hn1n")
 skin = SubResource("Skin_hq6xx")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Skeleton_Minion"]
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

@@ -1,15 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnq1kce5ot6ny"]
+[gd_scene load_steps=18 format=3 uid="uid://bnq1kce5ot6ny"]
 
-[ext_resource type="Script" uid="uid://bde5jac8bp3o8" path="res://scenes/test/map/AiRoamingTest.gd" id="1_g2gfi"]
+[ext_resource type="Script" uid="uid://byoewc2y23vui" path="res://scenes/test/map/ai_test.gd" id="1_fimcl"]
+[ext_resource type="PackedScene" uid="uid://dmq3a7lho1ybl" path="res://scenes/enemies/base_enemy.tscn" id="1_g2gfi"]
 [ext_resource type="Texture2D" uid="uid://biokkvmwm8h42" path="res://assets/textures/prototyping/vector/texture_01.svg" id="2_6r8r5"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_obp0t"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dprga"]
+[ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="3_fksfr"]
+[ext_resource type="Resource" uid="uid://xvso3je8k6lx" path="res://scenes/weapons/weapon_resources/sword.tres" id="4_fimcl"]
+[ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="5_tjrfu"]
+[ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="6_pqed3"]
+[ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="7_171re"]
+[ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="8_6hc46"]
+[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="9_gr207"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
-vertices = PackedVector3Array(-24.5, 1, -24.5, -24.5, 1, 24.5, 24.5, 1, 24.5, 24.5, 1, -24.5)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+vertices = PackedVector3Array(-24.5, 0.9575882, -24.5, -24.5, 0.9575882, 1.5, 24.5, 0.9575882, 1.5, 24.5, 0.9575882, -24.5, -24.5, 0.9575882, 4, -24.5, 0.9575882, 24.5, 24.5, 0.9575882, 24.5, 24.5, 0.9575882, 4)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fw8sf"]
 albedo_texture = ExtResource("2_6r8r5")
@@ -22,23 +26,28 @@ size = Vector3(50, 1, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fksfr"]
 size = Vector3(50, 1, 50)
 
+[sub_resource type="Environment" id="Environment_y3hsl"]
+ssao_radius = 0.01
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 0.95
+adjustment_saturation = 1.2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fksfr"]
+render_priority = 0
+shader = ExtResource("6_pqed3")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.5
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
+
+[sub_resource type="QuadMesh" id="QuadMesh_fimcl"]
+flip_faces = true
+size = Vector2(2, 2)
+
 [node name="AI Test" type="Node3D"]
-
-[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
-script = ExtResource("1_g2gfi")
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_obp0t")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
-shape = SubResource("CapsuleShape3D_dprga")
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 0.6427877, 0.7660445, 0, -0.7660445, 0.6427877, 0, 10, 4)
+script = ExtResource("1_fimcl")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_hoted")
@@ -52,3 +61,83 @@ skeleton = NodePath("../CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_fksfr")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 0.11765874, -0.9930541, 0, 0.9930541, 0.11765874, -9.493229, -19.90723, 5.247966)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
+material_override = SubResource("StandardMaterial3D_fw8sf")
+mesh = SubResource("BoxMesh_uxheu")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D2"]
+shape = SubResource("BoxShape3D_fksfr")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+process_mode = 3
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_behavior_recursive = 2
+stretch = true
+stretch_shrink = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+oversampling = false
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_y3hsl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.25881904, -0.6830128, 0.68301266, -1.4901163e-08, 0.70710677, 0.7071069, -0.9659259, 0.18301271, -0.1830127, 0, -2.6891937, 0)
+shadow_enabled = true
+directional_shadow_split_1 = 0.01
+directional_shadow_max_distance = 8192.0
+
+[node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+
+[node name="WeaponPickups" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("3_fksfr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95912504, 0.6999972, -0.0194211)
+weapon_resource = ExtResource("4_fimcl")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
+omni_range = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -5.6461167, 15.602508, 1.3440151)
+visible = false
+projection = 1
+size = 15.0
+near = 0.001
+script = ExtResource("5_tjrfu")
+target_path = NodePath("../Player")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_fksfr")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_fimcl")
+skeleton = NodePath("../../../..")
+
+[node name="PlayerHud" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("player") instance=ExtResource("7_171re")]
+player = NodePath("../Player")
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_6hc46")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -6.1213636)
+selected_character = 0
+
+[node name="BaseEnemy" parent="SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("1_g2gfi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50998855, 5.485322)
+
+[node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_gr207")]
