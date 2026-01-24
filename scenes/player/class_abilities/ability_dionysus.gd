@@ -18,7 +18,6 @@ func use_ability(_last_mouse_world_pos: Vector3):
 	#save current stats
 	#increase stats
 	
-	#player.dodge_cooldown = 0.25
 	_do_projectile_attack(_last_mouse_world_pos)
 	
 	#return stats to save state (uh oh if player gets item during stat buff)
