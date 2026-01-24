@@ -5,7 +5,7 @@ class_name Enemy
 @export var speed: float = 3.0
 @export var repath_distance: float = 0.5
 
-var lock: bool = false
+var lock: bool = true
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 
@@ -16,8 +16,7 @@ func _ready():
 	_set_random_target()
 
 func _physics_process(_delta):
-	if nav_agent.is_navigation_finished():
-		lock = false
+	if _target_check():
 		return
 	
 	
@@ -33,10 +32,33 @@ func _physics_process(_delta):
 	velocity.y = 0 if is_on_floor() else -4
 	move_and_slide()
 
+func _target_check() -> bool:
+	#edit this is different enemies to have different behaviors based on distance remaining
+	if nav_agent.distance_to_target() <= 2 or !nav_agent.is_target_reachable():
+		if lock:
+			_set_random_target()
+			lock = false
+		else:
+			_attack()
+			return true
+		return true
+	return false
+
+
+
+func _attack():
+	look_at(nav_agent.target_position)
+	#play attack anim
+	print("attack!")
+	return
+
+
 func _set_player_target(target):
 	if !lock:
+		print("check")
 		nav_agent.target_position = target
 		if !nav_agent.is_target_reachable():
+			print("deep")
 			_set_random_target()
 			lock = true
 	return
@@ -50,3 +72,5 @@ func _set_random_target():
 
 	var target := origin + random_offset
 	nav_agent.target_position = target
+	if !nav_agent.is_target_reachable():
+		lock = false
