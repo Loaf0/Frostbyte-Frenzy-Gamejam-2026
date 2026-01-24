@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://h6kcrnedwy74"]
+
+[ext_resource type="Script" uid="uid://do2by3lfqlvxy" path="res://scenes/enemies/ranged_bullet.gd" id="1_8esbl"]
+[ext_resource type="ArrayMesh" uid="uid://d22jg1hwr4hyo" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/obj/Skeleton_Arrow.obj" id="2_8esbl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qefik"]
+
+[node name="BossBullet" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_8esbl")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_qefik")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, -8.742278e-08, -3.5527137e-15, 8.742278e-08, -1, -8.742278e-08, 2.6865725e-16, -8.742278e-08, 1, 0, 0, 0)
+mesh = ExtResource("2_8esbl")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

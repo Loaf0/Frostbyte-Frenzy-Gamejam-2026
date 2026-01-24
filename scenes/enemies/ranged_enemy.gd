@@ -1,9 +1,11 @@
 extends Enemy
 
+@onready var bullet_manager: BossBulletManager = $BulletManager
+
 func _ready():
 	speed = 3.0
 	attack_damage = 5.0
-	attack_range = 5.0
+	attack_range = 8.0
 	attack_windup = 0.35
 	attack_hit_time = 0.55
 	max_health = 50
@@ -11,6 +13,8 @@ func _ready():
 	melee_collision = $Skeleton_Rogue/Rig_Medium/GeneralSkeleton/WeaponSlot/Skeleton_Crossbow/MeleeHitbox/MeleeCollision
 	state_machine = anim_tree.get("parameters/StateMachine/playback")
 	origin = global_position
+	damaged = true
+	melee_collision.disabled = true
 	_setup_dissolve_materials()
 	_set_random_target()
 
@@ -60,3 +64,10 @@ func _physics_process(_delta):
 			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 		"actions_Death_A":
 			_death()
+
+func _attack():
+	print("attack")
+	await get_tree().create_timer(attack_windup).timeout
+	bullet_manager.fire_bullet(player.global_position-global_position, 10.0, 5.0, attack_damage)
+	await get_tree().create_timer(attack_hit_time).timeout
+	return
