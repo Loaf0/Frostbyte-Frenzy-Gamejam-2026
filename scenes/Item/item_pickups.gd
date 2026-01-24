@@ -8,6 +8,9 @@ class_name ItemPickup
 @export var spin_speed := 90.0
 var consumed := false
 
+@export var item_name : String = "TEST"
+@export var item_desc : String = "TEST"
+
 const ITEM_RESOURCES := [
 	"res://scenes/item/ItemResources/blue_bottle.tres",
 	"res://scenes/item/ItemResources/burger.tres",

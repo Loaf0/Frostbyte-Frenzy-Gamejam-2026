@@ -9,10 +9,12 @@ extends Control
 @onready var stamina_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/StaminaMeter
 @onready var mana_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/ManaMeter
 @onready var ability_spot: TextureProgressBar = $PlayerMeters/HBoxContainer/AbilitySpot
+@onready var item_description: Label = $"Item Description"
 
 var roll_target_screen_pos: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("player_ui")
 	if not player:
 		player = get_tree().get_first_node_in_group("player") as Node3D
 
@@ -64,3 +66,13 @@ func update_ability_spot():
 	var min_modulate := Color(0.5, 0.5, 0.5, 1.0)
 	var full_modulate := Color(1, 1, 1, 1)
 	ability_spot.modulate = min_modulate.lerp(full_modulate, perc)
+
+func update_item_description(item_or_weapon: Object) -> void:
+	if item_or_weapon == null:
+		item_description.text = ""
+		return
+	
+	if item_or_weapon is WeaponResource:
+		item_description.text = str(item_or_weapon.weapon_name) + " (" + str(item_or_weapon.pickup_quality) + ")"
+	elif item_or_weapon is ItemResource:
+		item_description.text = str(item_or_weapon.item_name) + "\n" + str(item_or_weapon.item_desc)

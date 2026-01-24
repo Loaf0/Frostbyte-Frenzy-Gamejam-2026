@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwsnxx2yxc7n8"]
+[gd_scene load_steps=15 format=3 uid="uid://bwsnxx2yxc7n8"]
 
 [ext_resource type="Script" uid="uid://do8lmc55ji872" path="res://scenes/player/player_hud.gd" id="1_xiwgm"]
 [ext_resource type="Texture2D" uid="uid://npnj46ktb1aq" path="res://assets/ui_assets/Retro Inventory/Original/Health_01.png" id="2_lbnyo"]
@@ -12,6 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://bl2qrlcxrq13y" path="res://assets/ui_assets/Retro Inventory/Original/Health_03_Bar03.png" id="7_yuo71"]
 [ext_resource type="Texture2D" uid="uid://bbfi7g1ljjbj1" path="res://assets/ui_assets/Retro Inventory/Original/Inventory_9Slices.png" id="8_yuo71"]
 [ext_resource type="Texture2D" uid="uid://8guw33ddatrg" path="res://assets/ui_assets/Retro Inventory/Original/Inventory_Slot_8.png" id="9_rj8fd"]
+[ext_resource type="FontFile" uid="uid://dx64cq2hbd78j" path="res://assets/fonts/ROMANUS.otf" id="13_7fd0g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kmx6k"]
+font = ExtResource("13_7fd0g")
+font_size = 18
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
@@ -135,3 +142,16 @@ value = 100.0
 fill_mode = 4
 texture_under = ExtResource("8_yuo71")
 texture_progress = ExtResource("9_rj8fd")
+
+[node name="Item Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.004
+anchor_top = 0.017
+anchor_right = 0.22000001
+anchor_bottom = 0.22800002
+offset_left = 1.6080003
+offset_top = 15.983999
+offset_right = 0.5599823
+offset_bottom = 0.2559967
+label_settings = SubResource("LabelSettings_kmx6k")

@@ -23,6 +23,9 @@ var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 var _isMnK : bool
 var last_mouse_world_pos : Vector3 = Vector3.ZERO
 
+var ui_update_timer := 0.0
+@export var ui_update_interval := 0.1
+var closest_interactable: Interactable = null
 @onready var interact_range: Area3D = $InteractRange
 
 @export var selected_character : Global.CharacterClass = Global.CharacterClass.RANGER 
@@ -381,6 +384,11 @@ func _handle_timers(delta):
 	if dodge_cd_timer > 0.0:
 		dodge_cd_timer -= delta
 	
+	ui_update_timer -= delta
+	if ui_update_timer <= 0.0:
+		ui_update_timer = ui_update_interval
+		_update_closest_interactable_ui()
+	
 	if velocity.length() > 0.1 and mouse_idle_timer > 0.0:
 		mouse_idle_timer -= delta
 	
@@ -399,26 +407,49 @@ func _set_red_flash(value: float):
 	for mat in overlay_materials:
 		mat.set_shader_parameter("red_flash", value/2)
 
-func _interact():
-	#print("interact" + str(interact_range.get_overlapping_areas()))
+func _update_closest_interactable_ui() -> void:
+	var closest_interactable = _get_closest_interactable()
+	
+	var ui = get_tree().get_first_node_in_group("player_ui")
+	if not ui or not ui.has_method("update_item_description"):
+		return
+	
+	if closest_interactable is WeaponPickup:
+		var pickup: WeaponPickup = closest_interactable
+		ui.update_item_description(pickup.weapon_resource)
+	elif closest_interactable is ItemPickup:
+		var item_pickup: ItemPickup = closest_interactable
+		ui.update_item_description(item_pickup.item)
+	else:
+		ui.update_item_description(null)
+
+func _get_closest_interactable() -> Interactable:
 	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
 	if interactables.size() == 0:
-		return
-	#print(interactables)
+		return null
+	
 	var closest = interactables[0]
-	var min_dist := global_position.distance_to(closest.global_position)
+	var min_dist = global_position.distance_to(closest.global_position)
+	
 	for interactable in interactables:
 		var dist = global_position.distance_to(interactable.global_position)
 		if dist < min_dist:
 			min_dist = dist
 			closest = interactable
+	
+	return closest
 
-	if closest is WeaponPickup:
-		var pickup: WeaponPickup = closest
+func _interact() -> void:
+	var interactable = _get_closest_interactable()
+	if not interactable:
+		return
+	
+	if interactable is WeaponPickup:
+		var pickup: WeaponPickup = interactable
 		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
 		pickup.queue_free()
-	elif closest is ItemPickup:
-		closest.interact(self)
+	elif interactable is ItemPickup:
+		interactable.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if not weapon_manager:
