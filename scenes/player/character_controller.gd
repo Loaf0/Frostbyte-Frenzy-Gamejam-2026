@@ -64,6 +64,8 @@ var current_stamina = max_stamina
 var current_mana = max_mana
 @export var max_health = 100 # add update when stats change
 var current_health = max_health
+var max_faith = 100
+var current_faith = 0
 
 @export var vigor_health_multiplier := 10.0
 
@@ -85,6 +87,10 @@ var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
+	current_stamina = max_stamina
+	current_mana = max_mana
+	current_health = max_health
+	current_faith = 0
 	if Global.selected_character != null:
 		selected_character = Global.selected_character
 	else:
@@ -170,17 +176,18 @@ func _apply_class():
 		char_name = stat_sheet.name
 		god_name_text = stat_sheet.god_subtitle
 	
+	_recalculate_derived_stats()
+	
 	# instanciate ability
 	ability = stat_sheet.special_ability.instantiate()
 	add_child(ability)
 	if ability:
 		ability.player = self
+		max_faith = ability.faith_cost
 	
 	#load weapon
 	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
 	weapon_manager.animator = animator
-	
-	_recalculate_derived_stats()
 
 func create_weapon_attachment(skeleton: Skeleton3D) -> BoneAttachment3D:
 	var attachment := BoneAttachment3D.new()
@@ -206,6 +213,8 @@ func _physics_process(delta):
 	_handle_movement(delta)
 	_apply_stepped_rotation(delta)
 	move_and_slide()
+	
+	_regenerate_faith(delta)
 
 func _handle_animations(delta : float):
 	var walk_vec = Vector3.ZERO
@@ -265,6 +274,8 @@ func _handle_input():
 		print(max_health)
 		print("STATS DICT:", stats)
 		print(" VIGOR:", _stat(Global.Stat.VIGOR))
+	if Input.is_action_just_pressed("debug_equip_sword"):
+		current_faith = max_faith
 	
 func _handle_movement(delta):
 	if is_dodging:
@@ -333,8 +344,13 @@ func _try_attack():
 
 func _try_faith_ability():
 	#ability.faith_cost
-	_mouse_look()
-	ability.use_ability(last_mouse_world_pos)
+	if current_faith >= max_faith:
+		_mouse_look()
+		ability.use_ability(last_mouse_world_pos)
+		current_faith = 0
+	else:
+		#fail noise
+		pass
 
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
@@ -459,3 +475,8 @@ func add_item_stats(modifiers: Array[StatModifier]) -> void:
 
 func die():
 	pass
+
+func _regenerate_faith(delta: float) -> void:
+	if current_faith < max_faith:
+		current_faith += _stat(Global.Stat.FAITH) * delta
+		current_faith = min(current_faith, max_faith)

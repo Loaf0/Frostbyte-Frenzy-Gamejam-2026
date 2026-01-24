@@ -124,6 +124,7 @@ texture_progress = ExtResource("7_yuo71")
 texture_progress_offset = Vector2(11, 0)
 
 [node name="AbilitySpot" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 336.0
 offset_top = 13.0

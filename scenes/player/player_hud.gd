@@ -8,6 +8,7 @@ extends Control
 @onready var health_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/HealthMeter
 @onready var stamina_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/StaminaMeter
 @onready var mana_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/ManaMeter
+@onready var ability_spot: TextureProgressBar = $PlayerMeters/HBoxContainer/AbilitySpot
 
 var roll_target_screen_pos: Vector2 = Vector2.ZERO
 
@@ -20,8 +21,14 @@ func _process(delta: float) -> void:
 		update_values()
 		update_roll_position(delta)
 		update_roll_frame()
+		update_ability_spot()
 
 func update_values():
+	if not player:
+		return
+	if player.max_health <= 0 or player.max_stamina <= 0 or player.max_mana <= 0:
+		return
+	
 	health_meter.value = player.current_health / player.max_health * 100
 	stamina_meter.value = player.current_stamina / player.max_stamina * 100
 	mana_meter.value = player.current_mana / player.max_mana * 100
@@ -32,14 +39,9 @@ func update_roll_position(delta: float) -> void:
 		return
 
 	roll_target_screen_pos = camera.unproject_position(player.global_position + offset)
-
-	var target_pos := roll_target_screen_pos
-	roll_radial.position = roll_radial.position.lerp(target_pos, smoothing * delta)
+	roll_radial.position = roll_radial.position.lerp(roll_target_screen_pos, smoothing * delta)
 
 func update_roll_frame():
-	if not player:
-		return
-
 	var cd : float = player.dodge_cd_timer
 	var max_cd : float = player.dodge_cooldown
 	var frame: int = 0
@@ -51,3 +53,14 @@ func update_roll_frame():
 		frame = 7 - int(round(perc * 7.0))
 
 	roll_radial.frame = frame
+
+func update_ability_spot():
+	if not player:
+		return
+
+	var perc = clamp(player.current_faith / player.max_faith, 0.0, 1.0)
+	ability_spot.value = perc * 100.0
+
+	var min_modulate := Color(0.5, 0.5, 0.5, 1.0)
+	var full_modulate := Color(1, 1, 1, 1)
+	ability_spot.modulate = min_modulate.lerp(full_modulate, perc)
