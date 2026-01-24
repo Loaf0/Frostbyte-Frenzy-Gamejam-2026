@@ -114,10 +114,14 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			_do_melee_attack()
 		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
-			await get_tree().create_timer(0.5).timeout
+			var delay := _get_projectile_release_delay()
+			if delay > 0.0:
+				await get_tree().create_timer(delay).timeout
 			_do_projectile_attack(target_dir)
 		Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
-			await get_tree().create_timer(0.5).timeout
+			var delay := _get_projectile_release_delay()
+			if delay > 0.0:
+				await get_tree().create_timer(delay).timeout
 			_do_projectile_attack(target_dir)
 
 func _do_melee_attack() -> void:
@@ -314,3 +318,23 @@ func _on_hitbox_body_entered(body: Node3D) -> void:
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
 			print("Hit %s for %f damage" % [body.name, damage])
+
+func _get_projectile_release_delay() -> float:
+	if animator == null or animations.is_empty():
+		return 0.0
+
+	var anim_name := animations[attack_anim_index - 1]
+	if anim_name == "":
+		return 0.0
+
+	if not animator.animation_player:
+		return 0.0
+
+	var full_path = animator._get_cached_anim_path(anim_name)
+	if not animator.animation_player.has_animation(full_path):
+		return 0.0
+
+	var anim = animator.animation_player.get_animation(full_path)
+	var speed := get_attack_speed()
+
+	return (anim.length * 0.4) / speed

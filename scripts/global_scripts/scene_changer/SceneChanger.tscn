@@ -80,5 +80,6 @@ color = Color(0, 0, 0.027451, 1)
 libraries = {
 &"": SubResource("AnimationLibrary_voks3")
 }
+speed_scale = 4.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

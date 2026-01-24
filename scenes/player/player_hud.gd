@@ -7,7 +7,6 @@ extends Control
 @onready var stamina_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/StaminaMeter
 @onready var mana_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/ManaMeter
 
-
 func _ready() -> void:
 	if !player:
 		player = get_tree().get_first_node_in_group("player") as Node3D

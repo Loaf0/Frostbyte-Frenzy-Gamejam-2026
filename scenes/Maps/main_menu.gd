@@ -57,7 +57,7 @@ func _ready() -> void:
 	sfx_volume.value = Global.sfx_volume
 	msfx_volume.value = Global.music_volume
 
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear_to_db(Global.sfx_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(Global.sfx_volume))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), linear_to_db(Global.music_volume))
 
 func _input(event: InputEvent) -> void:

@@ -99,7 +99,7 @@ func attack_animation(attack_name: String, speed: float = 1.0):
 		#print(full_path)
 		if animation_player.has_animation(full_path):
 			var anim = animation_player.get_animation(full_path)
-			var adjusted_time = anim.length / speed * 0.85 # cut off a little early for smoothness
+			var adjusted_time = anim.length / speed * 0.8 # cut off a little early for smoothness
 			
 			if weapon_manager.has_method("start_attack_state"):
 				weapon_manager.start_attack_state()

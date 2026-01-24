@@ -32,6 +32,9 @@ var ability : Node3D
 @onready var weapon_manager : WeaponManager = $WeaponManager
 @onready var animator : Node3D = $Mesh
 
+var char_name : String = ""
+var god_name_text : String = ""
+
 @export var rotation_fps: float = 12.0
 var rotation_timer: float = 0.0
 var visual_rotation_y: float = 0.0
@@ -162,6 +165,10 @@ func _apply_class():
 	var stat_sheet: ClassResource = load(character_stats_path)
 	for mod in stat_sheet.stat_modifiers:
 		stats[mod.stat] += mod.amount
+	
+	if stat_sheet:
+		char_name = stat_sheet.name
+		god_name_text = stat_sheet.god_subtitle
 	
 	# instanciate ability
 	ability = stat_sheet.special_ability.instantiate()
@@ -377,7 +384,7 @@ func _set_red_flash(value: float):
 		mat.set_shader_parameter("red_flash", value/2)
 
 func _interact():
-	print("interact" + str(interact_range.get_overlapping_areas()))
+	#print("interact" + str(interact_range.get_overlapping_areas()))
 	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
 	if interactables.size() == 0:
 		return
@@ -394,7 +401,7 @@ func _interact():
 		var pickup: WeaponPickup = closest
 		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
 		pickup.queue_free()
-	else:
+	elif closest is ItemPickup:
 		closest.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
