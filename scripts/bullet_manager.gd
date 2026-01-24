@@ -17,6 +17,7 @@ func fire_bullet(dir: Vector3, speed: float = 10.0, lifetime: float = 5.0, damag
 	dir.y = 0
 	
 	b.global_position = spawn_loc.global_position if spawn_loc else global_position
+	b.look_at(b.global_position + dir, Vector3.UP)
 	b.direction = dir.normalized()
 
 	b.speed = bullet_speed if speed < 0.0 else speed

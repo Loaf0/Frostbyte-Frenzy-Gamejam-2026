@@ -210,6 +210,7 @@ func _find_animation_player(node: Node) -> AnimationPlayer:
 	return null
 
 func _physics_process(delta):
+	#print(current_health)
 	_handle_animations(delta)
 	_handle_timers(delta)
 	_handle_input()

@@ -1,4 +1,4 @@
-[gd_resource type="AnimationNodeStateMachine" load_steps=16 format=3 uid="uid://dgrhdobupwts8"]
+[gd_resource type="AnimationNodeStateMachine" load_steps=16 format=3 uid="uid://c2ixet2wxk4le"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4c3k"]
 animation = &"actions/Death_A"
