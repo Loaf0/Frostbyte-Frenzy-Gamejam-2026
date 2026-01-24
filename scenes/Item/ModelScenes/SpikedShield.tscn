@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dflnlqmyu2dtv"]
+
+[ext_resource type="PackedScene" uid="uid://cw5hkespkdxj1" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/shield_spikes.fbx" id="1_7p5a1"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="shield_spikes" parent="." instance=ExtResource("1_7p5a1")]

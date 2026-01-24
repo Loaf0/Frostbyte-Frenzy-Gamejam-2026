@@ -23,6 +23,9 @@ var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 var _isMnK : bool
 var last_mouse_world_pos : Vector3 = Vector3.ZERO
 
+var ui_update_timer := 0.0
+@export var ui_update_interval := 0.1
+var closest_interactable: Interactable = null
 @onready var interact_range: Area3D = $InteractRange
 
 @export var selected_character : Global.CharacterClass = Global.CharacterClass.RANGER 
@@ -64,6 +67,8 @@ var current_stamina = max_stamina
 var current_mana = max_mana
 @export var max_health = 100 # add update when stats change
 var current_health = max_health
+var max_faith = 100
+var current_faith = 0
 
 @export var vigor_health_multiplier := 10.0
 
@@ -85,6 +90,10 @@ var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
+	current_stamina = max_stamina
+	current_mana = max_mana
+	current_health = max_health
+	current_faith = 0
 	if Global.selected_character != null:
 		selected_character = Global.selected_character
 	else:
@@ -159,7 +168,7 @@ func _apply_class():
 	# apply stat sheet
 	stats.clear()
 	for s in Global.Stat.values():
-		stats[s] = 1.0
+		stats[s] = 0.0
 		
 	var character_stats_path: String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
 	var stat_sheet: ClassResource = load(character_stats_path)
@@ -170,17 +179,18 @@ func _apply_class():
 		char_name = stat_sheet.name
 		god_name_text = stat_sheet.god_subtitle
 	
+	_recalculate_derived_stats()
+	
 	# instanciate ability
 	ability = stat_sheet.special_ability.instantiate()
 	add_child(ability)
 	if ability:
 		ability.player = self
+		max_faith = ability.faith_cost
 	
 	#load weapon
 	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
 	weapon_manager.animator = animator
-	
-	_recalculate_derived_stats()
 
 func create_weapon_attachment(skeleton: Skeleton3D) -> BoneAttachment3D:
 	var attachment := BoneAttachment3D.new()
@@ -206,6 +216,8 @@ func _physics_process(delta):
 	_handle_movement(delta)
 	_apply_stepped_rotation(delta)
 	move_and_slide()
+	
+	_regenerate_faith(delta)
 
 func _handle_animations(delta : float):
 	var walk_vec = Vector3.ZERO
@@ -265,6 +277,8 @@ func _handle_input():
 		print(max_health)
 		print("STATS DICT:", stats)
 		print(" VIGOR:", _stat(Global.Stat.VIGOR))
+	if Input.is_action_just_pressed("debug_equip_sword"):
+		current_faith = max_faith
 	
 func _handle_movement(delta):
 	if is_dodging:
@@ -333,8 +347,13 @@ func _try_attack():
 
 func _try_faith_ability():
 	#ability.faith_cost
-	_mouse_look()
-	ability.use_ability(last_mouse_world_pos)
+	if current_faith >= max_faith:
+		_mouse_look()
+		ability.use_ability(last_mouse_world_pos)
+		current_faith = 0
+	else:
+		#fail noise
+		pass
 
 func _try_dodge():
 	if is_dodging or dodge_cd_timer > 0.0:
@@ -365,6 +384,11 @@ func _handle_timers(delta):
 	if dodge_cd_timer > 0.0:
 		dodge_cd_timer -= delta
 	
+	ui_update_timer -= delta
+	if ui_update_timer <= 0.0:
+		ui_update_timer = ui_update_interval
+		_update_closest_interactable_ui()
+	
 	if velocity.length() > 0.1 and mouse_idle_timer > 0.0:
 		mouse_idle_timer -= delta
 	
@@ -383,26 +407,49 @@ func _set_red_flash(value: float):
 	for mat in overlay_materials:
 		mat.set_shader_parameter("red_flash", value/2)
 
-func _interact():
-	#print("interact" + str(interact_range.get_overlapping_areas()))
+func _update_closest_interactable_ui() -> void:
+	closest_interactable = _get_closest_interactable()
+	
+	var ui = get_tree().get_first_node_in_group("player_ui")
+	if not ui or not ui.has_method("update_item_description"):
+		return
+	
+	if closest_interactable is WeaponPickup:
+		var pickup: WeaponPickup = closest_interactable
+		ui.update_item_description(pickup.weapon_resource)
+	elif closest_interactable is ItemPickup:
+		var item_pickup: ItemPickup = closest_interactable
+		ui.update_item_description(item_pickup.item)
+	else:
+		ui.update_item_description(null)
+
+func _get_closest_interactable() -> Interactable:
 	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
 	if interactables.size() == 0:
-		return
-	print(interactables)
+		return null
+	
 	var closest = interactables[0]
-	var min_dist := global_position.distance_to(closest.global_position)
+	var min_dist = global_position.distance_to(closest.global_position)
+	
 	for interactable in interactables:
 		var dist = global_position.distance_to(interactable.global_position)
 		if dist < min_dist:
 			min_dist = dist
 			closest = interactable
+	
+	return closest
 
-	if closest is WeaponPickup:
-		var pickup: WeaponPickup = closest
+func _interact() -> void:
+	var interactable = _get_closest_interactable()
+	if not interactable:
+		return
+	
+	if interactable is WeaponPickup:
+		var pickup: WeaponPickup = interactable
 		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
 		pickup.queue_free()
-	elif closest is ItemPickup:
-		closest.interact(self)
+	elif interactable is ItemPickup:
+		interactable.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if not weapon_manager:
@@ -459,3 +506,8 @@ func add_item_stats(modifiers: Array[StatModifier]) -> void:
 
 func die():
 	pass
+
+func _regenerate_faith(delta: float) -> void:
+	if current_faith < max_faith:
+		current_faith += _stat(Global.Stat.FAITH) * delta
+		current_faith = min(current_faith, max_faith)

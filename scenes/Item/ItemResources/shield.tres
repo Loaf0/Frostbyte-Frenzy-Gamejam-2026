@@ -11,7 +11,7 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_7twib")
-item_name = "Shield"
+item_name = "Iron Shield"
 item_desc = "Increase Vigor"
 item_model = ExtResource("1_532lr")
 stat_modifiers = Array[ExtResource("3_7twib")]([SubResource("Resource_7twib")])

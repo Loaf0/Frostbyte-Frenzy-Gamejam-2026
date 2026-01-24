@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1ho78tdv84jw"]
+
+[ext_resource type="PackedScene" uid="uid://b0mv5q0pwsd5m" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/fbx/Skeleton_Staff.fbx" id="1_bu3qd"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="Skeleton_Staff" parent="." instance=ExtResource("1_bu3qd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

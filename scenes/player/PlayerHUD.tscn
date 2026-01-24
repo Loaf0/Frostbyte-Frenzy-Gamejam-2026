@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwsnxx2yxc7n8"]
+[gd_scene load_steps=15 format=3 uid="uid://bwsnxx2yxc7n8"]
 
 [ext_resource type="Script" uid="uid://do8lmc55ji872" path="res://scenes/player/player_hud.gd" id="1_xiwgm"]
 [ext_resource type="Texture2D" uid="uid://npnj46ktb1aq" path="res://assets/ui_assets/Retro Inventory/Original/Health_01.png" id="2_lbnyo"]
 [ext_resource type="Texture2D" uid="uid://u34rmc54dqwj" path="res://assets/ui_assets/Retro Inventory/Original/Settings_Bar02.png" id="3_4dwxf"]
 [ext_resource type="Texture2D" uid="uid://cbkr4085xyoev" path="res://assets/ui_assets/Retro Inventory/Original/Hearts_Red_1.png" id="3_42jgg"]
+[ext_resource type="Texture2D" uid="uid://w10rwppni2wf" path="res://assets/ui_assets/Retro Inventory/Original/07.png" id="4_w5n10"]
 [ext_resource type="Texture2D" uid="uid://crmiorew6d0uk" path="res://assets/ui_assets/Retro Inventory/Original/Health_01_Bar01.png" id="4_w64pa"]
 [ext_resource type="Texture2D" uid="uid://bxa68aepj2vyt" path="res://assets/ui_assets/Retro Inventory/Original/Settings.png" id="5_w64pa"]
 [ext_resource type="Texture2D" uid="uid://cmm0ccqnfntd3" path="res://assets/ui_assets/Retro Inventory/Original/Health_03.png" id="6_ajqse"]
@@ -11,6 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://bl2qrlcxrq13y" path="res://assets/ui_assets/Retro Inventory/Original/Health_03_Bar03.png" id="7_yuo71"]
 [ext_resource type="Texture2D" uid="uid://bbfi7g1ljjbj1" path="res://assets/ui_assets/Retro Inventory/Original/Inventory_9Slices.png" id="8_yuo71"]
 [ext_resource type="Texture2D" uid="uid://8guw33ddatrg" path="res://assets/ui_assets/Retro Inventory/Original/Inventory_Slot_8.png" id="9_rj8fd"]
+[ext_resource type="FontFile" uid="uid://dx64cq2hbd78j" path="res://assets/fonts/ROMANUS.otf" id="13_7fd0g"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kmx6k"]
+font = ExtResource("13_7fd0g")
+font_size = 18
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
@@ -36,6 +44,8 @@ offset_bottom = 60.0
 grow_horizontal = 2
 
 [node name="RollMeter" type="TextureProgressBar" parent="."]
+visible = false
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,6 +63,14 @@ value = 100.0
 texture_under = ExtResource("5_w64pa")
 texture_progress = ExtResource("3_4dwxf")
 texture_progress_offset = Vector2(16, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(547, 328)
+texture = ExtResource("4_w5n10")
+hframes = 10
+region_enabled = true
+region_rect = Rect2(0, 0, 160, 16)
 
 [node name="PlayerMeters" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -113,6 +131,7 @@ texture_progress = ExtResource("7_yuo71")
 texture_progress_offset = Vector2(11, 0)
 
 [node name="AbilitySpot" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer"]
+texture_filter = 1
 layout_mode = 0
 offset_left = 336.0
 offset_top = 13.0
@@ -123,3 +142,16 @@ value = 100.0
 fill_mode = 4
 texture_under = ExtResource("8_yuo71")
 texture_progress = ExtResource("9_rj8fd")
+
+[node name="Item Description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.004
+anchor_top = 0.017
+anchor_right = 0.22000001
+anchor_bottom = 0.22800002
+offset_left = 1.6080003
+offset_top = 15.983999
+offset_right = 0.5599823
+offset_bottom = 0.2559967
+label_settings = SubResource("LabelSettings_kmx6k")

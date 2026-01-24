@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdwwxbw75qnsw"]
+
+[ext_resource type="PackedScene" uid="uid://cn5fi7p8uyb4o" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/fbx/Skeleton_Shield_Large_A.fbx" id="1_u4gff"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="Skeleton_Shield_Large_A" parent="." instance=ExtResource("1_u4gff")]

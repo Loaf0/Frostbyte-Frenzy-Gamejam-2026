@@ -1,18 +1,24 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://1c3okkbvlrgg"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://1c3okkbvlrgg"]
 
-[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_x78bh"]
+[ext_resource type="PackedScene" uid="uid://1fuh7twafgtj" path="res://scenes/item/ModelScenes/skeleton_quiver.tscn" id="1_x78bh"]
 [ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_5x5xj"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_smksj"]
 
 [sub_resource type="Resource" id="Resource_7twib"]
 script = ExtResource("3_smksj")
-amount = 0.15
+amount = -0.1
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_x78bh"]
+script = ExtResource("3_smksj")
+stat = 2
+amount = 0.2
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_5x5xj")
-item_name = "Shield"
-item_desc = "Increase Vigor"
+item_name = "Bone Quiver"
+item_desc = "Reduce Vigor & Increase Dexterity"
 item_model = ExtResource("1_x78bh")
-stat_modifiers = Array[ExtResource("3_smksj")]([SubResource("Resource_7twib")])
+stat_modifiers = Array[ExtResource("3_smksj")]([SubResource("Resource_7twib"), SubResource("Resource_x78bh")])
 metadata/_custom_type_script = "uid://3wd3qa4y3rpc"
