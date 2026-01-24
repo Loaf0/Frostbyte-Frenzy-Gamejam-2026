@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://bnq1kce5ot6ny"]
+
+[ext_resource type="Script" uid="uid://bde5jac8bp3o8" path="res://scenes/test/map/AiRoamingTest.gd" id="1_g2gfi"]
+[ext_resource type="Texture2D" uid="uid://biokkvmwm8h42" path="res://assets/textures/prototyping/vector/texture_01.svg" id="2_6r8r5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_obp0t"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dprga"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
+vertices = PackedVector3Array(-24.5, 1, -24.5, -24.5, 1, 24.5, 24.5, 1, 24.5, 24.5, 1, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fw8sf"]
+albedo_texture = ExtResource("2_6r8r5")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_uxheu"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fksfr"]
+size = Vector3(50, 1, 50)
+
+[node name="AI Test" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+script = ExtResource("1_g2gfi")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_obp0t")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_dprga")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.6427877, 0.7660445, 0, -0.7660445, 0.6427877, 0, 10, 4)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_hoted")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+material_override = SubResource("StandardMaterial3D_fw8sf")
+mesh = SubResource("BoxMesh_uxheu")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_fksfr")
