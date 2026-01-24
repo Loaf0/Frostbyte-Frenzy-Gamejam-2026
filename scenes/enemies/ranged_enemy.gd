@@ -1,8 +1,5 @@
 extends Enemy
 
-var jump_dir: Vector3
-var jumped: bool
-
 func _ready():
 	speed = 3.0
 	attack_damage = 5.0
@@ -10,8 +7,8 @@ func _ready():
 	attack_windup = 0.35
 	attack_hit_time = 0.55
 	max_health = 50
-	anim_tree = $Skeleton_Warrior/Rig_Medium/AnimationTree
-	melee_collision = $Skeleton_Warrior/Rig_Medium/GeneralSkeleton/MeleeHitbox/MeleeCollision
+	anim_tree = $Skeleton_Rogue/Rig_Medium/AnimationTree
+	melee_collision = $Skeleton_Rogue/Rig_Medium/GeneralSkeleton/WeaponSlot/Skeleton_Crossbow/MeleeHitbox/MeleeCollision
 	state_machine = anim_tree.get("parameters/StateMachine/playback")
 	origin = global_position
 	_setup_dissolve_materials()
@@ -55,19 +52,11 @@ func _physics_process(_delta):
 			attacked = false
 			anim_tree.set("parameters/StateMachine/conditions/Attack", _player_in_range()) 
 			move_and_slide()
-		"melee_combat_Melee_1H_Attack_Jump_Chop":
+		"tools_Sawing":
 			if !attacked:
 				_attack()
-				var next_pos := nav_agent.get_next_path_position()
-				var direction := (next_pos - global_position)
-				jump_dir = direction.normalized()
 				attacked = true
-			velocity = Vector3.ZERO
-			
-			velocity = jump_dir * (speed+1.2)*2
-			
-			velocity.y = 0 if is_on_floor() else -4
-			move_and_slide()
 			anim_tree.set("parameters/StateMachine/conditions/Run", !_player_in_range())
+			look_at(Vector3(player.global_position.x, global_position.y, player.global_position.z), Vector3.UP)
 		"actions_Death_A":
 			_death()

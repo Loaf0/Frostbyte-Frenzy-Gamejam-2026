@@ -1,0 +1,79 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=16 format=3 uid="uid://dgrhdobupwts8"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h4c3k"]
+animation = &"actions/Death_A"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_to801"]
+animation = &"actions/Idle_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qrxh2"]
+animation = &"movement/Running_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tofne"]
+animation = &"movement/Walking_B"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qw8ag"]
+animation = &"tools/Sawing"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8eqfu"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xyj2r"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Death"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gvknn"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iict3"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Death"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5y3e0"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Death"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ixvfu"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2fdu5"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Wander"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s0iou"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Run"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sut2u"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Death"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gml38"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"Wander"
+
+[resource]
+states/End/position = Vector2(1302, 100)
+states/actions_Death_A/node = SubResource("AnimationNodeAnimation_h4c3k")
+states/actions_Death_A/position = Vector2(775, 21)
+states/actions_Idle_B/node = SubResource("AnimationNodeAnimation_to801")
+states/actions_Idle_B/position = Vector2(353, 100)
+states/movement_Running_B/node = SubResource("AnimationNodeAnimation_qrxh2")
+states/movement_Running_B/position = Vector2(775, 100)
+states/movement_Walking_B/node = SubResource("AnimationNodeAnimation_tofne")
+states/movement_Walking_B/position = Vector2(552, 100)
+states/tools_Sawing/node = SubResource("AnimationNodeAnimation_qw8ag")
+states/tools_Sawing/position = Vector2(1080, 100)
+transitions = ["Start", "actions_Idle_B", SubResource("AnimationNodeStateMachineTransition_8eqfu"), "movement_Running_B", "actions_Death_A", SubResource("AnimationNodeStateMachineTransition_xyj2r"), "movement_Running_B", "tools_Sawing", SubResource("AnimationNodeStateMachineTransition_gvknn"), "tools_Sawing", "actions_Death_A", SubResource("AnimationNodeStateMachineTransition_iict3"), "actions_Idle_B", "actions_Death_A", SubResource("AnimationNodeStateMachineTransition_5y3e0"), "tools_Sawing", "movement_Running_B", SubResource("AnimationNodeStateMachineTransition_ixvfu"), "actions_Idle_B", "movement_Walking_B", SubResource("AnimationNodeStateMachineTransition_2fdu5"), "movement_Walking_B", "movement_Running_B", SubResource("AnimationNodeStateMachineTransition_s0iou"), "movement_Walking_B", "actions_Death_A", SubResource("AnimationNodeStateMachineTransition_sut2u"), "movement_Running_B", "movement_Walking_B", SubResource("AnimationNodeStateMachineTransition_gml38")]
+graph_offset = Vector2(137, 17)
