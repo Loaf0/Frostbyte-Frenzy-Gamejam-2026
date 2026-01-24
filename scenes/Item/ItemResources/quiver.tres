@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://haafa1bjof6"]
+
+[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_6mj86"]
+[ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_bl0a7"]
+[ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_uuk5y"]
+
+[sub_resource type="Resource" id="Resource_7twib"]
+script = ExtResource("3_uuk5y")
+amount = 0.15
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[resource]
+script = ExtResource("2_bl0a7")
+item_name = "Shield"
+item_desc = "Increase Vigor"
+item_model = ExtResource("1_6mj86")
+stat_modifiers = Array[ExtResource("3_uuk5y")]([SubResource("Resource_7twib")])
+metadata/_custom_type_script = "uid://3wd3qa4y3rpc"

@@ -100,9 +100,10 @@ func _on_stats_pressed() -> void:
 		"Strength : %s\n" % str(player.stats.get(Global.Stat.STRENGTH, 0.0)) +
 		"Dexterity : %s\n" % str(player.stats.get(Global.Stat.DEXTERITY, 0.0)) +
 		"Knowledge : %s\n" % str(player.stats.get(Global.Stat.KNOWLEDGE, 0.0)) +
-		"Faith : %s" % str(player.stats.get(Global.Stat.FAITH, 0.0))
+		"Faith : %s\n" % str(player.stats.get(Global.Stat.FAITH, 0.0)) +
+		"Mana Regen : %s\n" % str(player.stats.get(Global.Stat.MANA_REGEN, 0.0)) +
+		"Stamina Regen : %s" % str(player.stats.get(Global.Stat.STAMINA_REGEN, 0.0))
 	)
-
 
 func _on_options_pressed() -> void:
 	set_menu_state(MenuState.OPTIONS)

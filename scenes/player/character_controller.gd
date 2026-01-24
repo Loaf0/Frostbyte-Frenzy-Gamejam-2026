@@ -159,7 +159,7 @@ func _apply_class():
 	# apply stat sheet
 	stats.clear()
 	for s in Global.Stat.values():
-		stats[s] = 0.0
+		stats[s] = 1.0
 		
 	var character_stats_path: String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
 	var stat_sheet: ClassResource = load(character_stats_path)
