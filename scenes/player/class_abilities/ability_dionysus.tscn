@@ -4,7 +4,4 @@
 
 [node name="Ability" type="Node3D"]
 script = ExtResource("1_q4g2y")
-ability_uptime = null
-base_damage = null
-weapon_quality = null
 metadata/_custom_type_script = "uid://cw24nhidxjrlt"

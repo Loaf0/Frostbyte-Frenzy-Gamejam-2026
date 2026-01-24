@@ -408,7 +408,7 @@ func _set_red_flash(value: float):
 		mat.set_shader_parameter("red_flash", value/2)
 
 func _update_closest_interactable_ui() -> void:
-	var closest_interactable = _get_closest_interactable()
+	closest_interactable = _get_closest_interactable()
 	
 	var ui = get_tree().get_first_node_in_group("player_ui")
 	if not ui or not ui.has_method("update_item_description"):

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://brnk1yc03d21q"]
+
+[ext_resource type="Script" uid="uid://crg8nwkqar1v6" path="res://scenes/player/class_abilities/hestia_bullet.gd" id="1_f2cah"]
+[ext_resource type="Texture2D" uid="uid://p1x682nlta60" path="res://scenes/player/class_abilities/fireball-png-46739.png" id="1_s3xd6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f2cah"]
+render_priority = 10
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_s3xd6")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f2cah"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xgasp"]
+
+[node name="HestiaBullet" type="Node3D"]
+script = ExtResource("1_f2cah")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_f2cah")
+pixel_size = 0.0003
+billboard = 1
+texture = ExtResource("1_s3xd6")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_f2cah")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("SphereMesh_xgasp")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

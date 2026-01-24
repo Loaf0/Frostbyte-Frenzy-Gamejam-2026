@@ -52,6 +52,3 @@ func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	
 	proj_instance.damage = base_damage * weapon_quality * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.05)
 	proj_instance.shooter = get_parent()
-
-func update_item_description(item: ItemResource) -> void:
-	

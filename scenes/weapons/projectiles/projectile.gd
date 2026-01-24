@@ -5,7 +5,7 @@ extends Node3D
 @export var lifetime: float = 5.0
 @export var impact_effect: PackedScene
 
-var damage: float = 0.0
+@export var damage: float = 0.0
 var direction: Vector3 = Vector3.ZERO
 var shooter: Node3D = null
 var is_spent: bool = false # Prevents double-triggering during the 2s delay

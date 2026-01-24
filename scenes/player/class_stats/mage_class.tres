@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cdgn5ex6vntj0" path="res://scenes/rigged_models/players/mage.tscn" id="1_qyshm"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="2_vp8bn"]
+[ext_resource type="PackedScene" uid="uid://7uxcb4oxadxj" path="res://scenes/player/class_abilities/ability_hestia.tscn" id="3_2upy3"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_jvo4u"]
-[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_vp8bn"]
 [ext_resource type="Resource" uid="uid://c5r6jney0hl0y" path="res://scenes/weapons/weapon_resources/spellbook.tres" id="4_jvo4u"]
 
 [sub_resource type="Resource" id="Resource_23fyi"]
@@ -64,7 +64,7 @@ script = ExtResource("2_vp8bn")
 name = "Phoebe"
 god_subtitle = "Daughter of Hestia"
 model_path = ExtResource("1_qyshm")
-special_ability = ExtResource("3_vp8bn")
+special_ability = ExtResource("3_2upy3")
 starting_weapon = ExtResource("4_jvo4u")
 stat_modifiers = Array[ExtResource("3_jvo4u")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"
