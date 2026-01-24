@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://i70lwi5hdoru"]
+
+[ext_resource type="Script" uid="uid://blmuxq20yojo4" path="res://scenes/player/class_abilities/ability_heracles.gd" id="1_5rvxl"]
+[ext_resource type="Script" uid="uid://bm5urn5xy7w35" path="res://scripts/bullet_manager.gd" id="2_av667"]
+[ext_resource type="PackedScene" uid="uid://b8tapf2hbwdk" path="res://scenes/player/class_abilities/heracles_bullet.tscn" id="3_av667"]
+
+[node name="Ability" type="Node3D"]
+script = ExtResource("1_5rvxl")
+
+[node name="BulletManager" type="Node3D" parent="." node_paths=PackedStringArray("spawn_loc")]
+script = ExtResource("2_av667")
+bullet_scene = ExtResource("3_av667")
+spawn_loc = NodePath("spawnloc")
+
+[node name="spawnloc" type="Node3D" parent="BulletManager"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5999999, 0)

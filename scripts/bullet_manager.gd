@@ -44,6 +44,15 @@ func pattern_targeted_shot(target: Node3D, spread: float = 0.25, count: int = 5,
 		var dir := base_dir.rotated(Vector3.UP, offset)
 		fire_bullet(dir, speed, lifetime, damage)
 
+func pattern_targeted_shot_position(target_position : Vector3, spread: float = 0.25, count: int = 5, speed: float = 10.0, lifetime: float = 5.0, damage: float = 0.0) -> void:
+	var origin := spawn_loc.global_position if spawn_loc else global_position
+	var base_dir := (target_position - origin).normalized()
+
+	for i in range(count):
+		var offset := (float(i) - float(count - 1) * 0.5) * spread
+		var dir := base_dir.rotated(Vector3.UP, offset)
+		fire_bullet(dir, speed, lifetime, damage)
+
 func pattern_spiral(turns: int = 40, step: float = 0.25, speed: float = 10.0, lifetime: float = 5.0, damage: float = 0.0) -> void:
 	await _spiral_coroutine(turns, step, speed, lifetime, damage)
 

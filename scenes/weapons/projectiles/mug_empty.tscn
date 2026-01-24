@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=4 uid="uid://i6w0ggi13t2k"]
+[gd_scene load_steps=9 format=4 uid="uid://i6w0ggi13t2k"]
 
 [ext_resource type="Script" uid="uid://cchscsbe4b5pn" path="res://scenes/weapons/projectiles/projectile.gd" id="1_daq5n"]
 [ext_resource type="Texture2D" uid="uid://rdk0ch6ypdsv" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/barbarian_texture.png" id="2_5j5ym"]
+[ext_resource type="PackedScene" uid="uid://blqcxcr7xsajm" path="res://scenes/player/class_abilities/dionysus_splash.tscn" id="2_axmb2"]
 [ext_resource type="Script" uid="uid://d08t6tn0q65rq" path="res://scenes/weapons/projectiles/rotate_visuals.gd" id="2_nwky8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j4sma"]
@@ -48,6 +49,7 @@ shadow_mesh = SubResource("ArrayMesh_2rbr2")
 
 [node name="MugEmpty" type="Node3D"]
 script = ExtResource("1_daq5n")
+impact_effect = ExtResource("2_axmb2")
 
 [node name="Visuals" type="Node3D" parent="."]
 script = ExtResource("2_nwky8")

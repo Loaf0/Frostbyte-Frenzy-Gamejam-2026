@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0jpb4nguqdam"]
+
+[ext_resource type="Script" uid="uid://mhj4ambgrb7c" path="res://scenes/player/class_abilities/dionysus_splash_projectile.gd" id="1_q5dtl"]
+[ext_resource type="Texture2D" uid="uid://crfaksrrnkgka" path="res://scenes/player/class_abilities/beer.png" id="2_qfksd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dnx8g"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dnx8g"]
+orientation = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iyws4"]
+transparency = 2
+alpha_scissor_threshold = 0.786
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_color = Color(0.96862745, 0.6039216, 0.1882353, 1)
+albedo_texture = ExtResource("2_qfksd")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="Ability" type="Node3D"]
+script = ExtResource("1_q5dtl")
+metadata/_custom_type_script = "uid://cw24nhidxjrlt"
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_dnx8g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_dnx8g")
+surface_material_override/0 = SubResource("StandardMaterial3D_iyws4")

@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c0tq62psxt6qe" path="res://scenes/rigged_models/players/barbarian.tscn" id="1_waujw"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="2_jkw2t"]
-[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_jkw2t"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_rbol8"]
+[ext_resource type="PackedScene" uid="uid://i70lwi5hdoru" path="res://scenes/player/class_abilities/ability_heracles.tscn" id="3_xhqae"]
 [ext_resource type="Resource" uid="uid://onqnh54rgt2" path="res://scenes/weapons/weapon_resources/axe.tres" id="4_rbol8"]
 
 [sub_resource type="Resource" id="Resource_23fyi"]
@@ -64,7 +64,7 @@ script = ExtResource("2_jkw2t")
 name = "Faldor"
 god_subtitle = "Son of Heracles"
 model_path = ExtResource("1_waujw")
-special_ability = ExtResource("3_jkw2t")
+special_ability = ExtResource("3_xhqae")
 starting_weapon = ExtResource("4_rbol8")
 stat_modifiers = Array[ExtResource("3_rbol8")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"
