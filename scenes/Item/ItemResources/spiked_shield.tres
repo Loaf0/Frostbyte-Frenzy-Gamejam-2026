@@ -1,18 +1,24 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://d0k5i4gvoxumo"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://d0k5i4gvoxumo"]
 
-[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_0kilg"]
+[ext_resource type="PackedScene" uid="uid://dflnlqmyu2dtv" path="res://scenes/item/ModelScenes/SpikedShield.tscn" id="1_0kilg"]
 [ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_g0rxd"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_sjpdx"]
 
 [sub_resource type="Resource" id="Resource_7twib"]
 script = ExtResource("3_sjpdx")
-amount = 0.15
+amount = 0.075
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_0kilg"]
+script = ExtResource("3_sjpdx")
+stat = 3
+amount = 0.1
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_g0rxd")
-item_name = "Shield"
-item_desc = "Increase Vigor"
+item_name = "Spiked Shield"
+item_desc = "Increase Vigor & Strength"
 item_model = ExtResource("1_0kilg")
-stat_modifiers = Array[ExtResource("3_sjpdx")]([SubResource("Resource_7twib")])
+stat_modifiers = Array[ExtResource("3_sjpdx")]([SubResource("Resource_7twib"), SubResource("Resource_0kilg")])
 metadata/_custom_type_script = "uid://3wd3qa4y3rpc"

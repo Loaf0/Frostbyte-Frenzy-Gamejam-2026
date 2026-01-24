@@ -1,18 +1,19 @@
 [gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://byjfn1go3kd4g"]
 
-[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_rj5ju"]
+[ext_resource type="PackedScene" uid="uid://dwri3ghd8rm4o" path="res://scenes/item/ModelScenes/Blue_bottle.tscn" id="1_rj5ju"]
 [ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_mqlr5"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_yoak0"]
 
 [sub_resource type="Resource" id="Resource_7twib"]
 script = ExtResource("3_yoak0")
-amount = 0.15
+stat = 6
+amount = 0.1
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_mqlr5")
 item_name = "Mana Potion"
-item_desc = "Increase Vigor"
+item_desc = "Increase Mana Regen"
 item_model = ExtResource("1_rj5ju")
 stat_modifiers = Array[ExtResource("3_yoak0")]([SubResource("Resource_7twib")])
 metadata/_custom_type_script = "uid://3wd3qa4y3rpc"

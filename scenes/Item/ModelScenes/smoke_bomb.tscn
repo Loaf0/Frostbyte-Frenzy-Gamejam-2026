@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c36t4lsemgod5"]
+
+[ext_resource type="PackedScene" uid="uid://cdc4ga54levw1" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/smokebomb.fbx" id="1_llmwt"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="smokebomb" parent="." instance=ExtResource("1_llmwt")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

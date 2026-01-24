@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8o785gisich1"]
+[gd_scene load_steps=16 format=3 uid="uid://c8o785gisich1"]
 
 [ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_6feg7"]
 [ext_resource type="Script" uid="uid://wk8jh4c2kjk7" path="res://scripts/sub_viewport_container.gd" id="1_nkuo3"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="9_4ncx1"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="10_11mlt"]
 [ext_resource type="PackedScene" uid="uid://bkl723yhcbvcc" path="res://scenes/item/ItemPickups.tscn" id="10_cbc01"]
-[ext_resource type="Resource" uid="uid://ccv651en0qxlu" path="res://scenes/item/ItemResources/shield.tres" id="11_axpq6"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01
@@ -228,28 +227,18 @@ player = NodePath("../Player")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_k5klt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -1.7562479)
-selected_character = null
-rotation_fps = null
-mouse_idle_threshold = null
-base_move_speed = null
-agility_move_speed_bonus = null
-base_dodge_cooldown = null
-agility_dodge_cooldown_reduction = null
-min_dodge_cooldown = null
-acceleration = null
-friction = null
-dodge_speed = null
-dodge_duration = null
-max_stamina = null
-max_mana = null
-max_health = null
-vigor_health_multiplier = null
+selected_character = 0
 
 [node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
 transform = Transform3D(-0.9659258, 0, -0.25881913, 0, 1, 0, 0.25881913, 0, -0.9659258, 5, 0, 7)
 
 [node name="ItemPickups" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9756527, 0.4999957, -1.9194994)
-item = ExtResource("11_axpq6")
+
+[node name="ItemPickups2" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9756527, 0.4999957, -1.9194994)
+
+[node name="ItemPickups3" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.975653, 0.4999957, -1.9194994)
 
 [node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_11mlt")]

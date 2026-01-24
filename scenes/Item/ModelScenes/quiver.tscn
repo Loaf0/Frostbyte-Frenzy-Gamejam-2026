@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt7nh7rq3h0cb"]
+
+[ext_resource type="PackedScene" uid="uid://c4rlbklgk3vsq" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/quiver.fbx" id="1_iqm0y"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="quiver" parent="." instance=ExtResource("1_iqm0y")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)

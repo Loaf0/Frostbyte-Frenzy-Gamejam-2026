@@ -1,18 +1,25 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://b2pq14bfxopda"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://b2pq14bfxopda"]
 
-[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_15j4f"]
+[ext_resource type="PackedScene" uid="uid://c36t4lsemgod5" path="res://scenes/item/ModelScenes/smoke_bomb.tscn" id="1_15j4f"]
 [ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_urqw2"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_b340l"]
 
 [sub_resource type="Resource" id="Resource_7twib"]
 script = ExtResource("3_b340l")
-amount = 0.15
+stat = 1
+amount = 0.075
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_15j4f"]
+script = ExtResource("3_b340l")
+stat = 2
+amount = 0.075
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_urqw2")
-item_name = "Shield"
-item_desc = "Increase Vigor"
+item_name = "Smoke Bomb"
+item_desc = "Increase Dexterity & Agility"
 item_model = ExtResource("1_15j4f")
-stat_modifiers = Array[ExtResource("3_b340l")]([SubResource("Resource_7twib")])
+stat_modifiers = Array[ExtResource("3_b340l")]([SubResource("Resource_7twib"), SubResource("Resource_15j4f")])
 metadata/_custom_type_script = "uid://3wd3qa4y3rpc"

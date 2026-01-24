@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bulwelys6qudd"]
+
+[ext_resource type="PackedScene" uid="uid://b0lfwtpxkte6p" path="res://assets/asset_packs/kaykit_dungeon_remastered/Assets/gltf/bottle_A_labeled_green.gltf.glb" id="1_klsgx"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="bottle_A_labeled_green_gltf" parent="." instance=ExtResource("1_klsgx")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)

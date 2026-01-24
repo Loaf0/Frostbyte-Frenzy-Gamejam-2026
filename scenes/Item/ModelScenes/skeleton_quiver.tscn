@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://1fuh7twafgtj"]
+
+[ext_resource type="PackedScene" uid="uid://blvul5wlbrusn" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/fbx/Skeleton_Quiver.fbx" id="1_6ipfg"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="Skeleton_Quiver" parent="." instance=ExtResource("1_6ipfg")]
+transform = Transform3D(1.25, 0, 0, 0, 1.25, 0, 0, 0, 1.25, 0, 0, 0)

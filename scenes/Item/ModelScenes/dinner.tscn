@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cpr0cdkkj5gcq"]
+
+[ext_resource type="ArrayMesh" uid="uid://c6fqgah683jt6" path="res://assets/asset_packs/kaykit_restaurant_bits/Assets/obj/food_dinner.obj" id="1_gyo0u"]
+
+[node name="Shield" type="Node3D"]
+
+[node name="FoodDinner" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+mesh = ExtResource("1_gyo0u")

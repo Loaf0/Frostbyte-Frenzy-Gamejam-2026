@@ -159,7 +159,7 @@ func _apply_class():
 	# apply stat sheet
 	stats.clear()
 	for s in Global.Stat.values():
-		stats[s] = 1.0
+		stats[s] = 0.0
 		
 	var character_stats_path: String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
 	var stat_sheet: ClassResource = load(character_stats_path)
@@ -388,7 +388,7 @@ func _interact():
 	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
 	if interactables.size() == 0:
 		return
-	print(interactables)
+	#print(interactables)
 	var closest = interactables[0]
 	var min_dist := global_position.distance_to(closest.global_position)
 	for interactable in interactables:

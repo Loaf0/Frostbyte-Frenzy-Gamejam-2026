@@ -1,18 +1,25 @@
-[gd_resource type="Resource" script_class="ItemResource" load_steps=5 format=3 uid="uid://dbmf27gbpav66"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=6 format=3 uid="uid://dbmf27gbpav66"]
 
-[ext_resource type="PackedScene" uid="uid://dhr1iuatf4xt6" path="res://scenes/item/ModelScenes/Shield.tscn" id="1_b2o0i"]
+[ext_resource type="PackedScene" uid="uid://cdwwxbw75qnsw" path="res://scenes/item/ModelScenes/skeleton_shield.tscn" id="1_b2o0i"]
 [ext_resource type="Script" uid="uid://3wd3qa4y3rpc" path="res://scenes/item/ItemResource.gd" id="2_lpo06"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_8xarp"]
 
 [sub_resource type="Resource" id="Resource_7twib"]
 script = ExtResource("3_8xarp")
-amount = 0.15
+amount = -0.1
+metadata/_custom_type_script = "uid://c11jol2dvq2m5"
+
+[sub_resource type="Resource" id="Resource_b2o0i"]
+script = ExtResource("3_8xarp")
+stat = 3
+amount = 0.2
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [resource]
 script = ExtResource("2_lpo06")
-item_name = "Shield"
-item_desc = "Increase Vigor"
+item_name = "Shield of the Fallen"
+item_desc = "Reduce Strength & Increase Vigor"
 item_model = ExtResource("1_b2o0i")
-stat_modifiers = Array[ExtResource("3_8xarp")]([SubResource("Resource_7twib")])
+cursed = true
+stat_modifiers = Array[ExtResource("3_8xarp")]([SubResource("Resource_7twib"), SubResource("Resource_b2o0i")])
 metadata/_custom_type_script = "uid://3wd3qa4y3rpc"
