@@ -6,14 +6,16 @@
 #DONE Create Weapons - go back and fix bow anim
 #DONE Super abilities System (Tyler) - Structure is there not created yet
 #DONE Main Menu Map (Kayla) - Finished
+#DONE Main Menu
+#DONE Character Select
+#DONE imple Item Pickups System (Tyler) - Structure is there not created yet
+#DONE Create Items
+#DONE Main menu + Options (Tyler) - Character select possibly do the in room camera the looks around
 
-imple Item Pickups System (Tyler) - Structure is there not created yet
-Create Items
 Create Super Abilities 2/6 - need to add effects too
 
 Tile creation + Boss Arena (Kayla)
 Player HUD / ingame pause (Kayla)
-Main menu + Options (Tyler) - Character select possibly do the in room camera the looks around
 Basic Enemy AI
 bow and crossbow left handed
 
@@ -26,8 +28,6 @@ Current Order of Prior
 		Pause Menu
 		
 	Tyler
-		Main Menu
-		Character Select
 		Boss
 		
 Design and create Boss (save for last 2 hours)
