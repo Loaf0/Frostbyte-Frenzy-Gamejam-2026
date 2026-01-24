@@ -46,8 +46,8 @@ func _handle_impact(body: Node) -> void:
 
 	if impact_effect:
 		var effect := impact_effect.instantiate()
-		effect.global_position = global_position
 		add_sibling(effect)
+		effect.global_position = global_position
 
 	visuals.hide()
 	area_3d.set_deferred("monitoring", false)

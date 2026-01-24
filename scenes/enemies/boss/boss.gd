@@ -79,6 +79,7 @@ func _on_death():
 				)
 	
 	await tween.finished
+	await get_tree().create_timer(5.0).timeout
 	queue_free()
 
 func take_damage(amount : float):
