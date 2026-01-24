@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnq1kce5ot6ny"]
+[gd_scene load_steps=19 format=3 uid="uid://bnq1kce5ot6ny"]
 
 [ext_resource type="Script" uid="uid://byoewc2y23vui" path="res://scenes/test/map/ai_test.gd" id="1_fimcl"]
 [ext_resource type="PackedScene" uid="uid://dmq3a7lho1ybl" path="res://scenes/enemies/base_enemy.tscn" id="1_g2gfi"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="7_171re"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="8_6hc46"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="9_gr207"]
+[ext_resource type="PackedScene" uid="uid://b2pjopgjfqhiw" path="res://scenes/enemies/jump_enemy.tscn" id="10_tjrfu"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
 vertices = PackedVector3Array(-24.5, 0.9575882, -24.5, -24.5, 0.9575882, 1.5, 24.5, 0.9575882, 1.5, 24.5, 0.9575882, -24.5, -24.5, 0.9575882, 4, -24.5, 0.9575882, 24.5, 24.5, 0.9575882, 24.5, 24.5, 0.9575882, 4)
@@ -63,7 +64,7 @@ skeleton = NodePath("../CollisionShape3D")
 shape = SubResource("BoxShape3D_fksfr")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 0.11765874, -0.9930541, 0, 0.9930541, 0.11765874, -9.493229, -19.90723, 5.247966)
+transform = Transform3D(1, 0, 0, 0, 0.11765874, -0.9930541, 0, 0.9930541, 0.11765874, -33.14628, -19.90723, 5.247966)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
 material_override = SubResource("StandardMaterial3D_fw8sf")
@@ -134,10 +135,12 @@ skeleton = NodePath("../../../..")
 player = NodePath("../Player")
 
 [node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("8_6hc46")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -6.1213636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, 3.0593195)
 selected_character = 0
 
 [node name="BaseEnemy" parent="SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("1_g2gfi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50998855, 5.485322)
+
+[node name="JumpEnemy" parent="SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("10_tjrfu")]
 
 [node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_gr207")]
