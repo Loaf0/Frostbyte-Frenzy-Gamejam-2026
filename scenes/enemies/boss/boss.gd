@@ -8,6 +8,10 @@ var current_attack: int = AttackType.NONE
 @export var boss_max_stamina : float = 100.0
 @export var max_health = 50
 
+var attack_sfx1 = preload("res://assets/audio/sfx/earth-spell-393923.mp3")
+var attack_sfx2 = preload("res://assets/audio/sfx/light-woosh-7119.mp3")
+var attack_sfx3 = preload("res://assets/audio/sfx/metal-door-slam-172172.mp3")
+
 @export var stamina_deplete_timeout: float = 8.5
 var boss_stamina = boss_max_stamina
 var boss_stamina_timeout: float = 0.0
@@ -173,7 +177,7 @@ func do_attack(player: Node3D) -> void:
 	current_attack = AttackType.NONE
 
 func melee_attack() -> void:
-	use_stamina(35, 3.5)
+	use_stamina(35, 5)
 	if out_of_stamina:
 		return
 	anim.speed_scale = 0.5
@@ -186,34 +190,39 @@ func melee_attack() -> void:
 func ranged_spin_attack() -> void:
 	#Melee_2H_Attack_Spin
 	#attack and shoot proj #spin and shoot projectiles in direction facing
-	use_stamina(20, 7.5)
+	use_stamina(20, 10)
 	if out_of_stamina:
 		return
 	anim.play("melee_combat/Melee_2H_Attack_Spin", 0.2)
 	await get_tree().create_timer(0.5).timeout
-
+	anim.play("melee_combat/Melee_2H_Attack_Spinning", 0.2)
+	
+	Global.play_one_shot_sfx(attack_sfx2, 0.05, 2.75, -15)
 	bullet_manager.pattern_spiral(40, 0.04, 12.0, 3.5, 5)
-	await anim.animation_finished
+	await get_tree().create_timer(1.5).timeout
+	anim.play("actions/Idle_B", 0.5)
 
 func ranged_wave_attack(player: Node3D) -> void:
-	use_stamina(7.5, 6.0)
+	use_stamina(7.5, 8)
 	if out_of_stamina:
 		return
 	anim.speed_scale = 0.1
 	anim.play("actions/Hit_B", 0.2)
 	await get_tree().create_timer(0.25).timeout
 	anim.speed_scale = 1.0
+	Global.play_one_shot_sfx(attack_sfx1, 0.05, 0.6, -15)
 	bullet_manager.pattern_targeted_shot(player, 0.18, 7, 10.0, 4.0, 5)
 
 func ranged_circle_attack() -> void:
 	#movement/Jump_Full_Short_Attack
 	#shoot full circle of projectiles
-	use_stamina(25, 7.5)
+	use_stamina(25, 10)
 	if out_of_stamina:
 		return
 	anim.speed_scale = 0.5
 	anim.play("movement/Jump_Full_Short_Attack", 0.5)
 	await get_tree().create_timer(1.0).timeout
+	Global.play_one_shot_sfx(attack_sfx3, 0.05, 0.0, -15)
 	bullet_manager.pattern_radial_ring(18, 8.0, 5.0, 5)
 	await anim.animation_finished
 	anim.speed_scale = 1.0
