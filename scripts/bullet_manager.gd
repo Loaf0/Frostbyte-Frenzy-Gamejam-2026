@@ -23,7 +23,6 @@ func fire_bullet(dir: Vector3, speed: float = 10.0, lifetime: float = 5.0, damag
 	b.speed = bullet_speed if speed < 0.0 else speed
 	b.life_time = bullet_lifetime if lifetime < 0.0 else lifetime
 
-	# Set bullet damage if the bullet has a property called "damage"
 	if "damage" in b:
 		b.damage = damage
 

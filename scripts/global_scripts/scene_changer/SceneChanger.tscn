@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmwfwjtm3aret"]
+[gd_scene load_steps=7 format=3 uid="uid://cmwfwjtm3aret"]
 
 [ext_resource type="Script" uid="uid://bf6iayj45aws1" path="res://scripts/global_scripts/scene_changer/scene_changer.gd" id="1_5nf47"]
 
@@ -49,8 +49,25 @@ tracks/0/keys = {
 "values": [Color(0, 0, 0.027451, 0), Color(0, 0, 0.027451, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_2fdfj"]
+resource_name = "CreditsRoll"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5000001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0.02745098, 0), Color(0, 0, 0.02745098, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_voks3"]
 _data = {
+&"CreditsRoll": SubResource("Animation_2fdfj"),
 &"RESET": SubResource("Animation_5nf47"),
 &"fade_in": SubResource("Animation_7b4dx"),
 &"fade_out": SubResource("Animation_voks3")
@@ -69,7 +86,6 @@ mouse_filter = 1
 script = ExtResource("1_5nf47")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-z_index = -100
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0

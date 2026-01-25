@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://buxs7pudp5tto" path="res://assets/ui_assets/Crosshair/White/crosshair065.png" id="1_x3fal"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qefik"]
+radius = 0.3
 
 [sub_resource type="SphereMesh" id="SphereMesh_qefik"]
 

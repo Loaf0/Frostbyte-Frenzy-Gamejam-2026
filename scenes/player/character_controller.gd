@@ -58,7 +58,7 @@ var last_mouse_pos := Vector2.ZERO
 @export var min_dodge_cooldown := 0.35
 
 @export var move_speed := base_move_speed
-@export var acceleration := 18.0
+@export var acceleration := 25.0
 @export var friction := 48.0
 
 @export var dodge_speed := 14.0

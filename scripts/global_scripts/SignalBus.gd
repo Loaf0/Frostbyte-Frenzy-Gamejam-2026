@@ -6,3 +6,6 @@ extends Node
 ## - Define custom signals here, e.g., `signal player_died`
 ## - Emit from anywhere: `SignalBus.player_died.emit()`
 ## - Connect from anywhere: `SignalBus.player_died.connect(target_method)`
+
+@warning_ignore("unused_signal")
+signal boss_defeated

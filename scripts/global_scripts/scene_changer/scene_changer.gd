@@ -10,8 +10,11 @@ var new_scene_path : String
 
 func _ready() -> void:
 	anim.play("fade_in")
+	SignalBus.connect("boss_defeated", game_win_state)
 
-## TODO -- add ability to set player starting coords when entering rooms from different areas
+func game_win_state():
+	change_to("res://scenes/ui/credits.tscn")
+
 
 func change_to(new_scene : String):
 	if new_scene.is_empty():

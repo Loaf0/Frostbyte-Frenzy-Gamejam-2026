@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqqxlvtxomkkx"]
+
+[ext_resource type="Script" uid="uid://dnh8wqswm2h3d" path="res://scenes/ui/credits.gd" id="1_jkvjv"]
+[ext_resource type="AudioStream" uid="uid://1hij1t8qsihi" path="res://assets/audio/music/mystical-music-54294.mp3" id="4_um21f"]
+
+[sub_resource type="Gradient" id="Gradient_oap8i"]
+offsets = PackedFloat32Array(0, 0.1, 0.9, 1)
+colors = PackedColorArray(0, 0, 0, 0.45490196, 0, 0, 0, 0.78431374, 0, 0, 0, 0.7396079, 0, 0, 0, 0.56078434)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oowpt"]
+gradient = SubResource("Gradient_oap8i")
+
+[sub_resource type="Environment" id="Environment_dmqo5"]
+ssao_radius = 0.01
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_contrast = 0.95
+adjustment_saturation = 1.2
+
+[node name="Credits" type="Node3D"]
+script = ExtResource("1_jkvjv")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
+oversampling = false
+size = Vector2i(384, 216)
+render_target_update_mode = 4
+
+[node name="Options" type="Control" parent="SubViewportContainer/SubViewport"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_oowpt")
+
+[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+horizontal_alignment = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_dmqo5")
+
+[node name="MusicPlayer" type="AudioStreamPlayer3D" parent="SubViewportContainer/SubViewport"]
+stream = ExtResource("4_um21f")
+autoplay = true
+bus = &"Music"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport"]

@@ -196,15 +196,14 @@ func _on_go_to_options_pressed() -> void:
 	_set_menu_state(false, false, true)
 	target_poi = options_location
 	
-	var total_chars := Global.CharacterClass.values().size()
-	var unlocked := 0
+	var total_chars := Global.CharacterClass.values().size() - 1
+	var unlocked := -1
 	for i in Global.CharacterClass.values():
 		if Global.unlocked_characters.get(i, false):
 			unlocked += 1
 
-	@warning_ignore("integer_division")
-	var completion_percent := roundf(unlocked / total_chars * 100)
-	completion_percentage.text = "Completion: " + str(completion_percent) + '%'
+	var completion_percent := roundf(float(unlocked) / float(total_chars) * 100.0)
+	completion_percentage.text = "Completion: " + str(completion_percent) + "%"
 
 func _on_exit_game_pressed() -> void:
 	_play_one_shot_sfx(button_press, 0.05, 0.0)

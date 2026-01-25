@@ -6,8 +6,10 @@ var current_attack: int = AttackType.NONE
 @onready var bullet_manager: BossBulletManager = $BulletManager
 @onready var melee_hitbox: Area3D = $Skeleton_Mage/Rig_Medium/GeneralSkeleton/RightHand/Skeleton_Blade/MeleeHitbox
 @export var boss_max_stamina : float = 100.0
-@export var max_health = 50
-
+@export var max_health = 20
+@onready var mesh = $Skeleton_Mage
+var player_in_melee_range := false
+var melee_active = false
 var attack_sfx1 = preload("res://assets/audio/sfx/earth-spell-393923.mp3")
 var attack_sfx2 = preload("res://assets/audio/sfx/light-woosh-7119.mp3")
 var attack_sfx3 = preload("res://assets/audio/sfx/metal-door-slam-172172.mp3")
@@ -17,6 +19,9 @@ var boss_stamina = boss_max_stamina
 var boss_stamina_timeout: float = 0.0
 var out_of_stamina: bool = false
 var stamina_recovering: bool = false
+
+@export var turn_speed := 6.0
+var attack_target: Node3D = null
 
 var next_phase_thres = max_health * 0.4
 var hit_player = false
@@ -101,6 +106,7 @@ func _setup_dissolve_materials():
 func _on_death():
 	$CollisionShape3D.set_deferred("disabled", true)
 	started_death_sequence = true
+	bullet_manager.queue_free()
 	anim.play("actions/Death_A", 0.4)
 	await anim.animation_finished
 	
@@ -112,6 +118,7 @@ func _on_death():
 				)
 	
 	await tween.finished
+	SignalBus.boss_defeated.emit()
 	await get_tree().create_timer(5.0).timeout
 	queue_free()
 
@@ -124,6 +131,8 @@ func _process(delta: float) -> void:
 	$Label3D.text = "HEALTH: " + str(current_health) + "/" + str(max_health)
 
 	if started_death_sequence:
+		if anim.current_animation != "actions/Death_A":
+			anim.play("actions/Death_A_Pose", 0.4)
 		return
 
 	if attack_delay_timer > 0.0:
@@ -142,6 +151,29 @@ func _process(delta: float) -> void:
 			stamina_recovering = false
 			current_attack = AttackType.NONE
 			anim.play("actions/Idle_A", 0.5)
+		
+	if attacking and current_attack != AttackType.NONE and attack_target and is_instance_valid(attack_target):
+		_face_target(delta)
+
+
+func _face_target(delta: float) -> void:
+	var to_target := attack_target.global_position - global_position
+	to_target.y = 0.0
+
+	if to_target.length_squared() < 0.001:
+		return
+
+	var desired_basis := Basis.looking_at(to_target.normalized(), Vector3.UP)
+
+	var current_q := global_transform.basis.get_rotation_quaternion()
+	var target_q := desired_basis.get_rotation_quaternion()
+
+	var t = clamp(turn_speed * delta, 0.0, 1.0)
+	var new_q := current_q.slerp(target_q, t)
+
+	global_transform.basis = Basis(new_q)
+
+
 
 func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	var found_meshes: Array[MeshInstance3D] = []
@@ -157,35 +189,57 @@ func do_attack(player: Node3D) -> void:
 
 	hit_player = false
 	attacking = true
+	attack_target = player
 
-	match attack_index:
-		0:
-			current_attack = AttackType.RANGED_WAVE
-			await ranged_wave_attack(player)
-		1:
-			current_attack = AttackType.RANGED_CIRCLE
-			await ranged_circle_attack()
-		2:
-			current_attack = AttackType.RANGED_SPIN
-			await ranged_spin_attack()
-		3:
-			current_attack = AttackType.MELEE
-			await melee_attack()
+	var use_melee := false
 
-	attack_index = (attack_index + 1) % 4
+	if player_in_melee_range:
+		use_melee = randf() <= 0.8
+
+	if use_melee:
+		current_attack = AttackType.MELEE
+		await melee_attack()
+	else:
+		var ranged_choice := randi() % 3
+		match ranged_choice:
+			0:
+				current_attack = AttackType.RANGED_WAVE
+				await ranged_wave_attack(player)
+			1:
+				current_attack = AttackType.RANGED_CIRCLE
+				await ranged_circle_attack()
+			2:
+				current_attack = AttackType.RANGED_SPIN
+				await ranged_spin_attack()
 
 	attacking = false
 	current_attack = AttackType.NONE
+	attack_target = null
+
 
 func melee_attack() -> void:
 	use_stamina(35, 5)
 	if out_of_stamina:
 		return
+
 	anim.speed_scale = 0.5
 	anim.play("melee_combat/Melee_1H_Attack_Slice_Diagonal")
-	await anim.animation_finished
 
+	await get_tree().create_timer(0.65).timeout
+	melee_active = true
+	hit_player = false
+
+	var active_time := 0.4
+	var elapsed := 0.0
+
+	while elapsed < active_time:
+		_check_melee_hit()
+		await get_tree().process_frame
+		elapsed += get_process_delta_time()
+
+	melee_active = false
 	anim.speed_scale = 1.0
+
 	await get_tree().create_timer(0.15).timeout
 
 func ranged_spin_attack() -> void:
@@ -198,8 +252,9 @@ func ranged_spin_attack() -> void:
 	await get_tree().create_timer(0.5).timeout
 	anim.play("melee_combat/Melee_2H_Attack_Spinning", 0.2)
 	
-	Global.play_one_shot_sfx(attack_sfx2, 0.05, 2.75, -15)
-	bullet_manager.pattern_spiral(40, 0.04, 12.0, 3.5, 5)
+	Global.play_one_shot_sfx(attack_sfx2, 0.05, 2.75, -20)
+	if bullet_manager:
+		bullet_manager.pattern_spiral(40, 0.04, 12.0, 3.5, 5)
 	await get_tree().create_timer(1.5).timeout
 	anim.play("actions/Idle_B", 0.5)
 
@@ -207,12 +262,12 @@ func ranged_wave_attack(player: Node3D) -> void:
 	use_stamina(7.5, 8)
 	if out_of_stamina:
 		return
-	anim.speed_scale = 0.1
-	anim.play("actions/Hit_B", 0.2)
-	await get_tree().create_timer(0.25).timeout
+	anim.play("melee_combat/Melee_Dualwield_Attack_Stab",)
 	anim.speed_scale = 1.0
-	Global.play_one_shot_sfx(attack_sfx1, 0.05, 0.6, -15)
-	bullet_manager.pattern_targeted_shot(player, 0.18, 7, 10.0, 4.0, 5)
+	await get_tree().create_timer(0.5).timeout
+	Global.play_one_shot_sfx(attack_sfx1, 0.05, 0.6, -20)
+	if bullet_manager:
+		bullet_manager.pattern_targeted_shot(player, 0.18, 7, 10.0, 4.0, 5)
 
 func ranged_circle_attack() -> void:
 	#movement/Jump_Full_Short_Attack
@@ -222,9 +277,10 @@ func ranged_circle_attack() -> void:
 		return
 	anim.speed_scale = 0.5
 	anim.play("movement/Jump_Full_Short_Attack", 0.5)
-	await get_tree().create_timer(1.0).timeout
-	Global.play_one_shot_sfx(attack_sfx3, 0.05, 0.0, -15)
-	bullet_manager.pattern_radial_ring(18, 8.0, 5.0, 5)
+	await get_tree().create_timer(1.5).timeout
+	Global.play_one_shot_sfx(attack_sfx3, 0.05, 0.0, -20)
+	if bullet_manager:
+		bullet_manager.pattern_radial_ring(18, 8.0, 5.0, 5)
 	await anim.animation_finished
 	anim.speed_scale = 1.0
 
@@ -245,13 +301,28 @@ func use_stamina(cost: float, delay: float = 1.0) -> void:
 		boss_stamina = 0
 		out_of_stamina = true
 		boss_stamina_timeout = stamina_deplete_timeout
+	
+func _on_melee_hit(target: Node3D) -> void:
+	if target.has_method("take_damage"):
+		target.take_damage(10)
 
-func _on_melee_hitbox_body_entered(body: Node) -> void:
-	#print(body)
-	if current_attack != AttackType.MELEE:
+func _check_melee_hit() -> void:
+	if hit_player:
 		return
-	#print("test")
-	if body.is_in_group("player") and !hit_player:
-		print("dmg player")
-		body.take_damage(10)
-		hit_player = true
+
+	var bodies := melee_hitbox.get_overlapping_bodies()
+	for body in bodies:
+		if body.is_in_group("player"):
+			hit_player = true
+			_on_melee_hit(body)
+			return
+
+
+func _on_melee_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		player_in_melee_range = true
+
+
+func _on_melee_area_body_exited(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		player_in_melee_range = false

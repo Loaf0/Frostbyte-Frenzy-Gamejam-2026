@@ -19,16 +19,16 @@ func _play_one_shot_sfx(
 	volume_db: float = 0.0,
 	bus_name: String = "SFX"
 ) -> void:
-	var player := AudioStreamPlayer.new()
-	add_child(player)
-	player.stream = sfx
-	player.bus = bus_name
+	var audio_player := AudioStreamPlayer.new()
+	add_child(audio_player)
+	audio_player.stream = sfx
+	audio_player.bus = bus_name
 
 	pitch_range = clamp(pitch_range, 0.0, 0.08)
-	player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
+	audio_player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
 
-	player.volume_db = volume_db
+	audio_player.volume_db = volume_db
 
-	player.finished.connect(player.queue_free)
+	audio_player.finished.connect(audio_player.queue_free)
 
-	player.play(start_time)
+	audio_player.play(start_time)

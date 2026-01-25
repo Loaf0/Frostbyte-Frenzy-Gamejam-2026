@@ -15,11 +15,11 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
-	CharacterClass.MAGE : true,
-	CharacterClass.KNIGHT : true,
-	CharacterClass.BARBARIAN : true,
-	CharacterClass.ROGUE : true,
-	CharacterClass.SKELETON : true
+	CharacterClass.MAGE : false,
+	CharacterClass.KNIGHT : false,
+	CharacterClass.BARBARIAN : false,
+	CharacterClass.ROGUE : false,
+	CharacterClass.SKELETON : false
 }
 
 var name_map : Dictionary = {
@@ -44,6 +44,20 @@ func unlock_character(char_class: CharacterClass):
 		unlocked_characters[char_class] = true
 		Save.save_player()
 		print("Character Unlocked: ", CharacterClass.keys()[char_class])
+
+func unlock_next_character_from_selected() -> CharacterClass:
+	var current_index := int(selected_character)
+	var values := CharacterClass.values()
+	
+	if current_index + 1 < values.size():
+		var next_class = values[current_index + 1]
+		if not unlocked_characters[next_class]:
+			unlocked_characters[next_class] = true
+			Save.save_player()
+			print(next_class)
+			return next_class
+
+	return Global.CharacterClass.RANGER
 
 func play_one_shot_sfx(
 	sfx: AudioStream,
