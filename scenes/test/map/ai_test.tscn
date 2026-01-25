@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://bnq1kce5ot6ny"]
 
 [ext_resource type="Script" uid="uid://byoewc2y23vui" path="res://scenes/test/map/ai_test.gd" id="1_fimcl"]
-[ext_resource type="PackedScene" uid="uid://cfi3inwbbiake" path="res://scenes/enemies/base_enemy.tscn" id="1_g2gfi"]
+[ext_resource type="PackedScene" uid="uid://dmq3a7lho1ybl" path="res://scenes/enemies/base_enemy.tscn" id="1_g2gfi"]
 [ext_resource type="Texture2D" uid="uid://biokkvmwm8h42" path="res://assets/textures/prototyping/vector/texture_01.svg" id="2_6r8r5"]
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="3_fksfr"]
 [ext_resource type="Resource" uid="uid://xvso3je8k6lx" path="res://scenes/weapons/weapon_resources/sword.tres" id="4_fimcl"]
@@ -10,8 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="7_171re"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="8_6hc46"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="9_gr207"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/jump_enemy.tscn" id="10_tjrfu"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/ranged_enemy.tscn" id="11_pqed3"]
+[ext_resource type="PackedScene" uid="uid://b2pjopgjfqhiw" path="res://scenes/enemies/jump_enemy.tscn" id="10_tjrfu"]
+[ext_resource type="PackedScene" uid="uid://bmb0wuu3g0ftt" path="res://scenes/enemies/ranged_enemy.tscn" id="11_pqed3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
 vertices = PackedVector3Array(-24.5, 0.9575882, -24.5, -24.5, 0.9575882, 1.5, 24.5, 0.9575882, 1.5, 24.5, 0.9575882, -24.5, -24.5, 0.9575882, 4, -24.5, 0.9575882, 24.5, 24.5, 0.9575882, 24.5, 24.5, 0.9575882, 4)

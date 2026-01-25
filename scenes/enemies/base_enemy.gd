@@ -140,6 +140,7 @@ func take_damage(amount : float):
 	current_health -= amount
 	if current_health <= 0:
 		anim_tree.set("parameters/StateMachine/conditions/Death", true)
+		anim_tree.set("parameters/StateMachine/conditions/Attack", false)
 	else:
 		anim_tree.set("parameters/HitBlend/blend_amount", 0.8)
 		anim_tree.set("parameters/HitMachine/conditions/Hit", true)
