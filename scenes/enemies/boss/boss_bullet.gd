@@ -24,10 +24,11 @@ func _on_body_entered(body: Node) -> void:
 		return
 	
 	if body.is_in_group("player"):
-		if !body.is_dodging:
-			if body.has_method("take_damage"):
-				body.take_damage(damage)
-				queue_free()
-				return
+		if body.is_dodging:
+			return
+		if body.has_method("take_damage"):
+			body.take_damage(damage)
+			queue_free()
+			return
 	
 	queue_free()

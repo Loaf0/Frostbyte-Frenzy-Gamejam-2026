@@ -71,4 +71,3 @@ func _apply_item(target: Node) -> void:
 		var stat_name := str(mod.stat)
 		var amount := mod.amount
 		print("Applied " + stat_name + " : " + str(amount))
-	# play pickup sound here

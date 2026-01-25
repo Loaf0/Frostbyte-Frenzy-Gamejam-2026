@@ -3,8 +3,9 @@ class_name Enemy
 
 var bone_sfx = preload("res://assets/audio/sfx/bone-break-sfx-393835.mp3")
 var sfx = preload("res://assets/audio/sfx/swing-whoosh-5-198498.mp3")
-@export var wander_radius: float = 20.0
-@export var speed: float = 4.0
+@export var wander_radius: float = 5.0
+@export var wander_speed: float = 0.8
+@export var speed: float = 3.0
 @export var repath_distance: float = 0.5
 @export var attack_damage: float = 3.5
 @export var attack_range: float = 2.0
@@ -17,6 +18,7 @@ var damaged: bool = true
 var dying = false
 var player: CharacterBody3D
 var state_machine: AnimationNodeStateMachinePlayback
+var is_aggroed: bool = false
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var nav_tester: NavigationAgent3D = $NavTester
@@ -44,7 +46,7 @@ func _process(_delta: float) -> void:
 	if dying:
 		return
 
-	if player and is_instance_valid(player):
+	if is_aggroed and player and is_instance_valid(player):
 		nav_agent.target_position = player.global_position
 	elif nav_agent.is_navigation_finished():
 		_set_random_target()
@@ -68,7 +70,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta):
-	print(state_machine.get_current_node())
+	#print(state_machine.get_current_node())
 	match state_machine.get_current_node():
 		"actions_Idle_B":
 			anim_tree.set("parameters/StateMachine/conditions/Wander", true)
@@ -82,7 +84,7 @@ func _physics_process(_delta):
 				return
 			
 			direction = direction.normalized()
-			velocity = direction * (speed/2)
+			velocity = direction * wander_speed
 			
 			velocity.y = 0 if is_on_floor() else -4
 			look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
@@ -174,6 +176,12 @@ func _set_random_target():
 func take_damage(amount : float):
 	current_health -= amount
 	Global.play_one_shot_sfx(bone_sfx, 0.05, 0.1, -15)
+	
+	if not is_aggroed:
+		var p := Global.player
+		if is_instance_valid(p):
+			aggro(p)
+	
 	if current_health <= 0:
 		anim_tree.set("parameters/StateMachine/conditions/Death", true)
 		anim_tree.set("parameters/StateMachine/conditions/Attack", false)
@@ -232,3 +240,14 @@ func _death():
 	
 	await tween.finished
 	queue_free()
+
+func aggro(target: CharacterBody3D) -> void:
+	if dying:
+		return
+	if not is_instance_valid(target):
+		return
+
+	player = target
+	is_aggroed = true
+	nav_agent.target_position = target.global_position
+	anim_tree.set("parameters/StateMachine/conditions/Wander", false)

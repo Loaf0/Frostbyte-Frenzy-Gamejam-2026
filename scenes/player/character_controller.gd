@@ -452,6 +452,9 @@ func _update_closest_interactable_ui() -> void:
 	elif closest_interactable is ItemPickup:
 		var item_pickup: ItemPickup = closest_interactable
 		ui.update_item_description(item_pickup.item)
+	elif closest_interactable is Chest:
+		var chest : Chest = closest_interactable
+		ui.update_item_description(chest)
 	else:
 		ui.update_item_description(null)
 	
@@ -485,6 +488,8 @@ func _interact() -> void:
 	elif interactable is ItemPickup:
 		interactable.interact(self)
 		_play_one_shot_sfx(interact_sfx, 0.05, 0.0 , -15)
+	elif interactable is Chest:
+		interactable.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if not weapon_manager:

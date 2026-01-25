@@ -12,6 +12,8 @@ enum WeaponQuality {POOR, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY}
 const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0, WeaponQuality.UNCOMMON: 1.1, WeaponQuality.RARE: 1.25, WeaponQuality.EPIC: 1.4, WeaponQuality.LEGENDARY: 1.6,}
 
 @export var selected_character : CharacterClass = CharacterClass.RANGER
+@onready var player : CharacterBody3D
+@onready var aggro : Array[CharacterBody3D] = []
 
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
@@ -66,16 +68,16 @@ func play_one_shot_sfx(
 	volume_db: float = 0.0,
 	bus_name: String = "SFX"
 ) -> void:
-	var player := AudioStreamPlayer.new()
-	add_child(player)
-	player.stream = sfx
-	player.bus = bus_name
+	var music_player := AudioStreamPlayer.new()
+	add_child(music_player)
+	music_player.stream = sfx
+	music_player.bus = bus_name
 
 	pitch_range = clamp(pitch_range, 0.0, 0.08)
-	player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
+	music_player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
 
-	player.volume_db = volume_db
+	music_player.volume_db = volume_db
 
-	player.finished.connect(player.queue_free)
+	music_player.finished.connect(music_player.queue_free)
 
-	player.play(start_time)
+	music_player.play(start_time)

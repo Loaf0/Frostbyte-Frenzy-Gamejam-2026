@@ -5,7 +5,7 @@ var attack_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101
 
 func _ready():
 	add_to_group("enemy")
-	speed = 3.0
+	speed = 2.0
 	attack_damage = 5.0
 	attack_range = 10.0
 	attack_windup = 0.35
@@ -20,11 +20,8 @@ func _ready():
 	_setup_dissolve_materials()
 	_set_random_target()
 
-
-
-
 func _physics_process(_delta):
-	print(state_machine.get_current_node())
+	#print(state_machine.get_current_node())
 
 	match state_machine.get_current_node():
 		"actions_Idle_B":
