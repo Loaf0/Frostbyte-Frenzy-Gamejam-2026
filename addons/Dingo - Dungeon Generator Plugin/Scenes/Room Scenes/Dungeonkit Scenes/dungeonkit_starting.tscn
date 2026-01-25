@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dab6vmrmebhr2"]
-
-[ext_resource type="PackedScene" uid="uid://b4i6xh4uulo11" path="res://addons/Dingo - Dungeon Generator Plugin/Room Assets/Dungeonkit Assets/Assets/Room pieces/dungeonkit_stone_door.fbx" id="1_srkj1"]
-
-[node name="dungeonkit_stone_door" instance=ExtResource("1_srkj1")]
