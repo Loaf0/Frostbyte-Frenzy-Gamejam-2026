@@ -2,7 +2,7 @@ extends CharacterBody3D
 class_name Enemy
 
 var bone_sfx = preload("res://assets/audio/sfx/bone-break-sfx-393835.mp3")
-
+var sfx = preload("res://assets/audio/sfx/swing-whoosh-5-198498.mp3")
 @export var wander_radius: float = 20.0
 @export var speed: float = 4.0
 @export var repath_distance: float = 0.5
@@ -97,6 +97,7 @@ func _attack():
 	print("attack")
 	await get_tree().create_timer(attack_windup).timeout
 	damaged = false
+	Global.play_one_shot_sfx(sfx, 0.05, 0.0, -15)
 	melee_collision.disabled = false
 	await get_tree().create_timer(attack_hit_time).timeout
 	damaged = true

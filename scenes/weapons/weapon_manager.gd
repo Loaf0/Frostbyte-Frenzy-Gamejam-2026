@@ -348,7 +348,7 @@ func _get_projectile_release_delay() -> float:
 	var anim = animator.animation_player.get_animation(full_path)
 	var speed := get_attack_speed()
 
-	return (anim.length * 0.4) / speed
+	return (anim.length * 0.2) / speed
 
 func _play_one_shot_sfx(
 	sfx: AudioStream,

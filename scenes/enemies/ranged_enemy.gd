@@ -1,7 +1,7 @@
 extends Enemy
 
 @onready var bullet_manager: BossBulletManager = $BulletManager
-var sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
+var attack_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
 
 func _ready():
 	speed = 3.0
@@ -69,7 +69,7 @@ func _physics_process(_delta):
 func _attack():
 	print("attack")
 	await get_tree().create_timer(attack_windup).timeout
-	Global.play_one_shot_sfx(sfx, 0.05, 0.0, -15)
+	Global.play_one_shot_sfx(attack_sfx, 0.05, 0.0, -15)
 	bullet_manager.fire_bullet(player.global_position-global_position, 10.0, 5.0, attack_damage)
 	await get_tree().create_timer(attack_hit_time).timeout
 	return
