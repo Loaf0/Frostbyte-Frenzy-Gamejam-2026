@@ -5,7 +5,7 @@ extends Enemy
 func _ready():
 	speed = 3.0
 	attack_damage = 5.0
-	attack_range = 8.0
+	attack_range = 10.0
 	attack_windup = 0.35
 	attack_hit_time = 0.55
 	max_health = 50

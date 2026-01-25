@@ -20,6 +20,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xyj2r"]
 xfade_time = 0.2
+priority = 0
 advance_mode = 2
 advance_condition = &"Death"
 
@@ -30,11 +31,13 @@ advance_condition = &"Attack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iict3"]
 xfade_time = 0.2
+priority = 0
 advance_mode = 2
 advance_condition = &"Death"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5y3e0"]
 xfade_time = 0.2
+priority = 0
 advance_mode = 2
 advance_condition = &"Death"
 
@@ -55,6 +58,7 @@ advance_condition = &"Run"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sut2u"]
 xfade_time = 0.2
+priority = 0
 advance_mode = 2
 advance_condition = &"Death"
 
