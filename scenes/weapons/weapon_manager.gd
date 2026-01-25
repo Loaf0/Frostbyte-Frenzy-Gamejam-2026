@@ -108,6 +108,14 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 		attack_queued = true
 		return
 	
+	var player = get_parent()
+	player.current_stamina = player.current_stamina - get_stamina_cost()
+	player.current_mana = player.current_mana - get_mana_cost()
+	
+	if player.current_stamina < 0 or player.current_mana < 0:
+		# sound
+		return
+	
 	_play_attack_animation()
 
 	match equipped_weapon.weapon_type:

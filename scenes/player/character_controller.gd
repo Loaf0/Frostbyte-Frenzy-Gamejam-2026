@@ -22,6 +22,8 @@ var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 
 var _isMnK : bool
 var last_mouse_world_pos : Vector3 = Vector3.ZERO
+var attack_stamina_cooldown_timer := 0.0
+@export var attack_stamina_cooldown := 2.0
 
 var ui_update_timer := 0.0
 @export var ui_update_interval := 0.1
@@ -217,8 +219,30 @@ func _physics_process(delta):
 	_handle_movement(delta)
 	_apply_stepped_rotation(delta)
 	move_and_slide()
-	
+	_regenerate_resources(delta)
 	_regenerate_faith(delta)
+
+func _regenerate_resources(delta: float) -> void:
+	
+	if current_stamina <= 0.0:
+		current_stamina = 0.0
+		attack_stamina_cooldown_timer = attack_stamina_cooldown
+	
+	if current_mana <= 0.0:
+		current_mana = 0.0
+		attack_stamina_cooldown_timer = attack_stamina_cooldown
+	
+	if current_health < max_health:
+		var health_regen := _stat(Global.Stat.VIGOR) * 0.1 * delta
+		current_health = min(current_health + health_regen, max_health)
+
+	if current_stamina < max_stamina:
+		var stamina_regen := _stat(Global.Stat.AGILITY) * 15 * delta
+		current_stamina = min(current_stamina + stamina_regen, max_stamina)
+
+	if current_mana < max_mana:
+		var mana_regen := _stat(Global.Stat.KNOWLEDGE) * 15 * delta
+		current_mana = min(current_mana + mana_regen, max_mana)
 
 func _handle_animations(delta : float):
 	var walk_vec = Vector3.ZERO
@@ -342,7 +366,8 @@ func _mouse_look():
 			look_at(world_pos, Vector3.UP)
 
 func _try_attack():
-	# compare stamina
+	if attack_stamina_cooldown_timer > 0.0:
+		return
 	_mouse_look()
 	weapon_manager.attack(last_mouse_world_pos)
 
@@ -399,14 +424,17 @@ func _handle_timers(delta):
 		_set_red_flash(t)
 	else:
 		_set_red_flash(0.0)
+		
+	if attack_stamina_cooldown_timer > 0.0:
+		attack_stamina_cooldown_timer -= delta
 
 func _set_white_overlay(value: float):
 	for mat in overlay_materials:
-		mat.set_shader_parameter("white_amount", value/2)
+		mat.set_shader_parameter("white_amount", value / 2)
 
 func _set_red_flash(value: float):
 	for mat in overlay_materials:
-		mat.set_shader_parameter("red_flash", value/2)
+		mat.set_shader_parameter("red_flash", value / 2)
 
 func _update_closest_interactable_ui() -> void:
 	closest_interactable = _get_closest_interactable()

@@ -9,6 +9,8 @@
 script = ExtResource("1_s7kb3")
 weapon_name = "Bow"
 world_model = ExtResource("2_s7kb3")
+base_mana_cost = 0.0
+base_stamina_cost = 25.0
 projectile = ExtResource("1_5hud7")
 world_model_rot = Vector3(0.2241749, -2.069474, 0.13354108)
 attack1_anim = "actions_Interact"
