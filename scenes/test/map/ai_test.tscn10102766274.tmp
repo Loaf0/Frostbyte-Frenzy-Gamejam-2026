@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnq1kce5ot6ny"]
+[gd_scene load_steps=21 format=3 uid="uid://bnq1kce5ot6ny"]
 
+[ext_resource type="PackedScene" uid="uid://cfi3inwbbiake" path="res://scenes/enemies/base_enemy.tscn" id="1_g2gfi"]
 [ext_resource type="PackedScene" uid="uid://b3ga66ty1hokk" path="res://scenes/enemies/ai_master.tscn" id="1_pqed3"]
 [ext_resource type="Texture2D" uid="uid://biokkvmwm8h42" path="res://assets/textures/prototyping/vector/texture_01.svg" id="2_6r8r5"]
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="3_fksfr"]
@@ -10,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="8_6hc46"]
 [ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="9_171re"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="9_gr207"]
+[ext_resource type="PackedScene" uid="uid://b2v5uspvk1og4" path="res://scenes/enemies/jump_enemy.tscn" id="10_tjrfu"]
+[ext_resource type="PackedScene" uid="uid://bmb0wuu3g0ftt" path="res://scenes/enemies/ranged_enemy.tscn" id="11_pqed3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
 vertices = PackedVector3Array(-24.543137, 0.9575882, -24.5, -24.543137, 0.9575882, 1.5, 24.456863, 0.9575882, 1.5, 24.456863, 0.9575882, -24.5, -24.543137, 0.9575882, 4, -24.543137, 0.9575882, 24.5, 24.456863, 0.9575882, 24.5, 24.456863, 0.9575882, 4)
@@ -72,28 +75,6 @@ mesh = SubResource("BoxMesh_uxheu")
 skeleton = NodePath("../CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AI_Master/NavigationRegion3D/StaticBody3D2"]
-shape = SubResource("BoxShape3D_fksfr")
-
-[node name="StaticBody3D3" type="StaticBody3D" parent="AI_Master/NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -0.035707474, -22.50723, 24.634638)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AI_Master/NavigationRegion3D/StaticBody3D3"]
-material_override = SubResource("StandardMaterial3D_fw8sf")
-mesh = SubResource("BoxMesh_uxheu")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AI_Master/NavigationRegion3D/StaticBody3D3"]
-shape = SubResource("BoxShape3D_fksfr")
-
-[node name="StaticBody3D4" type="StaticBody3D" parent="AI_Master/NavigationRegion3D"]
-transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 25.110023, -22.30723, -0.75203323)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AI_Master/NavigationRegion3D/StaticBody3D4"]
-material_override = SubResource("StandardMaterial3D_fw8sf")
-mesh = SubResource("BoxMesh_uxheu")
-skeleton = NodePath("../CollisionShape3D")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AI_Master/NavigationRegion3D/StaticBody3D4"]
 shape = SubResource("BoxShape3D_fksfr")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="AI_Master"]
@@ -163,5 +144,14 @@ offset_bottom = -71.928
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 15)
 
 [node name="Player" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("8_6hc46")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, 7.2135324)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, 3.0593195)
 selected_character = 0
+
+[node name="BaseEnemy" parent="AI_Master/SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("1_g2gfi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.50998855, -10.514678)
+
+[node name="JumpEnemy" parent="AI_Master/SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("10_tjrfu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.4676514)
+
+[node name="RangedEnemy" parent="AI_Master/SubViewportContainer/SubViewport" groups=["enemy"] instance=ExtResource("11_pqed3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -16)

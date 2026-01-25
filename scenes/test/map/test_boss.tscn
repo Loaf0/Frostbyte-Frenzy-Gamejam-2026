@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8o785gisich1"]
+[gd_scene load_steps=20 format=3 uid="uid://c8o785gisich1"]
 
 [ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="1_6feg7"]
 [ext_resource type="Script" uid="uid://wk8jh4c2kjk7" path="res://scripts/sub_viewport_container.gd" id="1_nkuo3"]
 [ext_resource type="Texture2D" uid="uid://1o8c0pu0mn3d" path="res://assets/textures/prototyping/png/Dark/texture_08.png" id="2_c5glr"]
 [ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="2_k5klt"]
+[ext_resource type="PackedScene" uid="uid://b3ga66ty1hokk" path="res://scenes/enemies/ai_master.tscn" id="2_sf21f"]
 [ext_resource type="Resource" uid="uid://xvso3je8k6lx" path="res://scenes/weapons/weapon_resources/sword.tres" id="3_11mlt"]
 [ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="3_k5klt"]
 [ext_resource type="PackedScene" uid="uid://l2dqi3xtltne" path="res://scenes/enemies/boss/boss.tscn" id="5_k5klt"]
@@ -11,6 +12,14 @@
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="9_4ncx1"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="10_11mlt"]
 [ext_resource type="PackedScene" uid="uid://bkl723yhcbvcc" path="res://scenes/item/ItemPickups.tscn" id="10_cbc01"]
+[ext_resource type="PackedScene" uid="uid://cfi3inwbbiake" path="res://scenes/enemies/base_enemy.tscn" id="11_axpq6"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_sf21f"]
+vertices = PackedVector3Array(-7, 1, -4.500001, -7, 1, 20.5, 18, 1, 20.5, 18, 1, -4.500001)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sf21f"]
+size = Vector3(26, 1, 26)
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01
@@ -39,9 +48,20 @@ size = Vector2(2, 2)
 
 [node name="test_boss" type="Node3D" node_paths=PackedStringArray("your_subviewport")]
 script = ExtResource("1_nkuo3")
-your_subviewport = NodePath("SubViewportContainer/SubViewport")
+your_subviewport = NodePath("AI_Master/SubViewportContainer/SubViewport")
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+[node name="AI_Master" parent="." instance=ExtResource("2_sf21f")]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="AI_Master"]
+navigation_mesh = SubResource("NavigationMesh_sf21f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="AI_Master/NavigationRegion3D"]
+
+[node name="CSGBox3D" type="CollisionShape3D" parent="AI_Master/NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 7.999999)
+shape = SubResource("BoxShape3D_sf21f")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="AI_Master"]
 process_mode = 3
 texture_filter = 1
 anchors_preset = 15
@@ -54,7 +74,7 @@ stretch = true
 stretch_shrink = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="AI_Master/SubViewportContainer"]
 handle_input_locally = false
 canvas_item_default_texture_filter = 0
 audio_listener_enable_2d = true
@@ -63,182 +83,188 @@ oversampling = false
 size = Vector2i(384, 216)
 render_target_update_mode = 4
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="AI_Master/SubViewportContainer/SubViewport"]
 environment = SubResource("Environment_o883s")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="AI_Master/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.25881904, -0.6830128, 0.68301266, -1.4901163e-08, 0.70710677, 0.7071069, -0.9659259, 0.18301271, -0.1830127, 0, -2.6891937, 0)
 shadow_enabled = true
 directional_shadow_split_1 = 0.01
 directional_shadow_max_distance = 8192.0
 
-[node name="World" type="Node3D" parent="SubViewportContainer/SubViewport"]
+[node name="World" type="Node3D" parent="AI_Master/SubViewportContainer/SubViewport"]
 
-[node name="WeaponPickups" parent="SubViewportContainer/SubViewport/World" instance=ExtResource("9_4ncx1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95912504, 0.6999972, -0.0194211)
+[node name="WeaponPickups" parent="AI_Master/SubViewportContainer/SubViewport/World" instance=ExtResource("9_4ncx1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.84667, 0.6999972, -0.0194211)
 weapon_resource = ExtResource("3_11mlt")
 
-[node name="CSGCombiner3D" type="CSGCombiner3D" parent="SubViewportContainer/SubViewport/World"]
+[node name="OmniLight3D" type="OmniLight3D" parent="AI_Master/SubViewportContainer/SubViewport/World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
+omni_range = 3.0
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="AI_Master/SubViewportContainer/SubViewport/World"]
 use_collision = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D"]
+[node name="CSGBox3D" type="CSGBox3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, 8)
 size = Vector3(26, 1, 26)
 material = SubResource("StandardMaterial3D_qvaan")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 0)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -6)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D2"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, -11)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D3"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 11)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D4"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3.75, 5)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D5"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 0)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D6"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D7" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, -6)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D7"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D7"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D8" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, -11)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D8"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D8"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D9" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 11)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D9"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D9"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D10" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 3.75, 5)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D10"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D11" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.33333397, 3.75, 11.666666)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D11"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D12" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -5.666666, 3.75, 11.666666)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D12"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D12"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D"]
+[node name="CSGCylinder3D13" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.333334, 3.75, 11.666666)
 height = 7.5
 
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SubViewportContainer/SubViewport/World/CSGCombiner3D/CSGBox3D/CSGCylinder3D13"]
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="AI_Master/SubViewportContainer/SubViewport/World/CSGCombiner3D2/CSGBox3D/CSGCylinder3D13"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.375, 0)
 radius = 0.73095703
 height = 0.75
 
-[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport/World"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.728047, -1.2191589)
-omni_range = 3.0
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+[node name="Camera3D" type="Camera3D" parent="AI_Master/SubViewportContainer/SubViewport"]
 transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -5.6461167, 15.602508, 1.3440151)
+visible = false
 projection = 1
 size = 15.0
 near = 0.001
 script = ExtResource("2_k5klt")
 target_path = NodePath("../Player")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Camera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AI_Master/SubViewportContainer/SubViewport/Camera3D"]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_75nsi")
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_o883s")
-skeleton = NodePath("../../../..")
+skeleton = NodePath("../../../../..")
 
-[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_k5klt")]
+[node name="PlayerHud" parent="AI_Master/SubViewportContainer/SubViewport" node_paths=PackedStringArray("player") instance=ExtResource("5_s1sui")]
+player = NodePath("../Player")
+
+[node name="PauseMenu" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("10_11mlt")]
+offset_right = -127.872
+offset_bottom = -71.928
+
+[node name="Player" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("3_k5klt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0094066, 0.46079373, -1.7562479)
 selected_character = 2
 
-[node name="PlayerHud" parent="SubViewportContainer/SubViewport" node_paths=PackedStringArray("player") instance=ExtResource("5_s1sui")]
-player = NodePath("../Player")
-
-[node name="Boss" parent="SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
+[node name="Boss" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("5_k5klt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 7)
 
-[node name="ItemPickups" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
+[node name="BaseEnemy" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("11_axpq6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.113254, 0.6182381, -1.0267396)
+
+[node name="ItemPickups" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9756527, 0.4999957, -1.9194994)
 
-[node name="ItemPickups2" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
+[node name="ItemPickups2" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.9756527, 0.4999957, -1.9194994)
 
-[node name="ItemPickups3" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
+[node name="ItemPickups3" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("10_cbc01")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.975653, 0.4999957, -1.9194994)
-
-[node name="PauseMenu" parent="SubViewportContainer/SubViewport" instance=ExtResource("10_11mlt")]

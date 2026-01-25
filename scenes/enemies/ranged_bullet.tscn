@@ -1,13 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://dn58y3jde76ig"]
 
-[ext_resource type="Script" path="res://scenes/enemies/ranged_bullet.gd" id="1_8esbl"]
+[ext_resource type="Script" uid="uid://do2by3lfqlvxy" path="res://scenes/enemies/ranged_bullet.gd" id="1_8esbl"]
 [ext_resource type="ArrayMesh" uid="uid://d22jg1hwr4hyo" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/obj/Skeleton_Arrow.obj" id="2_8esbl"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qefik"]
+radius = 0.3
 
 [node name="BossBullet" type="Node3D"]
 script = ExtResource("1_8esbl")
 speed = 4.0
+life_time = null
+damage = null
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 7

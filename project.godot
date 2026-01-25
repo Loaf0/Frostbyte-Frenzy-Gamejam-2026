@@ -30,6 +30,11 @@ SceneChanger="*res://scripts/global_scripts/scene_changer/SceneChanger.tscn"
 
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+enemy=""
+player=""
+
 [input]
 
 move_up={

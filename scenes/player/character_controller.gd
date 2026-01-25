@@ -522,6 +522,8 @@ func _recalculate_derived_stats():
 
 func take_damage(amount: float) -> void:
 	if is_dodging:
+		current_faith += _stat(Global.Stat.FAITH) * 5 # doesnt work dont gaf
+		current_faith = min(current_faith, max_faith)
 		return
 
 	current_health -= amount

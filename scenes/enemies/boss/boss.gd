@@ -1,18 +1,26 @@
 extends CharacterBody3D
 
-enum AttackType { NONE, MELEE, RANGED_SPIN, RANGED_WAVE, RANGED_CIRCLE }
+enum AttackType { NONE, MELEE, RANGED_SPIN, RANGED_WAVE, RANGED_CIRCLE, SUMMON}
 var current_attack: int = AttackType.NONE
 @onready var anim = $Skeleton_Mage/Rig_Medium/AnimationPlayer
 @onready var bullet_manager: BossBulletManager = $BulletManager
 @onready var melee_hitbox: Area3D = $Skeleton_Mage/Rig_Medium/GeneralSkeleton/RightHand/Skeleton_Blade/MeleeHitbox
 @export var boss_max_stamina : float = 100.0
-@export var max_health = 20
+@export var max_health : float = 300
 @onready var mesh = $Skeleton_Mage
 var player_in_melee_range := false
 var melee_active = false
+var bone_sfx = preload("res://assets/audio/sfx/bone-break-sfx-393835.mp3")
 var attack_sfx1 = preload("res://assets/audio/sfx/earth-spell-393923.mp3")
 var attack_sfx2 = preload("res://assets/audio/sfx/light-woosh-7119.mp3")
 var attack_sfx3 = preload("res://assets/audio/sfx/metal-door-slam-172172.mp3")
+@onready var boss_spawn: Node3D = $boss_spawn
+
+var enemy_scenes := [
+		preload("res://scenes/enemies/base_enemy.tscn"),
+		preload("res://scenes/enemies/jump_enemy.tscn"),
+		preload("res://scenes/enemies/ranged_enemy.tscn")
+	]
 
 @export var stamina_deplete_timeout: float = 8.5
 var boss_stamina = boss_max_stamina
@@ -30,15 +38,17 @@ var attack_index := 0
 var attack_delay_timer : float
 @export var attack_delay := 1.25
 
-var current_health = max_health
+var current_health : float = max_health / 3
 var started_death_sequence = false
 var dissolve_materials: Array[ShaderMaterial] = []
 
 var boss_timeout : float = 0
 
 func _ready() -> void:
+	anim.speed_scale = 0.5
 	anim.play("special/Spawn_Ground", 0.2)
 	await anim.animation_finished
+	anim.speed_scale = 1.0
 	add_to_group("enemy")
 	_setup_dissolve_materials()
 	_start_ai()
@@ -73,7 +83,6 @@ func _handle_out_of_stamina() -> void:
 
 	boss_stamina_timeout -= get_process_delta_time()
 	if boss_stamina_timeout <= 0.0:
-		# Restore stamina
 		boss_stamina = boss_max_stamina
 		out_of_stamina = false
 		boss_stamina_timeout = 0.0
@@ -191,31 +200,41 @@ func do_attack(player: Node3D) -> void:
 	attacking = true
 	attack_target = player
 
-	var use_melee := false
+	var attack_options := []
 
 	if player_in_melee_range:
-		use_melee = randf() <= 0.8
+		if randf() <= 0.8:
+			attack_options.append(AttackType.MELEE)
 
-	if use_melee:
-		current_attack = AttackType.MELEE
-		await melee_attack()
-	else:
-		var ranged_choice := randi() % 3
-		match ranged_choice:
-			0:
-				current_attack = AttackType.RANGED_WAVE
-				await ranged_wave_attack(player)
-			1:
-				current_attack = AttackType.RANGED_CIRCLE
-				await ranged_circle_attack()
-			2:
-				current_attack = AttackType.RANGED_SPIN
-				await ranged_spin_attack()
+	if attack_options.is_empty():
+		attack_options.append(AttackType.RANGED_SPIN)
+		attack_options.append(AttackType.RANGED_WAVE)
+		attack_options.append(AttackType.RANGED_CIRCLE)
+		if current_health <= max_health * 0.5 and randf() <= 0.3:
+			attack_options.append(AttackType.SUMMON)
+
+	var chosen_attack = attack_options[randi() % attack_options.size()]
+
+	match chosen_attack:
+		AttackType.MELEE:
+			current_attack = AttackType.MELEE
+			await melee_attack()
+		AttackType.RANGED_SPIN:
+			current_attack = AttackType.RANGED_SPIN
+			await ranged_spin_attack()
+		AttackType.RANGED_WAVE:
+			current_attack = AttackType.RANGED_WAVE
+			await ranged_wave_attack(player)
+		AttackType.RANGED_CIRCLE:
+			current_attack = AttackType.RANGED_CIRCLE
+			await ranged_circle_attack()
+		AttackType.SUMMON:
+			current_attack = AttackType.SUMMON
+			await summon_attack()
 
 	attacking = false
 	current_attack = AttackType.NONE
 	attack_target = null
-
 
 func melee_attack() -> void:
 	use_stamina(35, 5)
@@ -285,13 +304,31 @@ func ranged_circle_attack() -> void:
 	anim.speed_scale = 1.0
 
 func summon_attack() -> void:
-	use_stamina(30, 5.5)
+	use_stamina(30, 12.0)
 	if out_of_stamina:
 		return
-	#summon two enemies
-	#simulation/cheering
-	#must wait need enemies to be added
-	pass
+
+	anim.play("simulation/Cheering", 0.2)
+	await get_tree().create_timer(0.5).timeout
+
+	var player := get_tree().get_first_node_in_group("player") as CharacterBody3D
+	if not player:
+		return
+
+	for i in range(1):
+		var scene_to_spawn = enemy_scenes[randi() % enemy_scenes.size()]
+		var enemy_instance := scene_to_spawn.instantiate() as CharacterBody3D
+
+		get_parent().add_child(enemy_instance)
+		enemy_instance.global_position = boss_spawn.global_position
+		
+		if enemy_instance.has_method("_set_player_target"):
+			enemy_instance._set_player_target(player)
+
+	Global.play_one_shot_sfx(bone_sfx, 0.05, 0.0, -15)
+
+	await get_tree().create_timer(1.0).timeout
+	anim.play("actions/Idle_B", 0.5)
 
 func use_stamina(cost: float, delay: float = 1.0) -> void:
 	boss_stamina -= cost

@@ -1,7 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://byjlmuymcdbpd"]
+[gd_scene load_steps=6 format=3 uid="uid://byjlmuymcdbpd"]
 
 [ext_resource type="Script" uid="uid://d1ml3ffbgg247" path="res://scenes/enemies/boss/boss_bullet.gd" id="1_qefik"]
-[ext_resource type="Texture2D" uid="uid://buxs7pudp5tto" path="res://assets/ui_assets/Crosshair/White/crosshair065.png" id="1_x3fal"]
+[ext_resource type="Texture2D" uid="uid://bsm6spt607qkd" path="res://scenes/enemies/boss/magic-glass-orb-background-free-removebg-preview.png" id="2_qefik"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qefik"]
+render_priority = 10
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("2_qefik")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qefik"]
 radius = 0.3
@@ -14,8 +25,10 @@ damage = 3.5
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+material_overlay = SubResource("StandardMaterial3D_qefik")
+pixel_size = 0.0014
 billboard = 1
-texture = ExtResource("1_x3fal")
+texture = ExtResource("2_qefik")
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 7
@@ -25,6 +38,7 @@ collision_mask = 7
 shape = SubResource("SphereShape3D_qefik")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_qefik")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

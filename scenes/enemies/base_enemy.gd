@@ -10,18 +10,18 @@ var sfx = preload("res://assets/audio/sfx/swing-whoosh-5-198498.mp3")
 @export var attack_range: float = 2.0
 @export var attack_windup: float = 0.4
 @export var attack_hit_time: float = 0.25
-@export var max_health = 50
+@export var max_health = 30
 var current_health = max_health
 var attacked: bool = false
 var damaged: bool = true
-
+var dying = false
 var player: CharacterBody3D
 var state_machine: AnimationNodeStateMachinePlayback
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var nav_tester: NavigationAgent3D = $NavTester
-var anim_tree: AnimationTree
 @onready var collisionshape: CollisionShape3D = $CollisionShape3D
+var anim_tree: AnimationTree
 var melee_collision: CollisionShape3D
 
 var origin: Vector3
@@ -33,10 +33,42 @@ func _ready():
 	state_machine = anim_tree.get("parameters/StateMachine/playback")
 	origin = global_position
 	_setup_dissolve_materials()
+	
+	await get_tree().process_frame
 	_set_random_target()
+	
+	anim_tree.set("parameters/StateMachine/conditions/Wander", true)
+
+
+func _process(_delta: float) -> void:
+	if dying:
+		return
+
+	if player and is_instance_valid(player):
+		nav_agent.target_position = player.global_position
+	elif nav_agent.is_navigation_finished():
+		_set_random_target()
+
+	var next_pos := nav_agent.get_next_path_position()
+	var direction := next_pos - global_position
+	if direction.length() < repath_distance:
+		nav_agent.set_velocity(Vector3.ZERO)
+		return
+
+	var move_dir = Vector3(direction.x, 0, direction.z).normalized()
+	velocity = move_dir * speed
+
+	if not is_on_floor():
+		velocity.y = -4
+	else:
+		velocity.y = next_pos.y - global_position.y
+
+	look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
+	move_and_slide()
+
 
 func _physics_process(_delta):
-	#print(state_machine.get_current_node())
+	print(state_machine.get_current_node())
 	match state_machine.get_current_node():
 		"actions_Idle_B":
 			anim_tree.set("parameters/StateMachine/conditions/Wander", true)
@@ -83,6 +115,9 @@ func _physics_process(_delta):
 			_death()
 
 func _is_player_reachable() -> bool:
+	if !player:
+		return false
+	
 	nav_tester.target_position = player.global_transform.origin
 	if nav_tester.is_target_reachable():
 		anim_tree.set("parameters/StateMachine/conditions/Wander", false)
@@ -111,9 +146,7 @@ func _on_melee_hitbox_body_entered(body: Node) -> void:
 		return
 	
 	if body.is_in_group("player"):
-		if body.is_dodging:
-			return
-		elif body.has_method("take_damage"):
+		if body.has_method("take_damage"):
 			damaged = true
 			body.take_damage(attack_damage)
 			return
@@ -122,7 +155,6 @@ func _set_player_target(target: CharacterBody3D):
 	if player == null:
 		player = target
 	if _is_player_reachable():
-		#print("player")
 		nav_agent.target_position = target.global_transform.origin
 	elif nav_agent.is_navigation_finished():
 		print("wander")
@@ -186,6 +218,7 @@ func _setup_dissolve_materials():
 				dissolve_materials.append(new_mat)
 
 func _death():
+	dying = true
 	collisionshape.disabled = true
 	melee_collision.disabled = true
 	await anim_tree.animation_finished

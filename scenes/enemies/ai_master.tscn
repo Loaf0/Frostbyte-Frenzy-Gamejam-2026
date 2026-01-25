@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b3ga66ty1hokk"]
+
+[ext_resource type="Script" uid="uid://bficlseoehwx1" path="res://scenes/test/map/ai_master.gd" id="1_pv4w7"]
+
+[node name="AI_Master" type="Node3D"]
+script = ExtResource("1_pv4w7")

@@ -5,6 +5,7 @@ var jumped: bool
 var attack_sfx = preload("res://assets/audio/sfx/bone-break-sound-269658.mp3")
 
 func _ready():
+	add_to_group("enemy")
 	speed = 3.0
 	attack_damage = 5.0
 	attack_range = 5.0

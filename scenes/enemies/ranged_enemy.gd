@@ -4,12 +4,13 @@ extends Enemy
 var attack_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
 
 func _ready():
+	add_to_group("enemy")
 	speed = 3.0
 	attack_damage = 5.0
 	attack_range = 10.0
 	attack_windup = 0.35
 	attack_hit_time = 0.55
-	max_health = 50
+	max_health = 20
 	anim_tree = $Skeleton_Rogue/Rig_Medium/AnimationTree
 	melee_collision = $Skeleton_Rogue/Rig_Medium/GeneralSkeleton/WeaponSlot/Skeleton_Crossbow/MeleeHitbox/MeleeCollision
 	state_machine = anim_tree.get("parameters/StateMachine/playback")
@@ -19,8 +20,12 @@ func _ready():
 	_setup_dissolve_materials()
 	_set_random_target()
 
+
+
+
 func _physics_process(_delta):
-	#print(state_machine.get_current_node())
+	print(state_machine.get_current_node())
+
 	match state_machine.get_current_node():
 		"actions_Idle_B":
 			anim_tree.set("parameters/StateMachine/conditions/Wander", true)
