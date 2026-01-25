@@ -42,8 +42,8 @@ func _start_ai() -> void:
 	await get_tree().process_frame
 
 	while is_inside_tree() and not started_death_sequence:
-		# Pause if waiting due to attack delay
 		if attack_delay_timer > 0.0:
+			attack_delay_timer -= get_process_delta_time()
 			await get_tree().process_frame
 			continue
 		
@@ -54,9 +54,10 @@ func _start_ai() -> void:
 
 		var player := get_tree().get_first_node_in_group("player") as Node3D
 		if player:
-			do_attack(player)
+			await do_attack(player)
 
 		attack_delay_timer = attack_delay
+
 
 func _handle_out_of_stamina() -> void:
 	if boss_stamina_timeout == stamina_deplete_timeout:
