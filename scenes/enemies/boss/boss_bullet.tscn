@@ -26,8 +26,4 @@ shape = SubResource("SphereShape3D_qefik")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_qefik")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
-mesh = SubResource("SphereMesh_qefik")
-
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
