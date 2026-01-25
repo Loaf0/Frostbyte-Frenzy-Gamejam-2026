@@ -20,6 +20,8 @@ const CHARACTER_STATS : Dictionary[Global.CharacterClass, String] = {
 
 var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
 
+var dodge_sfx = preload("res://assets/audio/sfx/simple-whoosh-382724.mp3")
+var interact_sfx = preload("res://assets/audio/sfx/can-pickup-167810.mp3")
 var _isMnK : bool
 var last_mouse_world_pos : Vector3 = Vector3.ZERO
 var attack_stamina_cooldown_timer := 0.0
@@ -393,6 +395,7 @@ func _try_dodge():
 	
 	if animator.has_method("start_roll"):
 		animator.start_roll(dodge_dir)
+		_play_one_shot_sfx(dodge_sfx, 0.1, 0.0, -18)
 
 func _handle_timers(delta):
 	if Input.is_action_just_pressed("attack") or Input.is_action_just_pressed("faith_power") :
@@ -451,6 +454,7 @@ func _update_closest_interactable_ui() -> void:
 		ui.update_item_description(item_pickup.item)
 	else:
 		ui.update_item_description(null)
+	
 
 func _get_closest_interactable() -> Interactable:
 	var interactables = interact_range.get_overlapping_areas().filter(func(a): return a is Interactable)
@@ -477,8 +481,10 @@ func _interact() -> void:
 		var pickup: WeaponPickup = interactable
 		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
 		pickup.queue_free()
+		_play_one_shot_sfx(interact_sfx, 0.05, 0.0 , -15)
 	elif interactable is ItemPickup:
 		interactable.interact(self)
+		_play_one_shot_sfx(interact_sfx, 0.05, 0.0 , -15)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if not weapon_manager:
@@ -540,3 +546,24 @@ func _regenerate_faith(delta: float) -> void:
 	if current_faith < max_faith:
 		current_faith += _stat(Global.Stat.FAITH) * delta
 		current_faith = min(current_faith, max_faith)
+
+func _play_one_shot_sfx(
+	sfx: AudioStream,
+	pitch_range: float = 0.05,
+	start_time: float = 0.0,
+	volume_db: float = 0.0,
+	bus_name: String = "SFX"
+) -> void:
+	var player := AudioStreamPlayer.new()
+	add_child(player)
+	player.stream = sfx
+	player.bus = bus_name
+
+	pitch_range = clamp(pitch_range, 0.0, 0.08)
+	player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
+
+	player.volume_db = volume_db
+
+	player.finished.connect(player.queue_free)
+
+	player.play(start_time)

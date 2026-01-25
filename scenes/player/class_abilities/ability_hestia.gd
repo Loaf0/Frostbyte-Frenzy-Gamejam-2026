@@ -1,6 +1,7 @@
 extends Ability
 
 @onready var bullet_manager: BossBulletManager = $BulletManager
+var fire_sfx = preload("res://assets/audio/sfx/fire-magic-4-378637.mp3")
 
 func _ready() -> void:
 	faith_cost = 120
@@ -9,6 +10,7 @@ func use_ability(_last_mouse_world_pos: Vector3):
 	if !player:
 		player = get_parent()
 	print("Ability Used!")
+	_play_one_shot_sfx(fire_sfx, 0.05, 0.0, -15)
 	bullet_manager.pattern_radial_ring(12, 4, 4, get_damage())
 
 func get_damage() -> float:

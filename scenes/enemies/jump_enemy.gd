@@ -2,6 +2,7 @@ extends Enemy
 
 var jump_dir: Vector3
 var jumped: bool
+var sfx = preload("res://assets/audio/sfx/bone-break-sound-269658.mp3")
 
 func _ready():
 	speed = 3.0
@@ -63,7 +64,7 @@ func _physics_process(_delta):
 				jump_dir = direction.normalized()
 				attacked = true
 			velocity = Vector3.ZERO
-			
+			Global.play_one_shot_sfx(sfx, 0.05, 0.0, -15)
 			velocity = jump_dir * (speed+1.2)*2
 			
 			velocity.y = 0 if is_on_floor() else -4

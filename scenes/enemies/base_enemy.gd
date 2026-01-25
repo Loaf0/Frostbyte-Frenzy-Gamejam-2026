@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Enemy
 
+var bone_sfx = preload("res://assets/audio/sfx/bone-break-sfx-393835.mp3")
+
 @export var wander_radius: float = 20.0
 @export var speed: float = 4.0
 @export var repath_distance: float = 0.5
@@ -138,6 +140,7 @@ func _set_random_target():
 
 func take_damage(amount : float):
 	current_health -= amount
+	Global.play_one_shot_sfx(bone_sfx, 0.05, 0.1, -15)
 	if current_health <= 0:
 		anim_tree.set("parameters/StateMachine/conditions/Death", true)
 		anim_tree.set("parameters/StateMachine/conditions/Attack", false)

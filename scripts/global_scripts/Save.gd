@@ -14,8 +14,8 @@ func save_settings():
 	var sfx_value := Global.sfx_volume
 	var msfx_value := Global.music_volume
 	
-	save_file.set_value("Audio", "SFX_VOLUME", sfx_value)
-	save_file.set_value("Audio", "MSFX_VOLUME", msfx_value)
+	save_file.set_value("Audio", "SFX_VOLUME", linear_to_db(sfx_value))
+	save_file.set_value("Audio", "MSFX_VOLUME", linear_to_db(msfx_value))
 
 	# Save the file
 	save_file.save(SAVE_PATH)

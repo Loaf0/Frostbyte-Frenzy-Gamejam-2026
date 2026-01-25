@@ -6,6 +6,10 @@ extends Node
 @export var equipped_weapon : WeaponResource
 var weapon_quality : Global.WeaponQuality
 
+var bow_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
+var sword_sfx = preload("res://assets/audio/sfx/item-swing-sfx-2-409076.mp3")
+var spell_sfx = preload("res://assets/audio/sfx/fire-magic-1-378636.mp3")
+
 var weapon_mesh_container : BoneAttachment3D
 var weapon_instance: Node3D
 @onready var animator : Node3D = $"../Mesh"
@@ -125,11 +129,13 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 			var delay := _get_projectile_release_delay()
 			if delay > 0.0:
 				await get_tree().create_timer(delay).timeout
+			_play_one_shot_sfx(bow_sfx, 0.05, 0.15, -10)
 			_do_projectile_attack(target_dir)
 		Global.WeaponType.STAFF, Global.WeaponType.SPELL_BOOK:
 			var delay := _get_projectile_release_delay()
 			if delay > 0.0:
 				await get_tree().create_timer(delay).timeout
+			_play_one_shot_sfx(spell_sfx, 0.05, 0.0, -20)
 			_do_projectile_attack(target_dir)
 
 func _do_melee_attack() -> void:
@@ -140,11 +146,6 @@ func _do_melee_attack() -> void:
 	if active_trail:
 		trail_active = true
 		active_trail.visible = true
-	# This is where you would:
-	# enable a hitbox
-	# query overlapping bodies
-	# apply damage
-	pass
 
 func _stop_trail() -> void:
 	if active_trail:
@@ -326,6 +327,8 @@ func _on_hitbox_body_entered(body: Node3D) -> void:
 		if body.has_method("take_damage"):
 			body.take_damage(damage)
 			print("Hit %s for %f damage" % [body.name, damage])
+			await get_tree().create_timer(0.10).timeout
+			_play_one_shot_sfx(sword_sfx, 0.05, 0.0, -25)
 
 func _get_projectile_release_delay() -> float:
 	if animator == null or animations.is_empty():
@@ -346,3 +349,24 @@ func _get_projectile_release_delay() -> float:
 	var speed := get_attack_speed()
 
 	return (anim.length * 0.4) / speed
+
+func _play_one_shot_sfx(
+	sfx: AudioStream,
+	pitch_range: float = 0.05,
+	start_time: float = 0.0,
+	volume_db: float = 0.0,
+	bus_name: String = "SFX"
+) -> void:
+	var player := AudioStreamPlayer.new()
+	add_child(player)
+	player.stream = sfx
+	player.bus = bus_name
+
+	pitch_range = clamp(pitch_range, 0.0, 0.08)
+	player.pitch_scale = randf_range(1.0 - pitch_range, 1.0 + pitch_range)
+
+	player.volume_db = volume_db
+
+	player.finished.connect(player.queue_free)
+
+	player.play(start_time)
