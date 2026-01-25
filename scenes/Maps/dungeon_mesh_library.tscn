@@ -3569,6 +3569,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_4bon7")
 
 [node name="floor_dirt_small_A_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_A" type="MeshInstance3D" parent="floor_dirt_small_A_gltf"]
 mesh = SubResource("ArrayMesh_80vya")
@@ -3580,6 +3581,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_viyq7")
 
 [node name="floor_dirt_small_B_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_B" type="MeshInstance3D" parent="floor_dirt_small_B_gltf"]
 mesh = SubResource("ArrayMesh_c56t6")
@@ -3591,6 +3593,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_o82sc")
 
 [node name="floor_dirt_small_C_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_C" type="MeshInstance3D" parent="floor_dirt_small_C_gltf"]
 mesh = SubResource("ArrayMesh_bd52e")
@@ -3602,6 +3605,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_xj1cg")
 
 [node name="floor_dirt_small_corner_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_corner" type="MeshInstance3D" parent="floor_dirt_small_corner_gltf"]
 mesh = SubResource("ArrayMesh_g4voa")
@@ -3613,6 +3617,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_636so")
 
 [node name="floor_dirt_small_D_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_D" type="MeshInstance3D" parent="floor_dirt_small_D_gltf"]
 mesh = SubResource("ArrayMesh_kdh7r")
@@ -3624,6 +3629,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_0yrcy")
 
 [node name="floor_dirt_small_weeds_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_dirt_small_weeds" type="MeshInstance3D" parent="floor_dirt_small_weeds_gltf"]
 mesh = SubResource("ArrayMesh_5dahs")
@@ -3804,6 +3810,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_4j8yy")
 
 [node name="floor_tile_small_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small" type="MeshInstance3D" parent="floor_tile_small_gltf"]
 mesh = SubResource("ArrayMesh_f2bdw")
@@ -3815,6 +3822,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_cvgv4")
 
 [node name="floor_tile_small_broken_A_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_broken_A" type="MeshInstance3D" parent="floor_tile_small_broken_A_gltf"]
 mesh = SubResource("ArrayMesh_p40ts")
@@ -3826,6 +3834,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_ryh3p")
 
 [node name="floor_tile_small_broken_B_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_broken_B" type="MeshInstance3D" parent="floor_tile_small_broken_B_gltf"]
 mesh = SubResource("ArrayMesh_sfghe")
@@ -3837,6 +3846,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_ctoy1")
 
 [node name="floor_tile_small_corner_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_corner" type="MeshInstance3D" parent="floor_tile_small_corner_gltf"]
 mesh = SubResource("ArrayMesh_lo8aa")
@@ -3848,6 +3858,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_xwhaf")
 
 [node name="floor_tile_small_decorated_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_decorated" type="MeshInstance3D" parent="floor_tile_small_decorated_gltf"]
 mesh = SubResource("ArrayMesh_q2stq")
@@ -3859,6 +3870,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_rpv1b")
 
 [node name="floor_tile_small_weeds_A_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_weeds_A" type="MeshInstance3D" parent="floor_tile_small_weeds_A_gltf"]
 mesh = SubResource("ArrayMesh_p38q2")
@@ -3870,6 +3882,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_j6ejf")
 
 [node name="floor_tile_small_weeds_B_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_tile_small_weeds_B" type="MeshInstance3D" parent="floor_tile_small_weeds_B_gltf"]
 mesh = SubResource("ArrayMesh_0m8j2")
@@ -3903,6 +3916,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_o7xpr")
 
 [node name="floor_wood_small_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_wood_small" type="MeshInstance3D" parent="floor_wood_small_gltf"]
 mesh = SubResource("ArrayMesh_wucme")
@@ -3914,6 +3928,7 @@ skeleton = NodePath("")
 shape = SubResource("ConvexPolygonShape3D_ldl70")
 
 [node name="floor_wood_small_dark_gltf" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
 
 [node name="floor_wood_small_dark" type="MeshInstance3D" parent="floor_wood_small_dark_gltf"]
 mesh = SubResource("ArrayMesh_d0o24")

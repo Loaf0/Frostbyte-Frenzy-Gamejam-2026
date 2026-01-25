@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="5_s1sui"]
 [ext_resource type="PackedScene" uid="uid://d1pt64w500ncy" path="res://scenes/weapons/WeaponPickups.tscn" id="9_4ncx1"]
 [ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="10_11mlt"]
-[ext_resource type="PackedScene" uid="uid://bkl723yhcbvcc" path="res://scenes/item/ItemPickups.tscn" id="10_cbc01"]
+[ext_resource type="PackedScene" uid="uid://bkl723yhcbvcc" path="res://scenes/Item/ItemPickups.tscn" id="10_cbc01"]
 
 [sub_resource type="Environment" id="Environment_o883s"]
 ssao_radius = 0.01

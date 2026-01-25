@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bmb0wuu3g0ftt" path="res://scenes/enemies/ranged_enemy.tscn" id="11_pqed3"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_hoted"]
-vertices = PackedVector3Array(-24.5, 0.9575882, -24.5, -24.5, 0.9575882, 1.5, 24.5, 0.9575882, 1.5, 24.5, 0.9575882, -24.5, -24.5, 0.9575882, 4, -24.5, 0.9575882, 24.5, 24.5, 0.9575882, 24.5, 24.5, 0.9575882, 4)
+vertices = PackedVector3Array(-24.543137, 0.9575882, -24.5, -24.543137, 0.9575882, 1.5, 24.456863, 0.9575882, 1.5, 24.456863, 0.9575882, -24.5, -24.543137, 0.9575882, 4, -24.543137, 0.9575882, 24.5, 24.456863, 0.9575882, 24.5, 24.456863, 0.9575882, 4)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(7, 6, 4), PackedInt32Array(4, 6, 5)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fw8sf"]
@@ -65,7 +65,7 @@ skeleton = NodePath("../CollisionShape3D")
 shape = SubResource("BoxShape3D_fksfr")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 0.11765874, -0.9930541, 0, 0.9930541, 0.11765874, -33.14628, -19.90723, 5.247966)
+transform = Transform3D(1, 0, 0, 0, 0.11765874, -0.9930541, 0, 0.9930541, 0.11765874, -31.589977, -19.90723, 5.247966)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
 material_override = SubResource("StandardMaterial3D_fw8sf")
