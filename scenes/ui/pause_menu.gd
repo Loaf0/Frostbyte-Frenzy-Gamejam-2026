@@ -91,18 +91,18 @@ func _on_stats_pressed() -> void:
 	god_label.text = god_name_text
 
 	var weapon_name_text := "None"
-	if player.weapon_manager and player.weapon_manager.equipped_weapon:
-		weapon_name_text = player.weapon_manager.equipped_weapon.weapon_name
+	if player.weapon_manager and Global.equipped_weapon:
+		weapon_name_text = Global.equipped_weapon.weapon_name
 
 	stats_label.text = (
 		"Weapon : %s\n\n" % weapon_name_text +
-		"Vigor : %s\n" % str(player.stats.get(Global.Stat.VIGOR, 0.0)) +
-		"Strength : %s\n" % str(player.stats.get(Global.Stat.STRENGTH, 0.0)) +
-		"Dexterity : %s\n" % str(player.stats.get(Global.Stat.DEXTERITY, 0.0)) +
-		"Knowledge : %s\n" % str(player.stats.get(Global.Stat.KNOWLEDGE, 0.0)) +
-		"Faith : %s\n" % str(player.stats.get(Global.Stat.FAITH, 0.0)) +
-		"Mana Regen : %s\n" % str(player.stats.get(Global.Stat.MANA_REGEN, 0.0)) +
-		"Stamina Regen : %s" % str(player.stats.get(Global.Stat.STAMINA_REGEN, 0.0))
+		"Vigor : %s\n" % str(Global.stats.get(Global.Stat.VIGOR, 0.0)) +
+		"Strength : %s\n" % str(Global.stats.get(Global.Stat.STRENGTH, 0.0)) +
+		"Dexterity : %s\n" % str(Global.stats.get(Global.Stat.DEXTERITY, 0.0)) +
+		"Knowledge : %s\n" % str(Global.stats.get(Global.Stat.KNOWLEDGE, 0.0)) +
+		"Faith : %s\n" % str(Global.stats.get(Global.Stat.FAITH, 0.0)) +
+		"Mana Regen : %s\n" % str(Global.stats.get(Global.Stat.MANA_REGEN, 0.0)) +
+		"Stamina Regen : %s" % str(Global.stats.get(Global.Stat.STAMINA_REGEN, 0.0))
 	)
 
 func _on_options_pressed() -> void:

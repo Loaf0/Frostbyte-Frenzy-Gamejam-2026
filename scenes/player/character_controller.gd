@@ -307,10 +307,10 @@ func _handle_input():
 		_try_faith_ability()
 	if Input.is_action_just_pressed("interact"):
 		_interact()
-	#if Input.is_action_just_pressed("ui_focus_next"): # tab
-		#print(max_health)
-		#print("STATS DICT:", Global.stats)
-		#print(" VIGOR:", _stat(Global.Stat.VIGOR))
+	if Input.is_action_just_pressed("ui_focus_next"): # tab
+		print(max_health)
+		print("STATS DICT:", Global.stats)
+		print(" VIGOR:", _stat(Global.Stat.VIGOR))
 	#if Input.is_action_just_pressed("debug_equip_sword"):
 		#current_faith = max_faith
 	
