@@ -35,19 +35,26 @@ func _drop_current_weapon() -> void:
 	if not equipped_weapon or not weapon_pickup_scene:
 		return
 
+	# 1. Instantiate the pickup
 	var pickup := weapon_pickup_scene.instantiate() as WeaponPickup
 	if not pickup:
-		push_error("Failed to instantiate WeaponPickup scene")
 		return
 
-	pickup.weapon_resource = equipped_weapon
+	var weapon_res = equipped_weapon.duplicate(true)
+	pickup.weapon_resource = weapon_res
+	
 	pickup.use_override_quality = true
 	pickup.override_quality = weapon_quality
 
 	get_tree().current_scene.add_child(pickup)
 
 	var player_pos = get_parent().global_position
-	pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.0
+	pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.5 
+	pickup.global_position.y += 0.5
+
+	await get_tree().process_frame
+	if pickup.has_method("update_rarity_overlay"):
+		pickup.update_rarity_overlay()
 
 func _quality_enum_from_multiplier() -> Global.WeaponQuality:
 	for q in Global.QUALITY_MULTIPLIERS.keys():
