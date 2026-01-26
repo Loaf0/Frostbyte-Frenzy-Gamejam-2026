@@ -1,10 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn58y3jde76ig"]
+[gd_scene load_steps=6 format=3 uid="uid://dn58y3jde76ig"]
 
 [ext_resource type="Script" uid="uid://do2by3lfqlvxy" path="res://scenes/enemies/ranged_bullet.gd" id="1_8esbl"]
 [ext_resource type="ArrayMesh" uid="uid://d22jg1hwr4hyo" path="res://assets/character_packs/KayKit_Skeletons_1.1_FREE/assets/obj/Skeleton_Arrow.obj" id="2_8esbl"]
+[ext_resource type="Shader" uid="uid://bgvmdh0qw7hqa" path="res://assets/shaders/itemOverlay.gdshader" id="2_c3a4l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qefik"]
 radius = 0.3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ghm0w"]
+render_priority = 5
+shader = ExtResource("2_c3a4l")
+shader_parameter/rarity_color = Color(1, 0, 0, 1)
+shader_parameter/intensity = 10.0
+shader_parameter/pulse = 0.0
+shader_parameter/outline_width = 1.0
 
 [node name="BossBullet" type="Node3D"]
 script = ExtResource("1_8esbl")
@@ -20,7 +29,8 @@ collision_mask = 7
 shape = SubResource("SphereShape3D_qefik")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 1.7484555e-07, 8.884573e-15, 1.7763563e-15, 5.960464e-08, -0.9999999, -1.7484555e-07, 0.9999999, 5.960464e-08, 0, 0, 0)
+transform = Transform3D(1.5, 1.7484555e-07, -1.1464113e-14, 0, -4.371139e-08, -1.5, -2.6226832e-07, 1, -6.556708e-08, 0, 0, 0)
+material_overlay = SubResource("ShaderMaterial_ghm0w")
 mesh = ExtResource("2_8esbl")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]

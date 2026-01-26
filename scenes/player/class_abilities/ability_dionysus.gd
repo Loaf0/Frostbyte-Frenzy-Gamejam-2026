@@ -38,7 +38,7 @@ func _apply_stat_buff() -> void:
 
 	for stat in Global.Stat.values():
 		active_buff[stat] = buff_amount
-		player.stats[stat] = player.stats.get(stat, 0.0) + buff_amount
+		Global.stats[stat] = Global.stats.get(stat, 0.0) + buff_amount
 
 	player._recalculate_derived_stats()
 
@@ -47,7 +47,7 @@ func _remove_stat_buff() -> void:
 		return
 	particle.emitting = false
 	for stat in active_buff.keys():
-		player.stats[stat] -= active_buff[stat]
+		Global.stats[stat] -= active_buff[stat]
 
 	active_buff.clear()
 	player._recalculate_derived_stats()

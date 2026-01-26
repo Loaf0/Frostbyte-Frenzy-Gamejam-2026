@@ -5,7 +5,7 @@ render_mode unshaded, cull_front, depth_draw_always;
 uniform vec3 rarity_color : source_color = vec3(1.0);
 uniform float intensity : hint_range(0.0, 10.0) = 1.0; 
 uniform float pulse : hint_range(0.0, 1.0) = 0.0;
-uniform float outline_width : hint_range(0.0, 0.1) = 0.02; // Increased default
+uniform float outline_width : hint_range(0.0, 1.0) = 0.02; // Increased default
 
 void vertex() {
     // We push the vertices out along their normals. 
