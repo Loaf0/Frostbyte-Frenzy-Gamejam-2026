@@ -14,12 +14,14 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 
 #character cont
 var stats: Dictionary = {}
+var current_faith : float = 0.0
 #weapon manager
 @export var weapon_pickup_scene: PackedScene
 @export var equipped_weapon : WeaponResource
+@export var pickup_location : Vector3
 
 var weapon_quality : Global.WeaponQuality
-@export var selected_character : CharacterClass = CharacterClass.RANGER
+@export var selected_character : CharacterClass = CharacterClass.KNIGHT
 @onready var player : CharacterBody3D
 @onready var aggro : Array[CharacterBody3D] = []
 
@@ -56,7 +58,6 @@ func _ready() -> void:
 	Save.load_settings()
 
 # Global Util Functions
-
 func unlock_character(char_class: CharacterClass):
 	if unlocked_characters.has(char_class):
 		unlocked_characters[char_class] = true
@@ -131,3 +132,4 @@ func reset_run_state() -> void:
 	# weapon
 	equipped_weapon = null
 	weapon_quality = WeaponQuality.COMMON
+	current_faith = 0.0

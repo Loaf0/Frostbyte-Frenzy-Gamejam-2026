@@ -72,7 +72,7 @@ var current_mana = max_mana
 @export var max_health = 100 # add update when stats change
 var current_health = max_health
 var max_faith = 100
-var current_faith = 0
+#var current_faith = 0
 
 @export var vigor_health_multiplier := 10.0
 
@@ -99,7 +99,7 @@ func _ready() -> void:
 	current_stamina = max_stamina
 	current_mana = max_mana
 	current_health = max_health
-	current_faith = 0
+	#Global.current_faith = 0
 	if Global.selected_character != null:
 		selected_character = Global.selected_character
 	else:
@@ -233,7 +233,6 @@ func _physics_process(delta):
 		velocity = Vector3.ZERO
 
 func _regenerate_resources(delta: float) -> void:
-	
 	if current_stamina <= 0.0:
 		current_stamina = 0.0
 		attack_stamina_cooldown_timer = attack_stamina_cooldown
@@ -308,12 +307,12 @@ func _handle_input():
 		_try_faith_ability()
 	if Input.is_action_just_pressed("interact"):
 		_interact()
-	if Input.is_action_just_pressed("ui_focus_next"): # tab
-		print(max_health)
-		print("STATS DICT:", Global.stats)
-		print(" VIGOR:", _stat(Global.Stat.VIGOR))
-	if Input.is_action_just_pressed("debug_equip_sword"):
-		current_faith = max_faith
+	#if Input.is_action_just_pressed("ui_focus_next"): # tab
+		#print(max_health)
+		#print("STATS DICT:", Global.stats)
+		#print(" VIGOR:", _stat(Global.Stat.VIGOR))
+	#if Input.is_action_just_pressed("debug_equip_sword"):
+		#current_faith = max_faith
 	
 func _handle_movement(delta):
 	if is_dodging:
@@ -334,6 +333,9 @@ func _handle_movement(delta):
 		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
 	
 	velocity.y = 0 if is_on_floor() else -8
+	
+	if dead:
+		velocity = Vector3.ZERO
 
 func _input(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouse:
@@ -388,10 +390,10 @@ func _try_attack():
 
 func _try_faith_ability():
 	#ability.faith_cost
-	if current_faith >= max_faith:
+	if Global.current_faith >= max_faith:
 		_mouse_look()
 		ability.use_ability(last_mouse_world_pos)
-		current_faith = 0
+		Global.current_faith = 0
 	else:
 		#fail noise
 		pass
@@ -498,6 +500,7 @@ func _interact() -> void:
 	
 	if interactable is WeaponPickup:
 		var pickup: WeaponPickup = interactable
+		Global.pickup_location = pickup.global_position
 		weapon_manager.equip(pickup.weapon_resource, pickup.override_quality if pickup.use_override_quality else pickup.weapon_resource.pickup_quality)
 		pickup.queue_free()
 		_play_one_shot_sfx(interact_sfx, 0.05, 0.0 , -15)
@@ -545,8 +548,8 @@ func _recalculate_derived_stats():
 
 func take_damage(amount: float) -> void:
 	if is_dodging:
-		current_faith += _stat(Global.Stat.FAITH) * 5 # doesnt work dont gaf
-		current_faith = min(current_faith, max_faith)
+		Global.current_faith += _stat(Global.Stat.FAITH) * 5 # doesnt work dont gaf
+		Global.current_faith = min(Global.current_faith, max_faith)
 		return
 
 	current_health -= amount
@@ -565,15 +568,16 @@ func add_item_stats(modifiers: Array[StatModifier]) -> void:
 	_recalculate_derived_stats()
 
 func die():
+	dead = true
 	animator.on_death()
 	await get_tree().create_timer(2.0).timeout
 	SceneChanger.change_to("res://scenes/Maps/MainMenuMap.tscn")
 	mouse_idle_timer = 0.0
 
 func _regenerate_faith(delta: float) -> void:
-	if current_faith < max_faith:
-		current_faith += _stat(Global.Stat.FAITH) * delta
-		current_faith = min(current_faith, max_faith)
+	if Global.current_faith < max_faith:
+		Global.current_faith += _stat(Global.Stat.FAITH) * delta
+		Global.current_faith = min(Global.current_faith, max_faith)
 
 func _play_one_shot_sfx(
 	sfx: AudioStream,

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://codhwet5xob1e" path="res://scenes/rigged_models/players/knight.tscn" id="1_ylmq1"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="2_systc"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_4p1ol"]
-[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_systc"]
+[ext_resource type="PackedScene" uid="uid://biaje7ed7xd1y" path="res://scenes/player/class_abilities/ability_ares.tscn" id="3_41pr6"]
 [ext_resource type="Resource" uid="uid://xvso3je8k6lx" path="res://scenes/weapons/weapon_resources/sword.tres" id="4_4p1ol"]
 
 [sub_resource type="Resource" id="Resource_23fyi"]
@@ -14,7 +14,7 @@ metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 [sub_resource type="Resource" id="Resource_b75wc"]
 script = ExtResource("3_4p1ol")
 stat = 1
-amount = 0.8
+amount = 1.45
 metadata/_custom_type_script = "uid://c11jol2dvq2m5"
 
 [sub_resource type="Resource" id="Resource_7xqgu"]
@@ -64,7 +64,7 @@ script = ExtResource("2_systc")
 name = "Leonidas"
 god_subtitle = "Son of Ares"
 model_path = ExtResource("1_ylmq1")
-special_ability = ExtResource("3_systc")
+special_ability = ExtResource("3_41pr6")
 starting_weapon = ExtResource("4_4p1ol")
 stat_modifiers = Array[ExtResource("3_4p1ol")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"

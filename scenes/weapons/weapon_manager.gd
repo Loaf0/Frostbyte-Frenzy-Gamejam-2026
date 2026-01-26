@@ -1,7 +1,7 @@
 class_name WeaponManager
 extends Node
 
-@export var weapon_pickup_scene: PackedScene
+@export var weapon_pickup_scene: PackedScene = preload("res://scenes/weapons/WeaponPickups.tscn")
 
 #@export var equipped_weapon : WeaponResource
 #var weapon_quality : Global.WeaponQuality
@@ -44,12 +44,13 @@ func _drop_current_weapon() -> void:
 	
 	pickup.use_override_quality = true
 	pickup.override_quality = Global.weapon_quality
-
+	
 	get_tree().current_scene.add_child(pickup)
 
-	var player_pos = get_parent().global_position
-	pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.5 
-	pickup.global_position.y += 0.5
+	#var player_pos = get_parent().global_position
+	#pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.5 
+	#pickup.global_position.y += 0.5
+	pickup.global_position = Global.pickup_location
 
 	await get_tree().process_frame
 	if pickup.has_method("update_rarity_overlay"):
@@ -131,6 +132,8 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 		return
 	
 	var player = get_parent()
+	if player.dead:
+		return
 	player.current_stamina = player.current_stamina - get_stamina_cost()
 	player.current_mana = player.current_mana - get_mana_cost()
 	

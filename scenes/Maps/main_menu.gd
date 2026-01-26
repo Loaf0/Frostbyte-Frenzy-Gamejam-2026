@@ -95,6 +95,7 @@ func _process(delta: float) -> void:
 	if camera.projection == Camera3D.PROJECTION_ORTHOGONAL:
 		var target_zoom = target_poi.get("camera_zoom") if "camera_zoom" in target_poi else 9.5
 		camera.size = lerp(camera.size, target_zoom, weight)
+	
 
 func go_to_character(id: int):
 	if id >= 0 and id < character_pois.size():
@@ -138,6 +139,7 @@ func update_character_ui(index: int) -> void:
 		"Weapon : %s\n\n" % weapon_name_text +
 		"Vigor : %s\n" % str(_get_stat(sheet, Global.Stat.VIGOR)) +
 		"Strength : %s\n" % str(_get_stat(sheet, Global.Stat.STRENGTH)) +
+		"Agility : %s\n" % str(_get_stat(sheet, Global.Stat.AGILITY)) +
 		"Dexterity : %s\n" % str(_get_stat(sheet, Global.Stat.DEXTERITY)) +
 		"Knowledge : %s\n" % str(_get_stat(sheet, Global.Stat.KNOWLEDGE)) +
 		"Faith : %s" % str(_get_stat(sheet, Global.Stat.FAITH))
@@ -278,3 +280,8 @@ func _play_one_shot_sfx(
 	player.finished.connect(player.queue_free)
 
 	player.play(start_time)
+
+
+func _on_reset_pressed() -> void:
+	Save.reset_player_progress()
+	SceneChanger.change_to("res://scenes/Maps/MainMenuMap.tscn")

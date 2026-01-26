@@ -39,7 +39,8 @@ func _physics_process(_delta):
 			velocity = direction * (speed/2)
 			
 			velocity.y = 0 if is_on_floor() else -4
-			look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
+			if !global_position.is_equal_approx(Vector3(next_pos.x, global_position.y, next_pos.z)):
+				look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
 			anim_tree.set("parameters/StateMachine/conditions/Run", _is_player_reachable()) 
 			move_and_slide()
 		"movement_Running_B":

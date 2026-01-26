@@ -47,3 +47,14 @@ func load_player():
 	
 	for char_key in loaded_chars:
 		Global.unlocked_characters[int(char_key)] = loaded_chars[char_key]
+
+func reset_player_progress():
+	Global.unlocked_characters.clear()
+
+	for character in Global.CharacterClass.values():
+		Global.unlocked_characters[character] = false
+
+	Global.unlocked_characters[Global.CharacterClass.RANGER] = true
+
+	save_file.set_value("Player", "UNLOCKED_CHARACTERS", Global.unlocked_characters)
+	save_file.save(SAVE_PATH)

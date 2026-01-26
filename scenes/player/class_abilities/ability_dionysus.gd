@@ -55,7 +55,7 @@ func _remove_stat_buff() -> void:
 	_buff_timer = null
 
 func _stat(stat: int) -> float:
-	return player.stats.get(stat, 0.0)
+	return Global.stats.get(stat, 0.0)
 
 func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	var target_dir = (last_mouse_world_pos - player.global_position)

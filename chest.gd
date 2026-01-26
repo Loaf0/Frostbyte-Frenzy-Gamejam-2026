@@ -105,5 +105,13 @@ func _spawn_weapon(char_class: int, spawn_point: Node3D) -> void:
 	pickup.update_rarity_overlay()
 
 func _roll_weapon_quality() -> Global.WeaponQuality:
-	return [Global.WeaponQuality.UNCOMMON, Global.WeaponQuality.RARE, 
-	Global.WeaponQuality.EPIC, Global.WeaponQuality.LEGENDARY].pick_random()
+	var rarity = randf_range(0.0, 1.0)
+	
+	if rarity >= .9:
+		return Global.WeaponQuality.LEGENDARY
+	if rarity >= .75:
+		return Global.WeaponQuality.EPIC
+	if rarity >= .5:
+		return Global.WeaponQuality.RARE
+	return Global.WeaponQuality.UNCOMMON
+	
