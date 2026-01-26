@@ -45,7 +45,7 @@ func _drop_current_weapon() -> void:
 	pickup.use_override_quality = true
 	pickup.override_quality = Global.weapon_quality
 	
-	get_tree().current_scene.add_child(pickup)
+	get_parent().add_sibling(pickup)
 
 	#var player_pos = get_parent().global_position
 	#pickup.global_position = player_pos + get_parent().global_transform.basis.z * -1.5 

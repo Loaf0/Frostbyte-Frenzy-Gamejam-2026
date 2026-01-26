@@ -190,7 +190,7 @@ offset_right = -127.872
 offset_bottom = -71.928
 
 [node name="JumpEnemy" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("4_ptt7k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.281661, 0.5, 9.252147)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.281661, 0.5, -20.747852)
 
 [node name="RangedEnemy" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("12_cwasq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 1, 13)

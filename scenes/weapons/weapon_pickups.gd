@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	rotation.y += weapon_resource.rotate_speed * delta
 	pulse_timer += delta * weapon_resource.pulse_speed
 	var pulse := (sin(pulse_timer) * 0.5 + 0.5) * 0.4
-	position.y = base_y + sin(pulse_timer) * weapon_resource.bob_height
+	#position.y +=sin(pulse_timer) * weapon_resource.bob_height
 
 	for mat in overlay_materials:
 		mat.set_shader_parameter("pulse", pulse/5)

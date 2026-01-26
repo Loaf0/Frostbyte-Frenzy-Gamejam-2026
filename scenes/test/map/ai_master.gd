@@ -1,7 +1,7 @@
 extends Node3D
 
-@export var aggro_radius: float = 5.0
-@export var aggro_interval: float = 1.0
+@export var aggro_radius: float = 10.0
+@export var aggro_interval: float = 1.5
 
 var player: CharacterBody3D
 var aggro_timer: Timer
