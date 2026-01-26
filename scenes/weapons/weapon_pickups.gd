@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 	position.y = base_y + sin(pulse_timer) * weapon_resource.bob_height
 
 	for mat in overlay_materials:
-		mat.set_shader_parameter("pulse", pulse)
+		mat.set_shader_parameter("pulse", pulse/5)
 
 func interact(interactor: Node = null) -> void:
 	if not weapon_resource or not interactor:
@@ -58,15 +58,13 @@ func _spawn_pickup_model() -> void:
 func _setup_overlay() -> void:
 	overlay_materials.clear()
 	color = Global.RARITY_COLORS.get(resolved_quality)
-	print(resolved_quality)
-	print(color)
 	for mesh in _get_all_mesh_instances(self):
 		var mat := ShaderMaterial.new()
 		mat.shader = shader
 		mat.set_shader_parameter("rarity_color", color)
 		mat.set_shader_parameter("intensity", 10.0)
 		mat.set_shader_parameter("pulse", 0.0)
-		mat.set_shader_parameter("outline_width", 0.01)
+		mat.set_shader_parameter("outline_width", 0.015)
 		mesh.material_overlay = mat
 		mesh.material_overlay.render_priority = 10
 		overlay_materials.append(mat)
@@ -95,8 +93,6 @@ func update_rarity_overlay() -> void:
 		mat.shader = shader
 		
 		mat.set_shader_parameter("rarity_color", rarity_color)
-		mat.set_shader_parameter("intensity", 10.0)
-		mat.set_shader_parameter("outline_width", 0.01)
-		
+		mat.set_shader_parameter("outline_width", 0.015)
 		mesh.material_overlay = mat
 		overlay_materials.append(mat)

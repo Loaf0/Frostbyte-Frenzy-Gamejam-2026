@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://3k3bfdmsu1lx"]
+[gd_scene load_steps=3 format=3 uid="uid://3k3bfdmsu1lx"]
 
 [ext_resource type="PackedScene" uid="uid://cmhp0uvjqio0s" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/bow_withString.fbx" id="1_77htk"]
+[ext_resource type="PackedScene" uid="uid://c4rlbklgk3vsq" path="res://assets/character_packs/KayKit_Adventurers_2.0_FREE/Assets/fbx/quiver.fbx" id="2_5qwe2"]
 
 [node name="Bow" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="bow_withString" parent="." instance=ExtResource("1_77htk")]
 transform = Transform3D(1.3113416e-07, -1, -3.821371e-15, 4.371139e-08, 1.9106855e-15, 1, -1, -1.3113416e-07, 4.371139e-08, 0, 0, 0)
+
+[node name="quiver" parent="." instance=ExtResource("2_5qwe2")]
+transform = Transform3D(-4.371139e-08, 0, 1, -0.70710677, 0.70710677, -3.090862e-08, -0.70710677, -0.70710677, -3.090862e-08, -0.25080258, 0, 0.11272359)
