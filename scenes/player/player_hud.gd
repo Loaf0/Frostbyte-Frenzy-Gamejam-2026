@@ -73,7 +73,10 @@ func update_item_description(item_or_weapon: Object) -> void:
 		return
 	
 	if item_or_weapon is WeaponResource:
-		item_description.text = str(item_or_weapon.weapon_name) + " (" + str(item_or_weapon.pickup_quality) + ")"
+		if item_or_weapon is WeaponResource:
+			var quality_name = Global.QUALITY_NAMES.get(item_or_weapon.pickup_quality, "Unknown")
+			item_description.text = (
+				str(item_or_weapon.weapon_name) + " (" + quality_name + ")")
 	elif item_or_weapon is ItemResource:
 		item_description.text = str(item_or_weapon.item_name) + "\n" + str(item_or_weapon.item_desc)
 	elif item_or_weapon is Chest:

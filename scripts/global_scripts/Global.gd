@@ -4,6 +4,7 @@ extends Node
 ## across the project.
 
 # Constants
+const QUALITY_NAMES := {WeaponQuality.POOR: "Poor", WeaponQuality.COMMON: "Common", WeaponQuality.UNCOMMON: "Uncommon", WeaponQuality.RARE: "Rare", WeaponQuality.EPIC: "Epic", WeaponQuality.LEGENDARY: "Legendary"}
 var RARITY_COLORS := {Global.WeaponQuality.POOR:Color(0.6, 0.6, 0.6), Global.WeaponQuality.COMMON:Color(1.0, 1.0, 1.0), Global.WeaponQuality.UNCOMMON:Color(0.3, 1.0, 0.3), Global.WeaponQuality.RARE:Color(0.2, 0.4, 1.0), Global.WeaponQuality.EPIC:Color(0.7, 0.3, 1.0), Global.WeaponQuality.LEGENDARY:Color(1.0, 0.7, 0.2)}
 enum WeaponType {BOW, CROSSBOW, SPELL_BOOK, STAFF, BATTLE_AXE, LONG_SWORD}
 enum CharacterClass {RANGER, BARBARIAN, MAGE, KNIGHT, ROGUE, SKELETON}
