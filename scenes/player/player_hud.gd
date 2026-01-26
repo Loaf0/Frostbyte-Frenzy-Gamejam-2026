@@ -64,7 +64,7 @@ func update_ability_spot():
 	if not player:
 		return
 
-	var perc = clamp(player.current_faith / player.max_faith, 0.0, 1.0)
+	var perc = clamp(Global.current_faith / player.max_faith, 0.0, 1.0)
 	ability_spot.value = perc * 100.0
 
 	var min_modulate := Color(0.5, 0.5, 0.5, 1.0)
