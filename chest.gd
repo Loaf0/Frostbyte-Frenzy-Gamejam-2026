@@ -30,7 +30,12 @@ const CLASS_WEAPONS := {
 	],
 	Global.CharacterClass.SKELETON: [
 		"res://scenes/weapons/weapon_resources/staff.tres",
-		"res://scenes/weapons/weapon_resources/spellbook.tres"
+		"res://scenes/weapons/weapon_resources/spellbook.tres",
+		"res://scenes/weapons/weapon_resources/bow.tres",
+		"res://scenes/weapons/weapon_resources/crossbow.tres",
+		"res://scenes/weapons/weapon_resources/axe.tres",
+		"res://scenes/weapons/weapon_resources/sword.tres",
+		"res://scenes/weapons/weapon_resources/gold_sword.tres"
 	]
 }
 
