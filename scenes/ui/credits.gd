@@ -15,7 +15,7 @@ var character_name_map := {
 func _ready() -> void:
 	var unlocked_class = Global.unlock_next_character_from_selected()
 	label.text = _build_credits_text(unlocked_class)
-	await get_tree().create_timer(10.0).timeout
+	await get_tree().create_timer(7.0).timeout
 	SceneChanger.change_to("res://scenes/Maps/MainMenuMap.tscn")
 
 func _build_credits_text(unlocked_class: Global.CharacterClass) -> String:
