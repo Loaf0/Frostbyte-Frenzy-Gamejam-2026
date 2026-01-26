@@ -5,12 +5,12 @@ extends Control
 @export var smoothing: float = 8.0
 
 @onready var roll_radial: Sprite2D = $Sprite2D
-@onready var health_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/HealthMeter
-@onready var stamina_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/StaminaMeter
-@onready var mana_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/ManaMeter
-@onready var ability_spot: TextureProgressBar = $PlayerMeters/HBoxContainer/AbilitySpot
+@onready var health_meter: TextureProgressBar = $PlayerMeters/HealthMeter
+@onready var stamina_meter: TextureProgressBar = $PlayerMeters/StaminaMeter
+@onready var mana_meter: TextureProgressBar = $PlayerMeters/ManaMeter
+@onready var ability_spot: TextureProgressBar = $AbilityControl/AbilitySpot
 @onready var item_description: Label = $"Item Description"
-@onready var boss_bar: ProgressBar = $BossBar
+@onready var boss_bar: TextureProgressBar = $BossBar
 var boss_ref: Node = null
 
 var roll_target_screen_pos: Vector2 = Vector2.ZERO
