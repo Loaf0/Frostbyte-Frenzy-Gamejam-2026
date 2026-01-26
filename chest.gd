@@ -112,11 +112,11 @@ func _spawn_weapon(char_class: int, spawn_point: Node3D) -> void:
 func _roll_weapon_quality() -> Global.WeaponQuality:
 	var rarity = randf_range(0.0, 1.0)
 	
-	if rarity >= .9:
+	if rarity >= .85:
 		return Global.WeaponQuality.LEGENDARY
-	if rarity >= .75:
-		return Global.WeaponQuality.EPIC
 	if rarity >= .5:
+		return Global.WeaponQuality.EPIC
+	if rarity >= .3:
 		return Global.WeaponQuality.RARE
 	return Global.WeaponQuality.UNCOMMON
 	

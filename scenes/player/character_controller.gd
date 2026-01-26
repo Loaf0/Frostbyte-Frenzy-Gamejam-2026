@@ -510,6 +510,8 @@ func _interact() -> void:
 	elif interactable is Chest:
 		interactable.interact(self)
 	elif closest_interactable is Stairs:
+		if ability.has_method("_remove_stat_buff"):
+			ability._remove_stat_buff()
 		interactable.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
