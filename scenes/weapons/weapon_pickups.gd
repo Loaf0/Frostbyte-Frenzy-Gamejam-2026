@@ -66,7 +66,7 @@ func _setup_overlay() -> void:
 		mat.set_shader_parameter("rarity_color", color)
 		mat.set_shader_parameter("intensity", 10.0)
 		mat.set_shader_parameter("pulse", 0.0)
-		mat.set_shader_parameter("outline_width", 0.01)
+		mat.set_shader_parameter("outline_width", 0.00)
 		mesh.material_overlay = mat
 		mesh.material_overlay.render_priority = 10
 		overlay_materials.append(mat)
