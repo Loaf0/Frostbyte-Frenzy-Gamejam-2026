@@ -27,9 +27,9 @@ var stamina_cost := 0.0
 var mana_cost := 0.0
 var attack_size := 1.0
 
-func _process(_delta: float) -> void:
-	if trail_active and active_trail:
-		active_trail.add_point()
+#func _process(_delta: float) -> void:
+	#if trail_active and active_trail:
+		#active_trail.add_point()
 
 func _drop_current_weapon() -> void:
 	if not equipped_weapon or not weapon_pickup_scene:
@@ -116,7 +116,7 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 	player.current_stamina = player.current_stamina - get_stamina_cost()
 	player.current_mana = player.current_mana - get_mana_cost()
 	
-	if player.current_stamina < 0 or player.current_mana < 0:
+	if player.current_stamina < 0 or player.current_mana < 0 or player.dead:
 		# sound
 		return
 	

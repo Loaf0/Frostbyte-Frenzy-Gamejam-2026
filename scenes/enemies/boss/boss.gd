@@ -210,7 +210,7 @@ func do_attack(player: Node3D) -> void:
 		attack_options.append(AttackType.RANGED_SPIN)
 		attack_options.append(AttackType.RANGED_WAVE)
 		attack_options.append(AttackType.RANGED_CIRCLE)
-		if current_health <= max_health * 0.5 and randf() <= 0.3:
+		if current_health <= max_health * 0.5 and randf() <= 0.5:
 			attack_options.append(AttackType.SUMMON)
 
 	var chosen_attack = attack_options[randi() % attack_options.size()]

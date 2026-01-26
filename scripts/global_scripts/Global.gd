@@ -15,6 +15,13 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 @onready var player : CharacterBody3D
 @onready var aggro : Array[CharacterBody3D] = []
 
+const dungeon_floors = [
+	"res://scenes/Maps/polished_dungeons/d1f1.tscn",
+	"res://scenes/Maps/polished_dungeons/d1f2.tscn",
+]
+const boss_floor = "res://scenes/Maps/FloorGLBs/BossFloor.glb"
+var generated_dungeon: Array[String] = []
+
 var unlocked_characters : Dictionary = {
 	CharacterClass.RANGER : true,
 	CharacterClass.MAGE : false,
@@ -60,6 +67,32 @@ func unlock_next_character_from_selected() -> CharacterClass:
 			return next_class
 
 	return Global.CharacterClass.RANGER
+
+func generate_dungeon(floors: int) -> void:
+	generated_dungeon.clear()
+	
+	var available_floors := dungeon_floors.duplicate()
+	
+	if floors > available_floors.size():
+		floors = available_floors.size()
+	
+	available_floors.shuffle()
+	
+	for i in range(floors):
+		generated_dungeon.append(available_floors[i])
+	
+	generated_dungeon.append(boss_floor)
+	print("Generated dungeon : ", generated_dungeon)
+
+
+func go_to_next_floor():
+	if generated_dungeon.is_empty():
+		print("No more floors left!")
+		return
+	
+	var next_floor : String = generated_dungeon.pop_front()
+	print("Going to next floor: ", next_floor)
+	SceneChanger.change_to(next_floor)
 
 func play_one_shot_sfx(
 	sfx: AudioStream,

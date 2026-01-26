@@ -6503,7 +6503,7 @@ _data = {
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w6q71"]
 radius = 5.0
 
-[node name="Boss" type="CharacterBody3D" groups=["enemy"]]
+[node name="Boss" type="CharacterBody3D" groups=["boss", "enemy"]]
 script = ExtResource("1_qn8hu")
 
 [node name="BulletManager" type="Node3D" parent="." node_paths=PackedStringArray("spawn_loc")]

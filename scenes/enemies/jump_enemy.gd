@@ -6,6 +6,8 @@ var attack_sfx = preload("res://assets/audio/sfx/bone-break-sound-269658.mp3")
 
 func _ready():
 	add_to_group("enemy")
+	floor_max_angle = deg_to_rad(80) 
+	floor_snap_length = 0.5 
 	speed = 2.0
 	attack_damage = 5.0
 	attack_range = 5.0

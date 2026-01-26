@@ -12,6 +12,12 @@ var sfx = preload("res://assets/audio/sfx/swing-whoosh-5-198498.mp3")
 @export var attack_windup: float = 0.4
 @export var attack_hit_time: float = 0.25
 @export var max_health = 30
+
+var last_position: Vector3
+var stuck_timer: float = 0.0
+var stuck_check_interval: float = 0.5
+var stuck_threshold: float = 0.1
+
 var current_health = max_health
 var attacked: bool = false
 var damaged: bool = true
@@ -30,6 +36,8 @@ var origin: Vector3
 var dissolve_materials: Array[ShaderMaterial] = []
 
 func _ready():
+	floor_max_angle = deg_to_rad(80) 
+	floor_snap_length = 0.5 
 	anim_tree = $Skeleton_Minion/Rig_Medium/AnimationTree
 	melee_collision = $Skeleton_Minion/Rig_Medium/GeneralSkeleton/WeaponSlot/Skeleton_Blade/MeleeHitbox/MeleeCollision
 	state_machine = anim_tree.get("parameters/StateMachine/playback")
@@ -59,18 +67,21 @@ func _process(_delta: float) -> void:
 
 	var move_dir = Vector3(direction.x, 0, direction.z).normalized()
 	velocity = move_dir * speed
-
 	if not is_on_floor():
-		velocity.y = -4
+		velocity.y = -8
 	else:
 		velocity.y = next_pos.y - global_position.y
-
-	look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
 	move_and_slide()
 
+	stuck_timer += _delta
+	if stuck_timer >= stuck_check_interval:
+		var dist_moved = global_position.distance_to(last_position)
+		if dist_moved < stuck_threshold:
+			_set_random_target()
+		last_position = global_position
+		stuck_timer = 0.0
 
 func _physics_process(_delta):
-	#print(state_machine.get_current_node())
 	match state_machine.get_current_node():
 		"actions_Idle_B":
 			anim_tree.set("parameters/StateMachine/conditions/Wander", true)

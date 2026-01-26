@@ -122,3 +122,16 @@ func _on_attack_finished():
 	is_attacking = false
 	if weapon_manager.has_method("stop_attack_state"):
 		weapon_manager.stop_attack_state()
+
+func on_death():
+	is_attacking = false
+	walk_vector = Vector2.ZERO
+
+	if animation_tree:
+		animation_tree.active = false
+
+	weapon_blend_target = 0.0
+	update_weapon_hold_animations()
+
+	if animation_player and animation_player.has_animation("actions/Death_B"):
+		animation_player.play("actions/Death_B")

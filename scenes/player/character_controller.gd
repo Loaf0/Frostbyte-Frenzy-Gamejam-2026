@@ -19,7 +19,7 @@ const CHARACTER_STATS : Dictionary[Global.CharacterClass, String] = {
 }
 
 var character_type : Global.CharacterClass = Global.CharacterClass.RANGER
-
+var hurt_sfx = preload("res://assets/audio/sfx/ough-47202.mp3")
 var dodge_sfx = preload("res://assets/audio/sfx/simple-whoosh-382724.mp3")
 var interact_sfx = preload("res://assets/audio/sfx/can-pickup-167810.mp3")
 var _isMnK : bool
@@ -81,7 +81,7 @@ var damage_flash_timer := 0.0
 const DAMAGE_FLASH_TIME := 0.15
 
 var stats: Dictionary = {}
-
+var dead = false
 var move_input := Vector3.ZERO
 var dodge_timer := 0.0
 var dodge_cd_timer := 0.0
@@ -94,6 +94,8 @@ var model_instance: Node3D
 var anim_player: AnimationPlayer
 
 func _ready() -> void:
+	floor_max_angle = deg_to_rad(80) 
+	floor_snap_length = 0.5 
 	current_stamina = max_stamina
 	current_mana = max_mana
 	current_health = max_health
@@ -214,15 +216,18 @@ func _find_animation_player(node: Node) -> AnimationPlayer:
 	return null
 
 func _physics_process(delta):
-	#print(current_health)
-	_handle_animations(delta)
-	_handle_timers(delta)
-	_handle_input()
-	_handle_movement(delta)
-	_apply_stepped_rotation(delta)
-	move_and_slide()
-	_regenerate_resources(delta)
-	_regenerate_faith(delta)
+	if !dead:
+		#print(current_health)
+		_handle_animations(delta)
+		_handle_timers(delta)
+		_handle_input()
+		_handle_movement(delta)
+		_apply_stepped_rotation(delta)
+		move_and_slide()
+		_regenerate_resources(delta)
+		_regenerate_faith(delta)
+	else:
+		velocity = Vector3.ZERO
 
 func _regenerate_resources(delta: float) -> void:
 	
@@ -311,7 +316,7 @@ func _handle_movement(delta):
 	if is_dodging:
 		velocity = dodge_dir * dodge_speed
 		return
-	if mouse_idle_timer > 0.0:
+	if mouse_idle_timer > 0.0 and !dead:
 		if _isMnK:
 			_mouse_look()
 		else:
@@ -325,7 +330,7 @@ func _handle_movement(delta):
 	else:
 		velocity = velocity.move_toward(Vector3.ZERO, friction * delta)
 	
-	velocity.y = 0 if is_on_floor() else -4
+	velocity.y = 0 if is_on_floor() else -8
 
 func _input(event: InputEvent):
 	if event is InputEventKey or event is InputEventMouse:
@@ -334,6 +339,8 @@ func _input(event: InputEvent):
 		_isMnK = false
 
 func _controller_look():
+	if dead:
+		return
 	var stick_rotation: Vector2 = Vector2(Input.get_joy_axis(0, JOY_AXIS_RIGHT_Y), Input.get_joy_axis(0, JOY_AXIS_RIGHT_X))
 	stick_rotation *= -1.0
 	if stick_rotation.length() > 0.2:
@@ -346,6 +353,9 @@ func _controller_look():
 			look_at(look_target, Vector3.UP)
 
 func _mouse_look():
+	if dead:
+		return
+	
 	var cam = get_viewport().get_camera_3d()
 	if not cam: 
 		return
@@ -455,6 +465,9 @@ func _update_closest_interactable_ui() -> void:
 	elif closest_interactable is Chest:
 		var chest : Chest = closest_interactable
 		ui.update_item_description(chest)
+	elif closest_interactable is Stairs:
+		var stairs : Stairs = closest_interactable
+		ui.update_item_description(stairs)
 	else:
 		ui.update_item_description(null)
 	
@@ -489,6 +502,8 @@ func _interact() -> void:
 		interactable.interact(self)
 		_play_one_shot_sfx(interact_sfx, 0.05, 0.0 , -15)
 	elif interactable is Chest:
+		interactable.interact(self)
+	elif closest_interactable is Stairs:
 		interactable.interact(self)
 
 func equip_weapon(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
@@ -536,7 +551,7 @@ func take_damage(amount: float) -> void:
 
 	damage_flash_timer = DAMAGE_FLASH_TIME
 	_set_red_flash(1.0)
-
+	_play_one_shot_sfx(hurt_sfx, 0.05, 0.38, -15)
 	if current_health <= 0:
 		die()
 
@@ -547,7 +562,10 @@ func add_item_stats(modifiers: Array[StatModifier]) -> void:
 	_recalculate_derived_stats()
 
 func die():
-	pass
+	animator.on_death()
+	await get_tree().create_timer(2.0).timeout
+	SceneChanger.change_to("res://scenes/Maps/MainMenuMap.tscn")
+	mouse_idle_timer = 0.0
 
 func _regenerate_faith(delta: float) -> void:
 	if current_faith < max_faith:

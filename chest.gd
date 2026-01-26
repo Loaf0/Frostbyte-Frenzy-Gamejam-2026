@@ -71,8 +71,8 @@ func interact(_interactor : Node = null):
 	spawn_loot()
 	animation_player.play("open")
 	Global.play_one_shot_sfx(chest_open_sfx, 0.05, 0.0, -15)
-	await get_tree().create_timer(1.5).timeout
-	Global.play_one_shot_sfx(chest_close_sfx, 0.05, 0.0, -15)
+	await get_tree().create_timer(1.0).timeout
+	Global.play_one_shot_sfx(chest_close_sfx, 0.05, 0.0, -25)
 	
 func spawn_loot() -> void:
 	var char_class := Global.selected_character

@@ -23,6 +23,8 @@ func _check_enemy_aggro() -> void:
 		return
 	var enemies := get_tree().get_nodes_in_group("enemy")
 	for enemy in enemies:
+		if enemy.is_in_group("boss"):
+			continue
 		if not is_instance_valid(enemy):
 			continue
 		if enemy.is_aggroed:

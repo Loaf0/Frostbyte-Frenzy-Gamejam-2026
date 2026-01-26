@@ -81,3 +81,5 @@ func update_item_description(item_or_weapon: Object) -> void:
 			item_description.text = "Open Chest"
 		else:
 			item_description.text = "Looted Chest"
+	elif item_or_weapon is Interactable:
+		item_description.text = "Descend Stairs"

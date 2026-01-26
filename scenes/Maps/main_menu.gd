@@ -163,6 +163,7 @@ func _on_character_confirm_selection_pressed() -> void:
 
 	Global.selected_character = selected_class
 
+	Global.generate_dungeon(2)
 	await get_tree().create_timer(1.5).timeout
 	SceneChanger.change_to(game_scene)
 

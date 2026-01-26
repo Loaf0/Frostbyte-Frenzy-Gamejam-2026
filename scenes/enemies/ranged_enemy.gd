@@ -4,6 +4,8 @@ extends Enemy
 var attack_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
 
 func _ready():
+	floor_max_angle = deg_to_rad(80) 
+	floor_snap_length = 0.5 
 	add_to_group("enemy")
 	speed = 2.0
 	attack_damage = 5.0
@@ -39,7 +41,8 @@ func _physics_process(_delta):
 			velocity = direction * (speed/2)
 			
 			velocity.y = 0 if is_on_floor() else -4
-			look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
+			if !global_position.is_equal_approx(next_pos):
+				look_at(Vector3(next_pos.x, global_position.y, next_pos.z), Vector3.UP)
 			anim_tree.set("parameters/StateMachine/conditions/Run", _is_player_reachable()) 
 			move_and_slide()
 		"movement_Running_B":
