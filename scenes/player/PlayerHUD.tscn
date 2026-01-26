@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwsnxx2yxc7n8"]
+[gd_scene load_steps=17 format=3 uid="uid://bwsnxx2yxc7n8"]
 
 [ext_resource type="Script" uid="uid://do8lmc55ji872" path="res://scenes/player/player_hud.gd" id="1_xiwgm"]
+[ext_resource type="Texture2D" uid="uid://dxuyu0gswc0ju" path="res://assets/ui_assets/FantasyUI/Default/Border/panel-border-027.png" id="2_jlg7l"]
 [ext_resource type="Texture2D" uid="uid://npnj46ktb1aq" path="res://assets/ui_assets/Retro Inventory/Original/Health_01.png" id="2_lbnyo"]
 [ext_resource type="Texture2D" uid="uid://u34rmc54dqwj" path="res://assets/ui_assets/Retro Inventory/Original/Settings_Bar02.png" id="3_4dwxf"]
 [ext_resource type="Texture2D" uid="uid://cbkr4085xyoev" path="res://assets/ui_assets/Retro Inventory/Original/Hearts_Red_1.png" id="3_42jgg"]
+[ext_resource type="Texture2D" uid="uid://bcdr3ggi8aye3" path="res://assets/ui_assets/FantasyUI/Default/Border/panel-border-027-colored.png" id="3_rdcm5"]
 [ext_resource type="Texture2D" uid="uid://w10rwppni2wf" path="res://assets/ui_assets/Retro Inventory/Original/07.png" id="4_w5n10"]
 [ext_resource type="Texture2D" uid="uid://crmiorew6d0uk" path="res://assets/ui_assets/Retro Inventory/Original/Health_01_Bar01.png" id="4_w64pa"]
 [ext_resource type="Texture2D" uid="uid://bxa68aepj2vyt" path="res://assets/ui_assets/Retro Inventory/Original/Settings.png" id="5_w64pa"]
@@ -21,26 +23,42 @@ shadow_color = Color(0, 0, 0, 1)
 
 [node name="PlayerHud" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -11.0
-offset_right = 5.0
-offset_bottom = -11.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.333
+anchor_bottom = 0.333
+offset_right = -383.616
+offset_bottom = -216.0
 script = ExtResource("1_xiwgm")
 
-[node name="BossBar" type="ProgressBar" parent="."]
-visible = false
+[node name="TextureRect" type="ColorRect" parent="."]
+show_behind_parent = true
+z_index = -100
+custom_minimum_size = Vector2(384, 216)
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 142.0
-offset_right = -114.0
-offset_bottom = 60.0
-grow_horizontal = 2
+anchors_preset = -1
+anchor_right = 0.333
+anchor_bottom = 0.333
+offset_right = 384.0
+offset_bottom = 216.0
+mouse_filter = 1
+color = Color(0.0509804, 0.0509804, 0.0509804, 0.458824)
+
+[node name="BossBar" type="TextureProgressBar" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 55.0
+offset_top = 8.0
+offset_right = 327.0
+offset_bottom = 22.0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 14
+stretch_margin_top = 9
+stretch_margin_right = 14
+stretch_margin_bottom = 9
+texture_under = ExtResource("2_jlg7l")
+texture_progress = ExtResource("3_rdcm5")
+tint_progress = Color(1, 0, 0, 1)
 
 [node name="RollMeter" type="TextureProgressBar" parent="."]
 visible = false
@@ -65,36 +83,22 @@ texture_progress_offset = Vector2(16, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(547, 328)
+position = Vector2(168, 97)
+scale = Vector2(-1, 1)
 texture = ExtResource("4_w5n10")
 hframes = 10
 region_enabled = true
-region_rect = Rect2(0, 0, 160, 16)
+region_rect = Rect2(0, 16.1, 160, 16)
 
-[node name="PlayerMeters" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.004
-anchor_top = 1.0
-anchor_right = 0.99600005
-anchor_bottom = 1.0170001
-offset_left = -0.39199972
-offset_top = -42.0
-offset_right = -0.39208984
-offset_bottom = -3.0160522
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="HBoxContainer" type="Control" parent="PlayerMeters"]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="PlayerMeters/HBoxContainer"]
+[node name="PlayerMeters" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 574.0
-offset_bottom = 50.0
+offset_left = 4.0
+offset_top = 162.0
+offset_right = 76.0
+offset_bottom = 212.0
 size_flags_horizontal = 3
 
-[node name="HealthMeter" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer/Control"]
+[node name="HealthMeter" type="TextureProgressBar" parent="PlayerMeters"]
 layout_mode = 0
 offset_top = 34.0
 offset_right = 64.0
@@ -105,7 +109,7 @@ texture_over = ExtResource("3_42jgg")
 texture_progress = ExtResource("4_w64pa")
 texture_progress_offset = Vector2(16, 0)
 
-[node name="StaminaMeter" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer/Control"]
+[node name="StaminaMeter" type="TextureProgressBar" parent="PlayerMeters"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 15.0
@@ -117,7 +121,7 @@ texture_under = ExtResource("6_ajqse")
 texture_progress = ExtResource("6_m28le")
 texture_progress_offset = Vector2(11, 0)
 
-[node name="ManaMeter" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer/Control"]
+[node name="ManaMeter" type="TextureProgressBar" parent="PlayerMeters"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = -3.0
@@ -129,16 +133,23 @@ texture_under = ExtResource("6_ajqse")
 texture_progress = ExtResource("7_yuo71")
 texture_progress_offset = Vector2(11, 0)
 
-[node name="AbilitySpot" type="TextureProgressBar" parent="PlayerMeters/HBoxContainer"]
+[node name="AbilityControl" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -0.39199972
+offset_top = -42.0
+offset_right = -0.39199972
+offset_bottom = -4.0
+
+[node name="AbilitySpot" type="TextureProgressBar" parent="AbilityControl"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 336.0
-offset_top = 13.0
-offset_right = 368.0
-offset_bottom = 45.0
+offset_left = 343.392
+offset_top = 217.0
+offset_right = 375.392
+offset_bottom = 249.0
 size_flags_horizontal = 3
 value = 100.0
-fill_mode = 4
+fill_mode = 5
 texture_under = ExtResource("8_yuo71")
 texture_progress = ExtResource("9_rj8fd")
 

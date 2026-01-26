@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b76j18d2kvy6l" path="res://scenes/rigged_models/players/skeleton.tscn" id="1_73qyx"]
 [ext_resource type="Script" uid="uid://owmj2hm8arsr" path="res://scenes/player/ClassResource.gd" id="2_fanfa"]
-[ext_resource type="PackedScene" uid="uid://pv13y4n1j384" path="res://scenes/player/class_abilities/ability_hermes.tscn" id="3_fanfa"]
+[ext_resource type="PackedScene" uid="uid://b422qwfpaeju7" path="res://scenes/player/class_abilities/ability_charon.tscn" id="3_6j3en"]
 [ext_resource type="Script" uid="uid://c11jol2dvq2m5" path="res://scripts/stat_modifier.gd" id="3_fsasn"]
 [ext_resource type="Resource" uid="uid://crlwe8djrrtps" path="res://scenes/weapons/weapon_resources/staff.tres" id="4_fsasn"]
 
@@ -64,7 +64,7 @@ script = ExtResource("2_fanfa")
 name = "FEMORE"
 god_subtitle = "Child of Charon"
 model_path = ExtResource("1_73qyx")
-special_ability = ExtResource("3_fanfa")
+special_ability = ExtResource("3_6j3en")
 starting_weapon = ExtResource("4_fsasn")
 stat_modifiers = Array[ExtResource("3_fsasn")]([SubResource("Resource_23fyi"), SubResource("Resource_b75wc"), SubResource("Resource_7xqgu"), SubResource("Resource_4wkvv"), SubResource("Resource_nq4n3"), SubResource("Resource_10va0"), SubResource("Resource_0gcy2"), SubResource("Resource_lfnwf"), SubResource("Resource_f5vr2")])
 metadata/_custom_type_script = "uid://owmj2hm8arsr"
