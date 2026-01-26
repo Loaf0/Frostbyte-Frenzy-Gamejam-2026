@@ -102,9 +102,5 @@ func _spawn_weapon(char_class: int, spawn_point: Node3D) -> void:
 	spawn_point.add_child(pickup)
 
 func _roll_weapon_quality() -> Global.WeaponQuality:
-	return [
-		Global.WeaponQuality.UNCOMMON,
-		Global.WeaponQuality.RARE,
-		Global.WeaponQuality.EPIC,
-		Global.WeaponQuality.LEGENDARY
-	].pick_random()
+	return [Global.WeaponQuality.UNCOMMON, Global.WeaponQuality.RARE, 
+	Global.WeaponQuality.EPIC, Global.WeaponQuality.LEGENDARY].pick_random()
