@@ -3,8 +3,8 @@ extends Node
 
 @export var weapon_pickup_scene: PackedScene
 
-@export var equipped_weapon : WeaponResource
-var weapon_quality : Global.WeaponQuality
+#@export var equipped_weapon : WeaponResource
+#var weapon_quality : Global.WeaponQuality
 
 var bow_sfx = preload("res://assets/audio/sfx/bow-release-bow-and-arrow-4-101936.mp3")
 var sword_sfx = preload("res://assets/audio/sfx/item-swing-sfx-2-409076.mp3")
@@ -32,19 +32,18 @@ var attack_size := 1.0
 		#active_trail.add_point()
 
 func _drop_current_weapon() -> void:
-	if not equipped_weapon or not weapon_pickup_scene:
+	if not Global.equipped_weapon or not weapon_pickup_scene:
 		return
 
-	# 1. Instantiate the pickup
 	var pickup := weapon_pickup_scene.instantiate() as WeaponPickup
 	if not pickup:
 		return
 
-	var weapon_res = equipped_weapon.duplicate(true)
+	var weapon_res = Global.equipped_weapon.duplicate(true)
 	pickup.weapon_resource = weapon_res
 	
 	pickup.use_override_quality = true
-	pickup.override_quality = weapon_quality
+	pickup.override_quality = Global.weapon_quality
 
 	get_tree().current_scene.add_child(pickup)
 
@@ -58,7 +57,7 @@ func _drop_current_weapon() -> void:
 
 func _quality_enum_from_multiplier() -> Global.WeaponQuality:
 	for q in Global.QUALITY_MULTIPLIERS.keys():
-		if Global.QUALITY_MULTIPLIERS[q] == weapon_quality:
+		if Global.QUALITY_MULTIPLIERS[q] == Global.weapon_quality:
 			return q
 	return Global.WeaponQuality.COMMON
 
@@ -66,14 +65,14 @@ func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	if not weapon:
 		return
 
-	if equipped_weapon:
+	if Global.equipped_weapon:
 		_drop_current_weapon()
 
-	equipped_weapon = weapon
-	weapon_quality = quality
+	Global.equipped_weapon = weapon
+	Global.weapon_quality = quality
 	animator.current_weapon = weapon.weapon_type
 	
-	damage = max(equipped_weapon.base_damage, equipped_weapon.projectile_damage)
+	damage = max(Global.equipped_weapon.base_damage, Global.equipped_weapon.projectile_damage)
 	
 	_build_attack_animation_list()
 	_clear_weapon_model()
@@ -82,13 +81,23 @@ func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 
 	#create model as child of weapon_mesh_container and apply transforms scaled with size modifier
 
+func load_weapon():
+	animator.current_weapon = Global.equipped_weapon.weapon_type
+	
+	damage = max(Global.equipped_weapon.base_damage, Global.equipped_weapon.projectile_damage)
+	
+	_build_attack_animation_list()
+	_clear_weapon_model()
+	_spawn_weapon_model()
+	recalculate_weapon_stats()
+
 func _clear_weapon_model() -> void:
 	if weapon_instance:
 		weapon_instance.queue_free()
 		weapon_instance = null
 
 func _spawn_weapon_model() -> void:
-	if not equipped_weapon or not equipped_weapon.world_model:
+	if not Global.equipped_weapon or not Global.equipped_weapon.world_model:
 		return
 
 	if not weapon_mesh_container:
@@ -97,7 +106,7 @@ func _spawn_weapon_model() -> void:
 			push_error("weapon_mesh_container is null")
 			return
 
-	weapon_instance = equipped_weapon.world_model.instantiate()
+	weapon_instance = Global.equipped_weapon.world_model.instantiate()
 	weapon_mesh_container.add_child(weapon_instance)
 	
 	apply_world_model_transforms(weapon_instance)
@@ -106,12 +115,12 @@ func _build_attack_animation_list() -> void:
 	animations.clear()
 	attack_anim_index = 0
 
-	if equipped_weapon.attack1_anim != "":
-		animations.append(equipped_weapon.attack1_anim)
-	if equipped_weapon.attack2_anim != "":
-		animations.append(equipped_weapon.attack2_anim)
-	if equipped_weapon.attack3_anim != "":
-		animations.append(equipped_weapon.attack3_anim)
+	if Global.equipped_weapon.attack1_anim != "":
+		animations.append(Global.equipped_weapon.attack1_anim)
+	if Global.equipped_weapon.attack2_anim != "":
+		animations.append(Global.equipped_weapon.attack2_anim)
+	if Global.equipped_weapon.attack3_anim != "":
+		animations.append(Global.equipped_weapon.attack3_anim)
 
 func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 	if not _has_weapon():
@@ -131,7 +140,7 @@ func attack(target_dir: Vector3 = Vector3.ZERO) -> void:
 	
 	_play_attack_animation()
 
-	match equipped_weapon.weapon_type:
+	match Global.equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			_do_melee_attack()
 		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
@@ -167,14 +176,14 @@ func _stop_trail() -> void:
 		attack()
 
 func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
-	if equipped_weapon.projectile == null:
+	if Global.equipped_weapon.projectile == null:
 		return
 	
 	var target_dir = (last_mouse_world_pos - self.global_position).normalized()
 	target_dir.y = 0
 	target_dir = target_dir.normalized()
 	
-	var proj_instance = equipped_weapon.projectile.instantiate()
+	var proj_instance = Global.equipped_weapon.projectile.instantiate()
 	get_tree().root.add_child(proj_instance)
 	
 	proj_instance.global_transform = weapon_mesh_container.global_transform
@@ -193,9 +202,9 @@ func _play_attack_animation() -> void:
 		
 	var anim_name := animations[attack_anim_index]
 	match attack_anim_index:
-		0: current_attack_multiplier = equipped_weapon.damage_mult1
-		1: current_attack_multiplier = equipped_weapon.damage_mult2
-		2: current_attack_multiplier = equipped_weapon.damage_mult3
+		0: current_attack_multiplier = Global.equipped_weapon.damage_mult1
+		1: current_attack_multiplier = Global.equipped_weapon.damage_mult2
+		2: current_attack_multiplier = Global.equipped_weapon.damage_mult3
 		_: current_attack_multiplier = 1.0
 		
 	attack_anim_index = (attack_anim_index + 1) % animations.size()
@@ -204,10 +213,10 @@ func _play_attack_animation() -> void:
 		animator.attack_animation(anim_name, speed)
 
 func _stat(stat: int) -> float:
-	return get_parent().stats.get(stat, 0.0)
+	return Global.stats.get(stat, 0.0)
 
 func _has_weapon() -> bool:
-	return equipped_weapon != null
+	return Global.equipped_weapon != null
 
 func get_melee_damage() -> float:
 	if not _has_weapon():
@@ -220,13 +229,13 @@ func get_ranged_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.04)
+	return Global.equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.04)
 
 func get_magic_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
+	return Global.equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
 
 func get_attack_speed() -> float:
 	return attack_speed * _stat(Global.Stat.DEXTERITY)
@@ -253,9 +262,9 @@ func get_attack_size() -> float:
 	return attack_size
 
 func apply_world_model_transforms(weapon_node: Node3D) -> void:
-	weapon_node.position = equipped_weapon.world_model_pos
-	weapon_node.rotation = equipped_weapon.world_model_rot
-	weapon_node.scale = equipped_weapon.world_model_scale * get_attack_size()
+	weapon_node.position = Global.equipped_weapon.world_model_pos
+	weapon_node.rotation = Global.equipped_weapon.world_model_rot
+	weapon_node.scale = Global.equipped_weapon.world_model_scale * get_attack_size()
 
 func start_attack_state() -> void:
 	hit_targets = []
@@ -290,13 +299,13 @@ func _get_weapon_hitbox() -> Area3D:
 	return null
 
 func recalculate_weapon_stats() -> void:
-	if not equipped_weapon:
+	if not Global.equipped_weapon:
 		return
 
 	var player = get_parent()
 
-	var base_damage = equipped_weapon.base_damage * _quality_mult()
-	match equipped_weapon.weapon_type:
+	var base_damage = Global.equipped_weapon.base_damage * _quality_mult()
+	match Global.equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
 			damage = base_damage * (1.0 + player._stat(Global.Stat.STRENGTH) * 0.05)
 		Global.WeaponType.BOW, Global.WeaponType.CROSSBOW:
@@ -306,21 +315,21 @@ func recalculate_weapon_stats() -> void:
 		_:
 			damage = base_damage
 
-	attack_speed = equipped_weapon.base_attack_speed * (
+	attack_speed = Global.equipped_weapon.base_attack_speed * (
 		1.0 + player._stat(Global.Stat.DEXTERITY) * 0.1
 	)
 
-	match equipped_weapon.weapon_type:
+	match Global.equipped_weapon.weapon_type:
 		Global.WeaponType.LONG_SWORD, Global.WeaponType.BATTLE_AXE:
-			attack_size = equipped_weapon.base_size * _quality_mult() * (
+			attack_size = Global.equipped_weapon.base_size * _quality_mult() * (
 				1.0 + player._stat(Global.Stat.ATTACK_SIZE) * 0.05
 			)
 
-	stamina_cost = equipped_weapon.base_stamina_cost / (
+	stamina_cost = Global.equipped_weapon.base_stamina_cost / (
 		1.0 + player._stat(Global.Stat.STAMINA_REGEN) * 0.05
 	)
 
-	mana_cost = equipped_weapon.base_mana_cost / (
+	mana_cost = Global.equipped_weapon.base_mana_cost / (
 		1.0 + player._stat(Global.Stat.MANA_REGEN) * 0.05
 	)
 	
@@ -328,7 +337,7 @@ func recalculate_weapon_stats() -> void:
 		apply_world_model_transforms(weapon_instance)
 
 func _quality_mult() -> float:
-	return Global.QUALITY_MULTIPLIERS.get(weapon_quality, 1.0)
+	return Global.QUALITY_MULTIPLIERS.get(Global.weapon_quality, 1.0)
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy") and not hit_targets.has(body):

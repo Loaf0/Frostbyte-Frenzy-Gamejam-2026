@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://buiea5ldnwupa"]
+
+[ext_resource type="Script" uid="uid://ctnefpmipsu8f" path="res://scenes/player/player_container.gd" id="1_5voea"]
+[ext_resource type="Script" uid="uid://crg6og7px4wfs" path="res://scripts/camera_follow.gd" id="1_gunnf"]
+[ext_resource type="Shader" uid="uid://b1ol55iylmvh6" path="res://assets/shaders/3dToPixelArt.gdshader" id="2_5voea"]
+[ext_resource type="PackedScene" uid="uid://bwsnxx2yxc7n8" path="res://scenes/player/PlayerHUD.tscn" id="3_whxqo"]
+[ext_resource type="PackedScene" uid="uid://8xkxrvpvt640" path="res://scenes/ui/pause_menu.tscn" id="4_d0jy4"]
+[ext_resource type="PackedScene" uid="uid://bingtnpi2ysf0" path="res://scenes/player/player.tscn" id="5_86bs8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x3otm"]
+render_priority = 0
+shader = ExtResource("2_5voea")
+shader_parameter/lightIntensity = 1.25
+shader_parameter/lineAlpha = 0.5
+shader_parameter/useLighting = true
+shader_parameter/lineHighlight = 0.2
+shader_parameter/lineShadow = 0.55
+
+[sub_resource type="QuadMesh" id="QuadMesh_shxt8"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="PlayerContainer" type="Node3D" groups=["player_container"]]
+script = ExtResource("1_5voea")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.7071068, 0.49999994, -0.49999997, 0, 0.7071068, 0.70710677, 0.7071067, 0.50000006, -0.50000006, -5.6461167, 15.602508, 1.3440151)
+projection = 1
+size = 15.0
+near = 0.001
+script = ExtResource("1_gunnf")
+target_path = NodePath("../Player")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_x3otm")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_shxt8")
+skeleton = NodePath("../../../../../..")
+
+[node name="PlayerHud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_whxqo")]
+player = NodePath("../Player")
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_d0jy4")]
+offset_right = -127.872
+offset_bottom = -71.928
+
+[node name="Player" parent="." instance=ExtResource("5_86bs8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009407043, 1.6607938, 0.24375248)
+selected_character = 2

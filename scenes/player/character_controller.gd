@@ -80,7 +80,7 @@ var overlay_materials: Array[ShaderMaterial] = []
 var damage_flash_timer := 0.0
 const DAMAGE_FLASH_TIME := 0.15
 
-var stats: Dictionary = {}
+#var stats: Dictionary = {}
 var dead = false
 var move_input := Vector3.ZERO
 var dodge_timer := 0.0
@@ -172,14 +172,14 @@ func _apply_class():
 	await get_tree().process_frame
 
 	# apply stat sheet
-	stats.clear()
-	for s in Global.Stat.values():
-		stats[s] = 0.0
+	if Global.stats.is_empty():
+		for s in Global.Stat.values():
+			Global.stats[s] = 0.0
 		
 	var character_stats_path: String = CHARACTER_STATS.get(selected_character, DEFAULT_CHARACTER)
 	var stat_sheet: ClassResource = load(character_stats_path)
 	for mod in stat_sheet.stat_modifiers:
-		stats[mod.stat] += mod.amount
+		Global.stats[mod.stat] += mod.amount
 	
 	if stat_sheet:
 		char_name = stat_sheet.name
@@ -195,7 +195,10 @@ func _apply_class():
 		max_faith = ability.faith_cost
 	
 	#load weapon
-	weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
+	if Global.equipped_weapon == null:
+		weapon_manager.equip(stat_sheet.starting_weapon, Global.WeaponQuality.POOR)
+	else:
+		weapon_manager.load_weapon()
 	weapon_manager.animator = animator
 
 func create_weapon_attachment(skeleton: Skeleton3D) -> BoneAttachment3D:
@@ -307,7 +310,7 @@ func _handle_input():
 		_interact()
 	if Input.is_action_just_pressed("ui_focus_next"): # tab
 		print(max_health)
-		print("STATS DICT:", stats)
+		print("STATS DICT:", Global.stats)
 		print(" VIGOR:", _stat(Global.Stat.VIGOR))
 	if Input.is_action_just_pressed("debug_equip_sword"):
 		current_faith = max_faith
@@ -516,7 +519,7 @@ func _on_item_picked_up(item: ItemResource):
 	add_item_stats(item.stat_modifiers)
 
 func _stat(stat: int) -> float:
-	return stats.get(stat, 0.0)
+	return Global.stats.get(stat, 0.0)
 
 func get_dodge_cooldown() -> float:
 	return max(0.35, 2.5 - (_stat(Global.Stat.AGILITY) * .5))
@@ -557,7 +560,7 @@ func take_damage(amount: float) -> void:
 
 func add_item_stats(modifiers: Array[StatModifier]) -> void:
 	for mod in modifiers:
-		stats[mod.stat] = stats.get(mod.stat, 0.0) + mod.amount
+		Global.stats[mod.stat] = Global.stats.get(mod.stat, 0.0) + mod.amount
 	
 	_recalculate_derived_stats()
 

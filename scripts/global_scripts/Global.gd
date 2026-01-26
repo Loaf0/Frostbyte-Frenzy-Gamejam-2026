@@ -12,6 +12,13 @@ enum Stat {VIGOR, AGILITY, DEXTERITY, STRENGTH, KNOWLEDGE, STAMINA_REGEN, MANA_R
 enum WeaponQuality {POOR, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY}
 const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0, WeaponQuality.UNCOMMON: 1.1, WeaponQuality.RARE: 1.25, WeaponQuality.EPIC: 1.4, WeaponQuality.LEGENDARY: 1.6,}
 
+#character cont
+var stats: Dictionary = {}
+#weapon manager
+@export var weapon_pickup_scene: PackedScene
+@export var equipped_weapon : WeaponResource
+
+var weapon_quality : Global.WeaponQuality
 @export var selected_character : CharacterClass = CharacterClass.RANGER
 @onready var player : CharacterBody3D
 @onready var aggro : Array[CharacterBody3D] = []
@@ -19,8 +26,9 @@ const QUALITY_MULTIPLIERS := {WeaponQuality.POOR: 0.8, WeaponQuality.COMMON: 1.0
 const dungeon_floors = [
 	"res://scenes/Maps/polished_dungeons/d1f1.tscn",
 	"res://scenes/Maps/polished_dungeons/d1f2.tscn",
+	"res://scenes/Maps/polished_dungeons/d2f1.tscn",
 ]
-const boss_floor = "res://scenes/Maps/FloorGLBs/BossFloor.glb"
+const boss_floor = "res://scenes/Maps/polished_dungeons/boss_stage.tscn"
 var generated_dungeon: Array[String] = []
 
 var unlocked_characters : Dictionary = {
@@ -115,3 +123,11 @@ func play_one_shot_sfx(
 	music_player.finished.connect(music_player.queue_free)
 
 	music_player.play(start_time)
+
+func reset_run_state() -> void:
+	# stats
+	stats.clear()
+
+	# weapon
+	equipped_weapon = null
+	weapon_quality = WeaponQuality.COMMON

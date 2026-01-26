@@ -158,14 +158,14 @@ func _on_character_confirm_selection_pressed() -> void:
 	_play_one_shot_sfx(button_press, 0.05, 0.0)
 	var selected_class: Global.CharacterClass = Global.CharacterClass.values()[current_character_index]
 	Global.selected_character = selected_class
-
+	Global.reset_run_state()
 	_fade_out_music()
 
 	Global.selected_character = selected_class
 
 	Global.generate_dungeon(2)
 	await get_tree().create_timer(1.5).timeout
-	SceneChanger.change_to(game_scene)
+	Global.go_to_next_floor()
 
 func _on_prev_character_pressed() -> void:
 	_play_one_shot_sfx(button_press, 0.05, 0.0)
