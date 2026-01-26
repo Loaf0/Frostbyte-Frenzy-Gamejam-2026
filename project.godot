@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="Frostbyte2026"
-run/main_scene="uid://c8o785gisich1"
+run/main_scene="uid://baaje6ks5mvj6"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,6 +25,7 @@ SignalBus="*res://scripts/global_scripts/SignalBus.gd"
 Save="*res://scripts/global_scripts/Save.gd"
 Global="*res://scripts/global_scripts/Global.gd"
 SceneChanger="*res://scripts/global_scripts/scene_changer/SceneChanger.tscn"
+GlobalStats="*res://scripts/global_scripts/Character_Stats.gd"
 
 [display]
 
@@ -35,6 +36,7 @@ window/stretch/mode="canvas_items"
 enemy=""
 player=""
 boss=""
+player_container=""
 
 [input]
 
