@@ -211,4 +211,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8094065, 0.46079373, -4.78
 selected_character = 0
 
 [node name="Chest" parent="AI_Master/SubViewportContainer/SubViewport" instance=ExtResource("11_sh1dw")]
-transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 11.291233, 0.50000024, -7.0087566)
+transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 4.1392946, 0.50000024, -5.471936)

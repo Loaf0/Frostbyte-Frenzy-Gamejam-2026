@@ -12,6 +12,7 @@ const NORMAL_MUSIC := [
 var selected_track: AudioStream
 
 func _ready() -> void:
+	volume_db = -15
 	_select_music()
 	finished.connect(_on_music_finished)
 	play()

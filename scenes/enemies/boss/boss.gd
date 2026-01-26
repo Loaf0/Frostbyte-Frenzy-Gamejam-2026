@@ -38,7 +38,7 @@ var attack_index := 0
 var attack_delay_timer : float
 @export var attack_delay := 1.25
 
-var current_health : float = max_health / 3
+var current_health : float = max_health
 var started_death_sequence = false
 var dissolve_materials: Array[ShaderMaterial] = []
 
@@ -181,8 +181,6 @@ func _face_target(delta: float) -> void:
 	var new_q := current_q.slerp(target_q, t)
 
 	global_transform.basis = Basis(new_q)
-
-
 
 func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 	var found_meshes: Array[MeshInstance3D] = []

@@ -6,7 +6,7 @@ class_name WeaponPickup
 @export var override_quality: Global.WeaponQuality = Global.WeaponQuality.COMMON
 @onready var model_root: Node3D = $WeaponModelRoot
 var shader := preload("res://assets/shaders/itemOverlay.gdshader")
-
+var color
 var overlay_materials: Array[ShaderMaterial] = []
 var pulse_timer := 0.0
 var base_y := 0.0
@@ -14,16 +14,18 @@ var resolved_quality: Global.WeaponQuality
 
 func _ready() -> void:
 	if not weapon_resource:
-		push_warning("WeaponPickup missing weapon_resource, skipping setup.")
 		return
 
 	add_to_group("item")
-	resolved_quality = override_quality if use_override_quality else weapon_resource.pickup_quality
 	base_y = position.y
 	_spawn_pickup_model()
-	_setup_overlay()
+	
+	await get_tree().process_frame
+	if overlay_materials.is_empty(): 
+		_setup_overlay()
 
 func _process(delta: float) -> void:
+	#print("Quality:", resolved_quality, " color:", color)
 	if not weapon_resource:
 		return
 
@@ -55,15 +57,16 @@ func _spawn_pickup_model() -> void:
 
 func _setup_overlay() -> void:
 	overlay_materials.clear()
-	var color = Global.RARITY_COLORS.get(resolved_quality, Color.WHITE)
-
+	color = Global.RARITY_COLORS.get(resolved_quality)
+	print(resolved_quality)
+	print(color)
 	for mesh in _get_all_mesh_instances(self):
 		var mat := ShaderMaterial.new()
 		mat.shader = shader
 		mat.set_shader_parameter("rarity_color", color)
-		mat.set_shader_parameter("intensity", weapon_resource.glow_intensity)
+		mat.set_shader_parameter("intensity", 10.0)
 		mat.set_shader_parameter("pulse", 0.0)
-
+		mat.set_shader_parameter("outline_width", 0.01)
 		mesh.material_overlay = mat
 		mesh.material_overlay.render_priority = 10
 		overlay_materials.append(mat)
@@ -78,3 +81,22 @@ func _get_all_mesh_instances(node: Node) -> Array[MeshInstance3D]:
 		result.append_array(_get_all_mesh_instances(child))
 
 	return result
+
+func update_rarity_overlay() -> void:
+	resolved_quality = override_quality if use_override_quality else weapon_resource.pickup_quality
+	var rarity_color = Global.RARITY_COLORS.get(resolved_quality, Color.WHITE)
+	
+	overlay_materials.clear()
+	
+	var meshes = _get_all_mesh_instances(model_root)
+	
+	for mesh in meshes:
+		var mat := ShaderMaterial.new()
+		mat.shader = shader
+		
+		mat.set_shader_parameter("rarity_color", rarity_color)
+		mat.set_shader_parameter("intensity", 10.0)
+		mat.set_shader_parameter("outline_width", 0.01)
+		
+		mesh.material_overlay = mat
+		overlay_materials.append(mat)

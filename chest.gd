@@ -92,14 +92,17 @@ func _spawn_item(spawn_point: Node3D) -> void:
 
 func _spawn_weapon(char_class: int, spawn_point: Node3D) -> void:
 	var weapon_paths = CLASS_WEAPONS[char_class]
-	var weapon_res: WeaponResource = load(weapon_paths.pick_random())
+	var weapon_res: WeaponResource = load(weapon_paths.pick_random()).duplicate(true)
+	
+	weapon_res.pickup_quality = _roll_weapon_quality()
 
 	var pickup := WEAPON_PICKUPS.instantiate()
-	pickup.weapon_resource = weapon_res
-	pickup.use_override_quality = true
-	pickup.override_quality = _roll_weapon_quality()
+	pickup.weapon_resource = weapon_res 
 	
 	spawn_point.add_child(pickup)
+	
+	await get_tree().process_frame 
+	pickup.update_rarity_overlay()
 
 func _roll_weapon_quality() -> Global.WeaponQuality:
 	return [Global.WeaponQuality.UNCOMMON, Global.WeaponQuality.RARE, 

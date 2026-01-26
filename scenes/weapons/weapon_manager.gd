@@ -65,7 +65,9 @@ func equip(weapon: WeaponResource, quality: Global.WeaponQuality) -> void:
 	equipped_weapon = weapon
 	weapon_quality = quality
 	animator.current_weapon = weapon.weapon_type
-
+	
+	damage = max(equipped_weapon.base_damage, equipped_weapon.projectile_damage)
+	
 	_build_attack_animation_list()
 	_clear_weapon_model()
 	_spawn_weapon_model()
@@ -175,7 +177,7 @@ func _do_projectile_attack(last_mouse_world_pos: Vector3) -> void:
 	else:
 		proj_instance.direction = -weapon_mesh_container.global_transform.basis.z.normalized()
 	
-	proj_instance.damage = get_ranged_damage()
+	proj_instance.damage = max(get_ranged_damage(), get_magic_damage())
 	proj_instance.shooter = get_parent()
 	
 func _play_attack_animation() -> void:
@@ -211,7 +213,7 @@ func get_ranged_damage() -> float:
 	if not _has_weapon():
 		return 0.0
 		
-	return damage
+	return equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.DEXTERITY) * 0.04)
 
 func get_magic_damage() -> float:
 	if not _has_weapon():
@@ -220,7 +222,7 @@ func get_magic_damage() -> float:
 	return equipped_weapon.base_damage * _quality_mult() * (1.0 + _stat(Global.Stat.KNOWLEDGE) * 0.05)
 
 func get_attack_speed() -> float:
-	return attack_speed
+	return attack_speed * _stat(Global.Stat.DEXTERITY)
 
 func get_move_speed_multiplier() -> float:
 	return 1.0 + _stat(Global.Stat.AGILITY) * 0.05

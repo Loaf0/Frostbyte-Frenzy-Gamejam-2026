@@ -10,6 +10,8 @@ extends Control
 @onready var mana_meter: TextureProgressBar = $PlayerMeters/HBoxContainer/Control/ManaMeter
 @onready var ability_spot: TextureProgressBar = $PlayerMeters/HBoxContainer/AbilitySpot
 @onready var item_description: Label = $"Item Description"
+@onready var boss_bar: ProgressBar = $BossBar
+var boss_ref: Node = null
 
 var roll_target_screen_pos: Vector2 = Vector2.ZERO
 
@@ -24,6 +26,8 @@ func _process(delta: float) -> void:
 		update_roll_position(delta)
 		update_roll_frame()
 		update_ability_spot()
+	
+	update_boss_bar()
 
 func update_values():
 	if not player:
@@ -86,3 +90,27 @@ func update_item_description(item_or_weapon: Object) -> void:
 			item_description.text = "Looted Chest"
 	elif item_or_weapon is Interactable:
 		item_description.text = "Descend Stairs"
+
+func update_boss_bar() -> void:
+	if boss_ref == null or not is_instance_valid(boss_ref):
+		var bosses = get_tree().get_nodes_in_group("boss")
+		if bosses.is_empty():
+			boss_bar.visible = false
+			boss_ref = null
+			return
+		else:
+			boss_ref = bosses[0]
+			boss_bar.visible = true
+
+	if not boss_ref:
+		boss_bar.visible = false
+		return
+
+	if boss_ref.max_health <= 0:
+		boss_bar.visible = false
+		return
+
+	var perc = clamp(
+		boss_ref.current_health / boss_ref.max_health,0.0,1.0)
+
+	boss_bar.value = perc * 100.0
